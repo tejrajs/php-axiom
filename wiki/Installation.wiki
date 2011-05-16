@@ -1,5 +1,5 @@
 #summary Installation Guide
-#labels Installation,Axiom
+#labels Installation,Axiom,Phase-Deploy
 
 = Installation =
 
