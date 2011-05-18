@@ -210,7 +210,7 @@ $(function() {
 		return false;
 	});
 
-	$( "#gallery" ).height($( '#properties').height() + $( '#upload' ).height() + $( '#trash' ).height());
+	$( "#gallery" ).height($( '#properties').height() + $( '#upload' ).height() + $( '#trash' ).height() + 32);
 });
 //-->
 </script>

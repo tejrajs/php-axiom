@@ -6,14 +6,15 @@
  * @author Benjamin DELESPIERRE <benjamin.delespierre@gmail.com>
  * @category Action
  * @package Controller
- * @version 1.0.0
+ * $Date: 2011-05-18 15:19:56 +0200 (mer., 18 mai 2011) $
+ * $Id: AdminController.class.php 162 2011-05-18 13:19:56Z delespierre $
  */
 
 /**
  * Admin Controller
  *
  * @author Delespierre
- * @version 1.0.0
+ * @version $Rev: 162 $
  * @subpackage AdminController
  */
 class AdminController extends BaseController {
@@ -34,6 +35,15 @@ class AdminController extends BaseController {
     
     final public static function panel () {
         self::$_response->setResponseView("panel");
+        
+        $modules = array();
+        foreach (ModuleManager::getAvailableModules() as $module_name) {
+            if (!$module_info = ModuleManager::getInformations($module_name))
+                continue;
+            $modules[$module_name] = url('admin', $module_name);
+        }
+        
+        return compact("modules");
     }
     
     // Users Management

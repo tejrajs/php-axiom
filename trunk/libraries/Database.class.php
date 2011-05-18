@@ -6,14 +6,15 @@
  * @author Benjamin DELESPIERRE <benjamin.delespierre@gmail.com>
  * @category libAxiom
  * @package library
- * @version 1.0.0
+ * $Date: 2011-05-18 15:19:56 +0200 (mer., 18 mai 2011) $
+ * $Id: Database.class.php 162 2011-05-18 13:19:56Z delespierre $
  */
 
 /**
  * Database Class
  *
  * @author Delespierre
- * @version 1.0.0
+ * @version $Rev: 162 $
  * @subpackage Database
  */
 class Database {
@@ -32,6 +33,15 @@ class Database {
     
     /**
      * Get instance or init the class
+     *
+     * Called with parameters will create
+     * new instance (once per request time)
+     * Called without parameters, will
+     * simply return the existing instance
+     *
+     * @param string $dsn
+     * @param string $username = ""
+     * @param string $password = ""
      * @throws InvalidArgumentException
      * @throws BadMethodCallException
      * @return PDO
@@ -41,7 +51,7 @@ class Database {
             $args = func_get_args();
             try {
                 switch (count($args)) {
-                    case 0: throw new InvalidArgumentException("The first parameter is mandatory"); break;
+                    case 0: throw new InvalidArgumentException("The first parameter (\$dsn) is mandatory"); break;
                     case 1: self::$_pdo_instance = new PDO($args[0]); break;
                     case 2: self::$_pdo_instance = new PDO($args[0], $args[1]); break;
                     case 3: self::$_pdo_instance = new PDO($args[0], $args[1], $args[2]); break;
