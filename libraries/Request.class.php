@@ -6,14 +6,15 @@
  * @author Benjamin DELESPIERRE <benjamin.delespierre@gmail.com>
  * @category libAxiom
  * @package library
- * @version 1.0.0
+ * $Date: 2011-05-18 15:19:56 +0200 (mer., 18 mai 2011) $
+ * $Id: Request.class.php 162 2011-05-18 13:19:56Z delespierre $
  */
 
 /**
  * Request Class
  *
  * @author Delespierre
- * @version 1.0.0
+ * @version $Rev: 162 $
  * @subpackage Request
  */
 class Request {
@@ -44,7 +45,7 @@ class Request {
         $this->_request_parameters = $_REQUEST;
         
         // TODO Add browser capabilities class
-        $this->_browser_capabilities = null; /*get_browser($_SERVER['HTTP_USER_AGENT']);*/
+        $this->_browser_capabilities = null;
     }
     
     /**

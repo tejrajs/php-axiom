@@ -6,14 +6,15 @@
  * @author Benjamin DELESPIERRE <benjamin.delespierre@gmail.com>
  * @category Model
  * @package Model
- * @version 1.0.0
+ * $Date: 2011-05-18 15:19:56 +0200 (mer., 18 mai 2011) $
+ * $Id: User.class.php 162 2011-05-18 13:19:56Z delespierre $
  */
 
 /**
  * User Model
  *
  * @author Delespierre
- * @version 1.0.0
+ * @version $Rev: 162 $
  * @subpackage User
  */
 class User extends Model {

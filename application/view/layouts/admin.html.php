@@ -1,12 +1,12 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?=$lang?>" lang="<?=$lang?>">
 	<head>
-		<title><?=i18n('admin.panel.title')?></title>
+		<title><?=i18n('admin.title')?></title>
         <meta name="keywords" lang="<?=$lang?>" content="<?=implode(',',$keywords)?>" />
         <meta name="description" content="<?=$description;?>" />
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta http-equiv="Content-Language" content="<?=$lang?>" />
-        <link href="<?=src('css/ui-lightness/jquery-ui-1.8.11.custom.css')?>" type="text/css" rel="stylesheet" media="screen" />
+        <link href="<?=src('css/smoothness/jquery-ui-1.8.12.custom.css')?>" type="text/css" rel="stylesheet" media="screen" />
         <link href="<?=src('css/admin.css')?>" type="text/css" rel="stylesheet" media="screen" />
         <link href="<?=src('css/tipTip.css')?>" type="text/css" rel="stylesheet" media="screen" />
         <link href="<?=src('css/cleditor/cleditor.css')?>" type="text/css" rel="stylesheet" media="screen" />
@@ -46,20 +46,12 @@
 	<body>
 		<div id="wrapper">
 			<div id="header" class="ui-widget-content ui-corner-bottom ui-helper-clearfix">
-				<h1><a href="<?=url('admin')?>"><?=i18n('admin.panel.title')?></a></h1>
+				<h1><a href="<?=url('admin')?>"><?=i18n('admin.header.title')?></a></h1>
 				<div id="user">
-            		<span><?=i18n('admin.panel.user', $user->name, $user->surname)?></span>
-            		<span><a href="<?=url('login', 'logout')?>"><?=i18n('admin.panel.logout')?></a></span>
+            		<span><?=i18n('admin.header.user', $user->name, $user->surname)?></span>
+            		<span><a href="<?=url('login', 'logout')?>"><?=i18n('admin.header.logout')?></a></span>
             	</div>
 				<ul id="menu" class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix">
-					<li>
-						<a href="<?=url('admin','articles')?>"><?=i18n('admin.menu.articles')?></a>
-						<ul class="ui-widget-content ui-corner-all ui-helper-clearfix">
-						 	<li><a href="<?=url('admin','comments')?>"><?=i18n('admin.menu.articles.comment')?></a></li>
-							<li><a href="<?=url('admin','attachments')?>"><?=i18n('admin.menu.articles.attachments')?></a></li>
-							<li><a href="<?=url('admin','authors')?>"><?=i18n('admin.menu.articles.authors')?></a></li>
-						</ul>
-					</li>
 					<li><a href="<?=url('admin','users')?>"><?=i18n('admin.menu.users')?></a></li>
 					<li><a href="<?=url('admin','files')?>"><?=i18n('admin.menu.files')?></a></li>
 					<li><a href="<?=url('summary')?>"><?=i18n('admin.menu.view_site')?></a></li>

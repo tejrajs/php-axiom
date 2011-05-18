@@ -6,14 +6,15 @@
  * @author Benjamin DELESPIERRE <benjamin.delespierre@gmail.com>
  * @category libAxiom
  * @package library
- * @version 1.0.0
+ * $Date: 2011-05-18 15:19:56 +0200 (mer., 18 mai 2011) $
+ * $Id: Response.class.php 162 2011-05-18 13:19:56Z delespierre $
  */
 
 /**
  * Response Class
  *
  * @author Delespierre
- * @version 1.0.0
+ * @version $Rev: 162 $
  * @subpackage Response
  */
 class Response {
@@ -23,6 +24,12 @@ class Response {
      * @var array
      */
     protected $_response_vars;
+    
+    /**
+     * Response vars filter
+     * @var array
+     */
+    protected $_filter;
     
     /**
      * View messages
@@ -95,6 +102,29 @@ class Response {
             case "add":
                 $this->_response_vars += (array)$collection;
         }
+    }
+    
+    /**
+     * Sets the response vars filter
+     * @param array $definition
+     * @return boolean
+     */
+    public function setFilter ($definition) {
+        if ($response_vars = filter_var_array($this->_response_vars, $definition)) {
+            $this->_filter = $definition;
+            $this->_response_vars = $response_vars;
+            return true;
+        }
+        return false;
+    }
+    
+    /**
+     * Get the ouput filter
+     * Wil return null if no filter was set
+     * @return array
+     */
+    public function getFilter () {
+        return $this->_filter;
     }
     
     /**
