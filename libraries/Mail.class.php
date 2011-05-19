@@ -118,11 +118,8 @@ class Mail {
             throw new InvalidArgumentException('First parameter is expected to be a valid email');
             
         $to = (array)$to;
-        foreach ($to as $key => $value) {
-            if (!$to[$key] = filter_var($value, FILTER_VALIDATE_EMAIL))
-                throw new InvalidArgumentException("The destination (To) list contains invalid entrie(s)");
-        }
-        $this->_to = $to;
+        foreach ($to as $destination)
+            $this->addDestination($destination);
         
         if (!empty($subject))
             $this->setSubject($subject);
@@ -132,6 +129,24 @@ class Mail {
         
         foreach ($headers as $header => $value)
             $this->setHeader($header, $value);
+    }
+    
+    /**
+     * Validates email address.
+     * @param string $email
+     * @return boolean
+     */
+    protected static function _validateEmail ($email) {
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            return false;
+        }
+     
+        if (function_exists('checkdnsrr')) {
+            $host = substr($email, strpos($email, '@') + 1);
+            return checkdnsrr($host, 'MX');
+        }
+    	
+        return true;
     }
     
     /**
@@ -158,7 +173,7 @@ class Mail {
      * @return void
      */
     public function addDestination ($to) {
-        if (!$to = filter_var($to, FILTER_VALIDATE_EMAIL))
+        if (!self::_validateEmail($to))
             throw new InvalidArgumentException("Invalid destination");
         
         if (!array_keys($this->_to, $to))
@@ -171,9 +186,8 @@ class Mail {
      * @return void
      */
     public function removeDestination ($to) {
-        foreach (array_keys($this->_to, $to) as $key) {
+        foreach (array_keys($this->_to, $to) as $key)
             unset($this->_to[$key]);
-        }
     }
     
     /**
@@ -204,7 +218,7 @@ class Mail {
             case self::HEADER_REPLY_TO:
             case self::HEADER_X_CONFIRM_READING_TO:
             case self::HEADER_X_UNSUBSCRIBE_EMAIL:
-                if (!$value = filter_var($value, FILTER_VALIDATE_EMAIL))
+                if (!self::_validateEmail($value))
                     throw new InvalidArgumentException("Invalid email for $header");
                 break;
                 
@@ -331,7 +345,14 @@ class Mail {
             throw new InvalidArgumentException("First parameter is expected to be regular file, directory given");
             
         if (!$filename)
-            $filename = @array_pop(explode('/', $path));
+            $filename = basename($path);
+            
+        if (function_exists('finfo_open') && $finfo = finfo_open(FILEINFO_MIME_TYPE)) {
+            $content_type = finfo_file($finfo, $path);
+            finfo_close($finfo);
+        }
+        elseif (function_exists('mime_content_type'))
+            $content_type = mime_content_type($path);
             
         if (!$content = file_get_contents($path, false))
             throw new RuntimeException("Cannot read $path");
