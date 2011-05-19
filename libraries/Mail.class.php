@@ -39,6 +39,8 @@ class Mail {
     const HEADER_X_CONFIRM_READING_TO = "X-Confirm-Reading-To";
     const HEADER_X_MAILER = "X-Mailer";
     const HEADER_X_PRIORITY = "X-Priority";
+    const HEADER_X_UNSUBSCRIBE_EMAIL = "X-Unsubscribe-Email";
+    const HEADER_X_UNSUBSCRIBE_WEB = "X-Unsubscribe-Web";
     
     const HEADER_SEPARATOR_CRLF = "\r\n";
     const HEADER_SEPARATOR_LF = "\n";
@@ -53,7 +55,7 @@ class Mail {
         self::HEADER_FROM,                       self::HEADER_MIME_VERSION,         self::HEADER_PRIORITY,
         self::HEADER_REPLY_TO,                   self::HEADER_SENDER,               self::HEADER_SUBJECT,
         self::HEADER_TO,                         self::HEADER_X_CONFIRM_READING_TO, self::HEADER_X_MAILER,
-        self::HEADER_X_PRIORITY
+        self::HEADER_X_PRIORITY,                 self::HEADER_X_UNSUBSCRIBE_WEB,    self::HEADER_X_UNSUBSCRIBE_EMAIL
     );
     
     /**
@@ -182,7 +184,8 @@ class Mail {
      * and an InvalidArgumentException will be thrown
      * in cas of invalid value.
      *
-     * Note: You can specify "now" for the Date header.
+     * Note: Date parameter is compatible with
+     * strtotime definition.
      *
      * @param string $header
      * @param scalar $value
@@ -200,6 +203,7 @@ class Mail {
             case self::HEADER_BCC:
             case self::HEADER_REPLY_TO:
             case self::HEADER_X_CONFIRM_READING_TO:
+            case self::HEADER_X_UNSUBSCRIBE_EMAIL:
                 if (!$value = filter_var($value, FILTER_VALIDATE_EMAIL))
                     throw new InvalidArgumentException("Invalid email for $header");
                 break;
@@ -210,15 +214,20 @@ class Mail {
                 break;
                 
             case self::HEADER_DATE:
-                if ($value = "now")
-                    $value = date('r');
-                elseif (!preg_match('~^[a-zA-Z]{3}, [0-9]{1,2} [a-zA-Z]{3} [0-9]{4} [0-9]{2}:[0-9]{2}:[0-9]{2} [A-Z\+0-9]{3,5}$~', $value))
+                if ($time = strtotime($value))
+                    $value = date('r', $time);
+                else
                     throw new InvalidArgumentException("Invalid date format for $header");
                 break;
                 
             case self::HEADER_PRIORITY:
                 if (!in_array($value, array('normal', 'urgent', 'non-urgent')))
                     throw new InvalidArgumentException("Invalid priority for $heafer");
+                break;
+                
+            case self::HEADER_X_UNSUBSCRIBE_WEB:
+                if (!$value = filter_var($value, FILTER_VALIDATE_URL))
+                    throw new InvalidArgumentException("Invalid url for $header");
                 break;
                 
             case self::HEADER_MIME_VERSION:
@@ -309,7 +318,7 @@ class Mail {
      * Returns the message part key.
      *
      * @param string $path
-     * @param string $content_type
+     * @param string $content_type = null
      * @param string $filename = null
      * @throws InvalidArgumentException
      * @return string
@@ -318,20 +327,17 @@ class Mail {
         if (!file_exists($path))
             throw new MissingFileException($path);
             
-        $file = new SplFileObject($path, "r");
-        if ($file->isDir())
+        if (is_dir($path))
             throw new InvalidArgumentException("First parameter is expected to be regular file, directory given");
             
         if (!$filename)
-            $filename = $file->getFilename();
+            $filename = @array_pop(explode('/', $path));
+            
+        if (!$content = file_get_contents($path, false))
+            throw new RuntimeException("Cannot read $path");
             
         $part  = "Content-Type: $content_type; name=$filename" . $this->_header_separator;
         $part .= "Content-transfer-encoding: base64" . $this->_header_separator;
-        
-        $content = "";
-        foreach ($file as $line)
-            $content .= $line;
-            
         $part .= chunk_split(base64_encode($content));
         $part .= $this->_header_separator;
         $this->_message_parts[$key = uniqid("part-")] = $part;
