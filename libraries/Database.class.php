@@ -6,18 +6,20 @@
  * @author Benjamin DELESPIERRE <benjamin.delespierre@gmail.com>
  * @category libAxiom
  * @package library
- * $Date: 2011-05-18 15:19:56 +0200 (mer., 18 mai 2011) $
- * $Id: Database.class.php 162 2011-05-18 13:19:56Z delespierre $
+ * $Date: 2011-05-20 16:32:08 +0200 (ven., 20 mai 2011) $
+ * $Id: Database.class.php 23055 2011-05-20 14:32:08Z delespierre $
  */
 
 /**
  * Database Class
  *
  * @author Delespierre
- * @version $Rev: 162 $
+ * @version $Rev: 23055 $
  * @subpackage Database
  */
 class Database {
+    
+    protected static $_config = array();
     
     /**
      * Inner PDO instance
@@ -29,40 +31,60 @@ class Database {
      * The Database class cannot be instanciated
      * @internal
      */
-    private function __construct () { }
+    private function __construct () {
+        throw new RuntimeException(__CLASS__ . " cannot be instanciated");
+    }
     
     /**
-     * Get instance or init the class
+     * Set database configuration
+     * @param array $config = array
+     * @return void
+     */
+    public static function setConfig ($config = array()) {
+        $defaults = array(
+            'type' => 'mysql',
+            'database' => 'backoffice',
+            'username' => 'root',
+            'password' => '',
+            'host' => 'localhost',
+            'dsn' => null,
+            'options' => array(),
+        );
+        
+        self::$_config = $config + $defaults;
+    }
+    
+    /**
+     * Opens the database connection.
      *
-     * Called with parameters will create
-     * new instance (once per request time)
-     * Called without parameters, will
-     * simply return the existing instance
+     * It the ignore error is set to true
+     * the connection failure will be
+     * ignored.
      *
-     * @param string $dsn
-     * @param string $username = ""
-     * @param string $password = ""
-     * @throws InvalidArgumentException
-     * @throws BadMethodCallException
+     * @param boolean $ignore_error = false
+     * @return boolean
+     */
+    public static function open ($ignore_error = false) {
+        extract(self::$_config);
+        if (!isset($dsn))
+            $dsn = "{$type}:dbname={$database};host={$host}";
+
+        try {
+            self::$_pdo_instance = new PDO($dsn, $username, $password, $options);
+            return true;
+        }
+        catch (Exception $e) {
+            if (!$ignore_error)
+                die('-- Database Connection Error --');
+            return false;
+        }
+    }
+    
+    /**
+     * Get internal PDO instance
      * @return PDO
      */
-    public static function instance () {
-        if (!isset(self::$_pdo_instance)) {
-            $args = func_get_args();
-            try {
-                switch (count($args)) {
-                    case 0: throw new InvalidArgumentException("The first parameter (\$dsn) is mandatory"); break;
-                    case 1: self::$_pdo_instance = new PDO($args[0]); break;
-                    case 2: self::$_pdo_instance = new PDO($args[0], $args[1]); break;
-                    case 3: self::$_pdo_instance = new PDO($args[0], $args[1], $args[2]); break;
-                    case 4: self::$_pdo_instance = new PDO($args[0], $args[1], $args[2], $args[3]); break;
-                    default: throw new BadMethodCallException(__METHOD__ . " takes at least 1 parameter and at most 4 parameters"); break;
-                }
-            }
-            catch (Exception $e) {
-                die('-- Database Connection Error --');
-            }
-        }
+    public static function getInstance () {
         return self::$_pdo_instance;
     }
     

@@ -6,8 +6,8 @@
  * @author Benjamin DELESPIERRE <benjamin.delespierre@gmail.com>
  * @category config
  * @package bootstrap
- * $Date: 2011-05-18 15:22:49 +0200 (mer., 18 mai 2011) $
- * $Id: bootstrap.php 163 2011-05-18 13:22:49Z delespierre $
+ * $Date: 2011-05-18 17:00:36 +0200 (mer., 18 mai 2011) $
+ * $Id: bootstrap.php 22988 2011-05-18 15:00:36Z delespierre $
  */
 
 define('AXIOM_VERSION', 'v1.0.1 - Beta');
