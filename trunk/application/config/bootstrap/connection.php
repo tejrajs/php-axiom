@@ -6,16 +6,18 @@
  * @author Benjamin DELESPIERRE <benjamin.delespierre@gmail.com>
  * @category config
  * @package bootstrap
- * $Date: 2011-05-18 15:19:56 +0200 (mer., 18 mai 2011) $
- * $Id: connection.php 162 2011-05-18 13:19:56Z delespierre $
+ * $Date: 2011-05-20 16:32:08 +0200 (ven., 20 mai 2011) $
+ * $Id: connection.php 23055 2011-05-20 14:32:08Z delespierre $
  */
 
 require_once LIBRARY_PATH . "/Database.class.php";
 
-$db = "backoffice";
-$db_type = "mysql";
-$db_user = "root";
-$db_password = "";
-$db_host = "localhost";
+Database::setConfig(array(
+    'host' => 'localhost',
+    'database' => 'backoffice',
+    'username' => 'root',
+    'password' => '',
+    'type' => 'mysql',
+));
 
-Database::instance("$db_type:dbname=$db;host=$db_host", $db_user, $db_password);
+Database::open();

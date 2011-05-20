@@ -6,15 +6,15 @@
  * @author Benjamin DELESPIERRE <benjamin.delespierre@gmail.com>
  * @category libAxiom
  * @package library
- * $Date: 2011-05-18 15:19:56 +0200 (mer., 18 mai 2011) $
- * $Id: Router.class.php 162 2011-05-18 13:19:56Z delespierre $
+ * $Date: 2011-05-20 16:32:08 +0200 (ven., 20 mai 2011) $
+ * $Id: Router.class.php 23055 2011-05-20 14:32:08Z delespierre $
  */
 
 /**
  * Router Class
  *
  * @author Delespierre
- * @version $Rev: 162 $
+ * @version $Rev: 23055 $
  * @subpackage Router
  */
 class Router {
@@ -121,9 +121,9 @@ class Router {
         if (!empty($matches['lang']) && $matches['lang'] != Lang::getLocale())
             ViewManager::setLayoutVar('lang', Lang::setLocale($matches['lang']));
             
-        if (!file_exists($f = self::$_config['controller_path'] . '/' . ($controller = ucfirst("{$route}Controller")) . '.class.php'))
+        if (!Autoloader::load($controller = ucfirst("{$route}Controller")))
             list($controller, $action) = array('ErrorController', 'http404');
-        
+            
         self::load($controller, $action);
     }
     

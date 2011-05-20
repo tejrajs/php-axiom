@@ -6,15 +6,15 @@
  * @author Benjamin DELESPIERRE <benjamin.delespierre@gmail.com>
  * @category libAxiom
  * @package library
- * $Date: 2011-05-18 15:19:56 +0200 (mer., 18 mai 2011) $
- * $Id: ModuleManager.class.php 162 2011-05-18 13:19:56Z delespierre $
+ * $Date: 2011-05-20 11:51:17 +0200 (ven., 20 mai 2011) $
+ * $Id: ModuleManager.class.php 23045 2011-05-20 09:51:17Z bordas $
  */
 
 /**
  * Module Manager
  *
  * @author Delespierre
- * @version $Rev: 162 $
+ * @version $Rev: 23045 $
  * @subpackage ModuleManager
  */
 class ModuleManager {
@@ -42,8 +42,12 @@ class ModuleManager {
         );
         self::$_config = array_merge($default, $config);
         
-        if (empty(self::$_module_list))
-            self::$_module_list = iterator_to_array(self::getAvailableModules(), false);
+        if (empty(self::$_module_list)) {
+            foreach (self::getAvailableModules() as $fileinfo) {
+                if ($fileinfo->isDir())
+                    self::$_module_list[] = $fileinfo->getFilename();
+            }
+        }
     }
     
     /**
@@ -72,7 +76,7 @@ class ModuleManager {
      * @return boolean
      */
     public static function load ($module) {
-        return @include_once self::$_config['module_path'] . "/$module/config/bootstrap.ini";
+        return @include_once self::$_config['module_path'] . "/$module/config/bootstrap.php";
     }
     
     /**

@@ -6,24 +6,62 @@
  * @author Benjamin DELESPIERRE <benjamin.delespierre@gmail.com>
  * @category libAxiom
  * @package library
- * $Date: 2011-05-18 15:19:56 +0200 (mer., 18 mai 2011) $
- * $Id: Autoloader.class.php 162 2011-05-18 13:19:56Z delespierre $
+ * $Date: 2011-05-20 16:32:08 +0200 (ven., 20 mai 2011) $
+ * $Id: Autoloader.class.php 23055 2011-05-20 14:32:08Z delespierre $
  */
 
 /**
  * Autoloader Class
  *
  * @author Delespierre
- * @version $Rev: 162 $
+ * @version $Rev: 23055 $
  * @subpackage Autoloader
  */
 class Autoloader {
     
     /**
-     * Autolaoder paths
+     * Autoloader contfig
      * @var array
      */
-    protected static $_paths;
+    protected static $_config = array();
+    
+    /**
+     * Set the Autoload configuration
+     * @param array $config = array()
+     * @return void
+     */
+    public static function setConfig ($config = array()) {
+        $default = array(
+            'paths' => array(
+                APPLICATION_PATH . '/controller',
+                APPLICATION_PATH . '/application/model',
+                LIBRARY_PATH,
+                LIBRARY_PATH . '/helpers',
+            ),
+            'extension' => '.class.php',
+        );
+        
+        self::$_config = array_merge_recursive($default, $config);
+    }
+    
+	/**
+     * Add a path to the autoloader and return it.
+     *
+     * Note: you must start the autoloader when calling this
+     * method or the changes since the last 'start' invocation
+     * will not be effective.
+     *
+     * @param string $path
+     * @param string $name = null
+     * @throws RuntimeException
+     * @return boolean
+     */
+    public static function add ($path) {
+        if (!file_exists($path))
+            throw new RuntimeException("Path $path not found");
+            
+        return self::$_config['paths'][] = $path;
+    }
     
     /**
      * Start auloading handle.
@@ -32,42 +70,20 @@ class Autoloader {
      * @return boolean
      */
     public static function start ($paths = array()) {
-        $default = array(
-            'controller' => dirname(dirname(__FILE__)) . '/application/controller',
-            'model'      => dirname(dirname(__FILE__)) . '/application/model',
-            'library'    => dirname(dirname(__FILE__)) . '/libraries',
-            'helper'     => dirname(dirname(__FILE__)) . '/libraries/helpers',
-        );
+        $include_path = array_unique(array_merge(self::$_config['paths'], explode(PATH_SEPARATOR, get_include_path())));
         
-        self::$_paths = $default + $paths;
-        if (set_include_path(implode(PATH_SEPARATOR, self::$_paths) . get_include_path()) === false)
+        if (set_include_path(implode(PATH_SEPARATOR, $include_path)) === false)
             throw new RuntimeException("Could not register the new include path");
             
         return spl_autoload_register(array('Autoloader', 'load'));
     }
     
     /**
-     * Add a path to the autoloader.
-     * Note: you must start the autoloader when calling this
-     * method or the changes since the last 'start' invocation
-     * will not be effective.
-     * @param string $path
-     * @param string $name = null
-     * @throws RuntimeException
+     * Stop autoloading handle
      * @return boolean
      */
-    public static function add ($path, $name = null) {
-        if (file_exists($path)) {
-            if (!$name) {
-                $l = explode('/', $path);
-                $name = array_pop($l);
-            }
-            self::$_paths[$name] = $path;
-            return true;
-        }
-        else {
-            throw new RuntimeException("Path $path not found");
-        }
+    public static function stop () {
+        return spl_autoload_unregister(array('Autoloader', 'load'));
     }
     
     /**
@@ -76,6 +92,6 @@ class Autoloader {
      * @return boolean
      */
     public static function load ($class) {
-        return @include_once "$class.class.php";
+        return @include_once "{$class}" . self::$_config['extension'];
     }
 }
