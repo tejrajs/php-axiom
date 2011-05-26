@@ -37,6 +37,7 @@ class Autoloader {
                 APPLICATION_PATH . '/application/model',
                 LIBRARY_PATH,
                 LIBRARY_PATH . '/helpers',
+                LIBRARY_PATH . '/feeds',
             ),
             'extension' => '.class.php',
         );

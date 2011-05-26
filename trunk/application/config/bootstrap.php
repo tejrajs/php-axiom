@@ -10,7 +10,7 @@
  * $Id: bootstrap.php 22988 2011-05-18 15:00:36Z delespierre $
  */
 
-define('AXIOM_VERSION', 'v1.0.1 - Beta');
+define('AXIOM_VERSION', 'v1.0.2 - Beta');
 define('LIBRARY_PATH',     dirname(dirname(dirname(__FILE__))) . '/libraries');
 define('APPLICATION_PATH', dirname(dirname(dirname(__FILE__))) . '/application');
 
@@ -29,3 +29,5 @@ require dirname(__FILE__) . '/bootstrap/routes.php';
 require dirname(__FILE__) . '/bootstrap/modules.php';
 
 require dirname(__FILE__) . '/bootstrap/views.php';
+
+require dirname(__FILE__) . '/bootstrap/feed.php';
