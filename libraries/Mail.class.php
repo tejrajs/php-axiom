@@ -6,15 +6,15 @@
  * @author Benjamin DELESPIERRE <benjamin.delespierre@gmail.com>
  * @category libAxiom
  * @package library
- * $Date: 2011-05-18 17:00:36 +0200 (mer., 18 mai 2011) $
- * $Id: Mail.class.php 22988 2011-05-18 15:00:36Z delespierre $
+ * $Date: 2011-05-18 15:19:56 +0200 (mer., 18 mai 2011) $
+ * $Id: Mail.class.php 162 2011-05-18 13:19:56Z delespierre $
  */
 
 /**
  * Mail Class
  *
  * @author Delespierre
- * @version $Rev: 22988 $
+ * @version $Rev: 162 $
  * @subpackage Mail
  */
 class Mail {
@@ -39,6 +39,8 @@ class Mail {
     const HEADER_X_CONFIRM_READING_TO = "X-Confirm-Reading-To";
     const HEADER_X_MAILER = "X-Mailer";
     const HEADER_X_PRIORITY = "X-Priority";
+    const HEADER_X_UNSUBSCRIBE_EMAIL = "X-Unsubscribe-Email";
+    const HEADER_X_UNSUBSCRIBE_WEB = "X-Unsubscribe-Web";
     
     const HEADER_SEPARATOR_CRLF = "\r\n";
     const HEADER_SEPARATOR_LF = "\n";
@@ -53,7 +55,7 @@ class Mail {
         self::HEADER_FROM,                       self::HEADER_MIME_VERSION,         self::HEADER_PRIORITY,
         self::HEADER_REPLY_TO,                   self::HEADER_SENDER,               self::HEADER_SUBJECT,
         self::HEADER_TO,                         self::HEADER_X_CONFIRM_READING_TO, self::HEADER_X_MAILER,
-        self::HEADER_X_PRIORITY
+        self::HEADER_X_PRIORITY,                 self::HEADER_X_UNSUBSCRIBE_WEB,    self::HEADER_X_UNSUBSCRIBE_EMAIL
     );
     
     /**
@@ -112,15 +114,14 @@ class Mail {
      * @throws InvalidArgumentException
      */
     public function __construct ($from, $to, $subject = "No Subject", $message = null, array $headers = array()) {
-        if (!$this->_from = filter_var($from, FILTER_VALIDATE_EMAIL))
+        if (self::validateEmail($from))
             throw new InvalidArgumentException('First parameter is expected to be a valid email');
             
+        $this->_from = $subject;
+            
         $to = (array)$to;
-        foreach ($to as $key => $value) {
-            if (!$to[$key] = filter_var($value, FILTER_VALIDATE_EMAIL))
-                throw new InvalidArgumentException("The destination (To) list contains invalid entrie(s)");
-        }
-        $this->_to = $to;
+        foreach ($to as $destination)
+            $this->addDestination($destination);
         
         if (!empty($subject))
             $this->setSubject($subject);
@@ -130,6 +131,24 @@ class Mail {
         
         foreach ($headers as $header => $value)
             $this->setHeader($header, $value);
+    }
+    
+    /**
+     * Validates email address.
+     * @param string $email
+     * @return boolean
+     */
+    public static function validateEmail ($email) {
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            return false;
+        }
+     
+        if (function_exists('checkdnsrr')) {
+            $host = substr($email, strpos($email, '@') + 1);
+            return checkdnsrr($host, 'MX');
+        }
+    	
+        return true;
     }
     
     /**
@@ -156,7 +175,7 @@ class Mail {
      * @return void
      */
     public function addDestination ($to) {
-        if (!$to = filter_var($to, FILTER_VALIDATE_EMAIL))
+        if (!self::validateEmail($to))
             throw new InvalidArgumentException("Invalid destination");
         
         if (!array_keys($this->_to, $to))
@@ -169,9 +188,8 @@ class Mail {
      * @return void
      */
     public function removeDestination ($to) {
-        foreach (array_keys($this->_to, $to) as $key) {
+        foreach (array_keys($this->_to, $to) as $key)
             unset($this->_to[$key]);
-        }
     }
     
     /**
@@ -182,7 +200,8 @@ class Mail {
      * and an InvalidArgumentException will be thrown
      * in cas of invalid value.
      *
-     * Note: You can specify "now" for the Date header.
+     * Note: Date parameter is compatible with
+     * strtotime definition.
      *
      * @param string $header
      * @param scalar $value
@@ -200,7 +219,8 @@ class Mail {
             case self::HEADER_BCC:
             case self::HEADER_REPLY_TO:
             case self::HEADER_X_CONFIRM_READING_TO:
-                if (!$value = filter_var($value, FILTER_VALIDATE_EMAIL))
+            case self::HEADER_X_UNSUBSCRIBE_EMAIL:
+                if (!self::validateEmail($value))
                     throw new InvalidArgumentException("Invalid email for $header");
                 break;
                 
@@ -210,15 +230,20 @@ class Mail {
                 break;
                 
             case self::HEADER_DATE:
-                if ($value = "now")
-                    $value = date('r');
-                elseif (!preg_match('~^[a-zA-Z]{3}, [0-9]{1,2} [a-zA-Z]{3} [0-9]{4} [0-9]{2}:[0-9]{2}:[0-9]{2} [A-Z\+0-9]{3,5}$~', $value))
+                if ($time = strtotime($value))
+                    $value = date('r', $time);
+                else
                     throw new InvalidArgumentException("Invalid date format for $header");
                 break;
                 
             case self::HEADER_PRIORITY:
                 if (!in_array($value, array('normal', 'urgent', 'non-urgent')))
                     throw new InvalidArgumentException("Invalid priority for $heafer");
+                break;
+                
+            case self::HEADER_X_UNSUBSCRIBE_WEB:
+                if (!$value = filter_var($value, FILTER_VALIDATE_URL))
+                    throw new InvalidArgumentException("Invalid url for $header");
                 break;
                 
             case self::HEADER_MIME_VERSION:
@@ -248,7 +273,7 @@ class Mail {
      * but some mailboxes like Gmail doesn't
      * recognized it and expects a LF (\n).
      *
-     * @param unknown_type $glue
+     * @param string $glue
      * @throws InvalidArgumentException
      * @return void
      */
@@ -309,7 +334,7 @@ class Mail {
      * Returns the message part key.
      *
      * @param string $path
-     * @param string $content_type
+     * @param string $content_type = null
      * @param string $filename = null
      * @throws InvalidArgumentException
      * @return string
@@ -318,20 +343,26 @@ class Mail {
         if (!file_exists($path))
             throw new MissingFileException($path);
             
-        $file = new SplFileObject($path, "r");
-        if ($file->isDir())
+        if (is_dir($path))
             throw new InvalidArgumentException("First parameter is expected to be regular file, directory given");
             
         if (!$filename)
-            $filename = $file->getFilename();
+            $filename = basename($path);
+            
+        if (function_exists('finfo_open') && $finfo = finfo_open(FILEINFO_MIME_TYPE)) {
+            $content_type = finfo_file($finfo, $path);
+            finfo_close($finfo);
+        }
+        else if (function_exists('mime_content_type'))
+            $content_type = mime_content_type($path);
+        else if (empty($content_type))
+            throw new LogicException("Could not determine content-type for $path");
+            
+        if (!$content = file_get_contents($path, false))
+            throw new RuntimeException("Cannot read $path");
             
         $part  = "Content-Type: $content_type; name=$filename" . $this->_header_separator;
         $part .= "Content-transfer-encoding: base64" . $this->_header_separator;
-        
-        $content = "";
-        foreach ($file as $line)
-            $content .= $line;
-            
         $part .= chunk_split(base64_encode($content));
         $part .= $this->_header_separator;
         $this->_message_parts[$key = uniqid("part-")] = $part;
