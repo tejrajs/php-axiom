@@ -23,7 +23,7 @@ class ModuleManager {
      * Module list cache
      * @var array
      */
-    protected static $_module_list;
+    protected static $_module_list = array();
     
     /**
      * Internal configuration
