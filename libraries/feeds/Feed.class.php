@@ -6,15 +6,15 @@ class Feed extends ArrayIterator {
     
     protected static $_config = array();
     
-    public static function setConfig ($config = array()) {
-        $default = array(
+    public static function setConfig (array $config = array()) {
+        $defaults = array(
             'default_type' => 'Rss',
         );
         
         self::$_config = $config + $defaults;
     }
     
-    public static function setMetaInf ($meta_inf = array()) {
+    public static function setMetaInf (array $meta_inf = array()) {
         $defaults = array(
             'title' => 'Axiom Generic Feed',
             'date' => date('r'),
