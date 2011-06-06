@@ -115,11 +115,11 @@ class Router {
                 list($route, $action) = array_merge(self::$_routes['default'], array('index'));
         }
         
-        if (ModuleManager::exists($route))
-            ModuleManager::load($route);
-        
         if (!empty($matches['lang']) && $matches['lang'] != Lang::getLocale())
             ViewManager::setLayoutVar('lang', Lang::setLocale($matches['lang']));
+        
+        if (ModuleManager::exists($route))
+            ModuleManager::load($route);
             
         if (!Autoloader::load($controller = ucfirst("{$route}Controller")))
             list($controller, $action) = array('ErrorController', 'http404');

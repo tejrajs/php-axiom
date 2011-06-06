@@ -106,13 +106,16 @@ class Lang {
     /**
      * Set current locale
      * @param string $lang
+     * @param boolean $reload_translations = true
      * @return string
      */
-    public static function setLocale ($lang) {
-        $old_lang = self::$_config['locale'];
-        if (in_array($lang, self::$_config['locales'])) {
+    public static function setLocale ($lang, $reload_translations = true) {
+        if ($lang !== self::getLocale() && in_array($lang, self::$_config['locales'])) {
             self::$_config['locale'] = $lang;
             self::$_config['lang_file'] = "$lang.ini";
+            
+            if ($reload_translations)
+                self::loadLanguage();
         }
         
         return self::$_config['locale'];
