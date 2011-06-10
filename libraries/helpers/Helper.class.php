@@ -45,6 +45,13 @@ interface Helper {
      * @return mixed
      */
     public function appendChild ($node);
+    
+    /**
+     * Prepend a node to the current node and return it
+     * @param mixed  $node
+     * @return mixed
+     */
+    public function prependCHild ($node);
 
     /**
      * __toString overloading

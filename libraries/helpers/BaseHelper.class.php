@@ -108,6 +108,15 @@ abstract class BaseHelper implements Helper {
     public function appendChild ($node) {
         return $this->_children[] = $node;
     }
+    
+    /**
+     * (non-PHPdoc)
+     * @see Helper::prependChild()
+     */
+    public function prependChild ($node) {
+        array_unshift($this->_children, $node);
+        return $this->_children[0];
+    }
 
     /**
      * (non-PHPdoc)

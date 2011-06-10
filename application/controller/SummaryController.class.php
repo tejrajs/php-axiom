@@ -25,7 +25,5 @@ class SummaryController extends BaseController {
      }
      
      public static function test () {
-         $param = self::$_request->param;
-         return compact('param');
      }
 }
