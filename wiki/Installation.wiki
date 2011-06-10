@@ -4,7 +4,7 @@
 = Installation =
 
 == Get Axiom ==
-First, grab the latest version of Axiom Framework (current version is available here: [http://code.google.com/p/php-axiom/downloads/detail?name=axiom_v1.0.0-beta.zip axiom_v1.0.0-beta.zip] ) and unzip its content at the desired location on your webserver.
+First, grab the latest version of Axiom Framework (current version is available here: [http://code.google.com/p/php-axiom/downloads/detail?name=axiom_v1.0.3-beta.zip] ) and unzip its content at the desired location on your webserver.
 
 == Location Setup ==
 Once done, you'll have to change the .htaccess directives to make it work with your deployment location:
@@ -43,7 +43,7 @@ php_flag short_open_tag 1
 </IfModule>
 }}}
 
-As you can see, there are three "RewriteBase" directives in the .htaccess files. You have to change their values to match the location you've deployed Axiom. For instance, if the root directory of your web server is /var/www and you deployed Axiom under /var/www/my_website/axiom/ you have to change the 'RewriteBase' directives to /my_website/axiom (do not copy the quotes !)
+As you can see, there are three "RewriteBase" directives in the .htaccess files. You have to change their values to match the location you've deployed Axiom. For instance, if the root directory of your web server is /var/www and you deployed Axiom under /var/www/my_website/axiom/ you have to change the RewriteBase directives to /my_website/axiom.
 
 Ready ? Well at this point we can test Axiom is serving pages correctly.
 
