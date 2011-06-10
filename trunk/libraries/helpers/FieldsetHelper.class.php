@@ -86,6 +86,5 @@ class FieldsetHelper extends BaseHelper {
      */
     public static function export ($legend = "") {
         return new self ($legend);
-        return $this;
     }
 }

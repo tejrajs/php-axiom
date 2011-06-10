@@ -71,7 +71,7 @@ class ViewManager {
         }
         catch (Exception $e) {
             ob_end_clean();
-            
+            var_dump($e);
             Router::load('ErrorController', 'http500');
             return;
         }

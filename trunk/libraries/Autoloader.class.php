@@ -34,7 +34,7 @@ class Autoloader {
         $default = array(
             'paths' => array(
                 APPLICATION_PATH . '/controller',
-                APPLICATION_PATH . '/application/model',
+                APPLICATION_PATH . '/model',
                 LIBRARY_PATH,
                 LIBRARY_PATH . '/helpers',
                 LIBRARY_PATH . '/feeds',
