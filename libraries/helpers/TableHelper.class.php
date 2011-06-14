@@ -44,7 +44,7 @@ class TableHelper extends BaseHelper {
     public function __construct ($caption = false) {
         parent::__construct('table');
         if ($caption)
-            $this->appendChild("<caption>$caption</caption>");
+            $this->appendChild(CaptionHelper::export($caption));
             
         $this->head = &$this->_children['head'];
         $this->foot = &$this->_children['foot'];
