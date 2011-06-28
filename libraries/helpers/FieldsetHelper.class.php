@@ -65,7 +65,7 @@ class FieldsetHelper extends BaseHelper {
                     continue;
                 }
                 
-                if ($node instanceof InputHelper && ($node->getType() == 'radio' || $node->getType() == 'checkbox')) {
+                if ($node->getType() == 'radio' || $node->getType() == 'checkbox') {
                     if ($node->getValue() == $value)
                         $node->setChecked("checked");
                 }
