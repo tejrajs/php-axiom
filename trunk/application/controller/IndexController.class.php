@@ -6,7 +6,4 @@ class IndexController extends BaseController {
         $axiom_version = AXIOM_VERSION;
         return compact('axiom_version');
     }
-    
-    public static function test () {
-    }
 }
