@@ -98,6 +98,24 @@ class FormLineHelper extends BaseHelper {
     public function getName () {
         return $this->getInput()->getName();
     }
+    
+    /**
+     * Get the inner input type
+     * @return string
+     */
+    public function getType () {
+        return $this->getInput()->getType();
+    }
+    
+    /**
+     * Set the internal field as checked or not
+     * @param string $c
+     * @return FormLineHelper
+     */
+    public function setChecked ($c) {
+        $this->getInput()->setChecked($c);
+        return $this;
+    }
 
     /**
      * Get the form line's input
