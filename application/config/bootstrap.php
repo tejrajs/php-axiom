@@ -10,7 +10,7 @@
  * $Id: bootstrap.php 22988 2011-05-18 15:00:36Z delespierre $
  */
 
-define('AXIOM_VERSION', 'v1.0.3 - Beta');
+define('AXIOM_VERSION', 'v1.0.4 - Beta');
 define('LIBRARY_PATH',     dirname(dirname(dirname(__FILE__))) . '/libraries');
 define('APPLICATION_PATH', dirname(dirname(dirname(__FILE__))) . '/application');
 
