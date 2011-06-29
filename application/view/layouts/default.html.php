@@ -6,6 +6,7 @@
         <meta name="description" content="<?=$description;?>" />
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta http-equiv="Content-Language" content="<?=$lang?>" />
+        <link rel="stylesheet" href="<?=src('css/style.css')?>" type="text/css" media="screen" />
 	</head>
 	<body>
 		<?=$content?>

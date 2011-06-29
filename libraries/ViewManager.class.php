@@ -76,7 +76,8 @@ class ViewManager {
             return;
         }
         
-        include dirname(dirname(__FILE__)) . "/application/view/layouts/" . self::$_config['layout_file'] . ".{$format}.php";
+        include self::getLayoutFilePath($format);
+        //include dirname(dirname(__FILE__)) . "/application/view/layouts/" . self::$_config['layout_file'] . ".{$format}.php";
     }
     
     /**
@@ -122,6 +123,14 @@ class ViewManager {
      */
     public static function setLayoutFile ($file) {
         self::$_config['layout_file'] = $file;
+    }
+    
+    /**
+     * Get the layout file path
+     * @retunr string
+     */
+    public static function getLayoutFilePath ($format = "html") {
+        return dirname(dirname(__FILE__)) . "/application/view/layouts/" . self::$_config['layout_file'] . ".{$format}.php";
     }
     
     /**

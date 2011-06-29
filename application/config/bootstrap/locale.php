@@ -15,5 +15,5 @@ require_once LIBRARY_PATH . '/Lang.class.php';
 Lang::setConfig(array(
     'locale' => 'fr',
     'locales' => array('en', 'fr'),
-    'base_url' => '/mctel/',
+    'base_url' => '/axiom/',
 ));
