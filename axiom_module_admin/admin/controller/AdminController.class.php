@@ -48,7 +48,7 @@ class AdminController extends BaseController {
     
     // Users Management
     // -------------------------------------------------------------------------------------------------------------------------------------
-    
+    /*
     final public static function users () {
         self::$_response->setResponseView("users");
         $users = User::getUsers();
@@ -246,4 +246,5 @@ class AdminController extends BaseController {
         Router::load($controller, self::$_request->admact);
         exit();
     }
+    */
 }
