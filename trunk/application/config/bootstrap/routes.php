@@ -17,4 +17,3 @@ Router::addRoute('default', array('index'));
 Router::addRoute('~^((?<lang>[[:alnum:]]{2})/)?login/?$~', array('admin', 'login'));
 Router::addRoute('~^((?<lang>[[:alnum:]]{2})/)?logout/?$~', array('admin', 'logout'));
 Router::addRoute('~^((?<lang>[[:alnum:]]{2})/)?admin/(?<admrt>[[:alnum:]]{3,})/?(?<admact>[[:alnum:]]{3,})?/?$~', array('admin','index'));
-
