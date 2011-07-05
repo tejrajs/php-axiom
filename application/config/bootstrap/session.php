@@ -10,4 +10,4 @@
  * $Id: session.php 22988 2011-05-18 15:00:36Z delespierre $
  */
 
-if (!session_id()) session_start();
+Session::setConfig();

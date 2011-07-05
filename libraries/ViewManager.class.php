@@ -50,8 +50,6 @@ class ViewManager {
         $section = lcfirst(str_replace('Controller', '', $controller));
         $view = ($v = self::$_response->getResponseView()) ? $v : $action;
         
-        if (strpos(strtolower($section), 'admin') !== false) $section = 'admin';
-        
         if (file_exists($__filename = realpath(self::$_config['view_path']) . "/{$section}/{$view}.{$format}.php")) { }
         elseif (file_exists($__filename = realpath(self::$_config['default_view_path']) . "/{$section}/{$view}.{$format}.php")) { }
         else return;
@@ -71,13 +69,11 @@ class ViewManager {
         }
         catch (Exception $e) {
             ob_end_clean();
-            var_dump($e);
             Router::load('ErrorController', 'http500');
             return;
         }
         
         include self::getLayoutFilePath($format);
-        //include dirname(dirname(__FILE__)) . "/application/view/layouts/" . self::$_config['layout_file'] . ".{$format}.php";
     }
     
     /**

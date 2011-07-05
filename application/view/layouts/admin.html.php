@@ -2,8 +2,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?=$lang?>" lang="<?=$lang?>">
 	<head>
 		<title><?=i18n('admin.title')?></title>
-        <meta name="keywords" lang="<?=$lang?>" content="<?=implode(',',$keywords)?>" />
-        <meta name="description" content="<?=$description;?>" />
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta http-equiv="Content-Language" content="<?=$lang?>" />
         <link href="<?=src('css/smoothness/jquery-ui-1.8.12.custom.css')?>" type="text/css" rel="stylesheet" media="screen" />
@@ -49,7 +47,7 @@
 				<h1><a href="<?=url('admin')?>"><?=i18n('admin.header.title')?></a></h1>
 				<div id="user">
             		<span><?=i18n('admin.header.user', $user->name, $user->surname)?></span>
-            		<span><a href="<?=url('login', 'logout')?>"><?=i18n('admin.header.logout')?></a></span>
+            		<span><a href="<?=url('logout')?>"><?=i18n('admin.header.logout')?></a></span>
             	</div>
 				<ul id="menu" class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix">
 					<li><a href="<?=url('admin','users')?>"><?=i18n('admin.menu.users')?></a></li>

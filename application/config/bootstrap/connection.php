@@ -14,7 +14,7 @@ require_once LIBRARY_PATH . "/Database.class.php";
 
 Database::setConfig(array(
     'host' => 'localhost',
-    'database' => 'backoffice',
+    'database' => 'axiom',
     'username' => 'root',
     'password' => '',
     'type' => 'mysql',
