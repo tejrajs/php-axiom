@@ -25,17 +25,17 @@ class User extends Model {
         
         switch ($statement) {
             case 'create':
-                $query = 'INSERT INTO `backoffice`.`users` (`login`,`password`,`name`,`surname`) VALUES (:login,:password,:name,:surname)';
+                $query = 'INSERT INTO `ax_users` (`login`,`password`,`name`,`surname`) VALUES (:login,:password,:name,:surname)';
                 break;
             case 'retrieve':
-                $query = 'SELECT * FROM `backoffice`.`users` WHERE `id`=:id';
+                $query = 'SELECT * FROM `ax_users` WHERE `id`=:id';
                 break;
             case 'update':
-                $query = 'UPDATE `backoffice`.`users` SET `login`=:login, `password`=:password, `name`=:name, `surname`=:surname, '.
+                $query = 'UPDATE `ax_users` SET `login`=:login, `password`=:password, `name`=:name, `surname`=:surname, '.
                 		 '`creation`=:creation, `last_connection`=:last_connection WHERE `id`=:id';
                 break;
             case 'delete':
-                $query = 'DELETE FROM `backoffice`.`users` WHERE `id`=:id';
+                $query = 'DELETE FROM `ax_users` WHERE `id`=:id';
                 break;
             default:
                 throw new RuntimeException("$statement is unexepected for " . __METHOD__);
@@ -45,7 +45,7 @@ class User extends Model {
     }
     
     public static function exists ($username, $password) {
-        $query = "SELECT `id` FROM `backoffice`.`users` WHERE `login`=:login AND `password`=:password";
+        $query = "SELECT `id` FROM `ax_users` WHERE `login`=:login AND `password`=:password";
         $stmt = Database::prepare($query);
         
         $password = md5($password);
@@ -64,7 +64,7 @@ class User extends Model {
     }
     
     public static function getUsers ($search_params = array()) {
-        $query = "SELECT * FROM `backoffice`.`users`";
+        $query = "SELECT * FROM `ax_users`";
         
         if (!empty($search_params)) {
             $pieces = array();

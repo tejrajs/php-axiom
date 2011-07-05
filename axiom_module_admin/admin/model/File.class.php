@@ -25,18 +25,18 @@ class File extends Model {
         
         switch ($statement) {
             case 'create':
-                $query = 'INSERT INTO `backoffice`.`files` (`filename`,`path`,`mime_type`,`upload`,`users_id`) '.
-                         'VALUES (:filename,:path,:mime_type,:upload,:users_id)';
+                $query = 'INSERT INTO `ax_files` (`filename`,`path`,`mime_type`,`upload`,`ax_users_id`) '.
+                         'VALUES (:filename,:path,:mime_type,:upload,:ax_users_id)';
                 break;
             case 'retrieve':
-                $query = 'SELECT * FROM `backoffice`.`files` WHERE `id`=:id';
+                $query = 'SELECT * FROM `ax_files` WHERE `id`=:id';
                 break;
             case 'update':
-                $query = 'UPDATE `backoffice`.`files` SET `filename`=:filename,`path`=:path,`mime_type`=:mime_type,`upload`=:upload,'.
-                         '`users_id`=:users_id WHERE `id`=:id';
+                $query = 'UPDATE `ax_files` SET `filename`=:filename,`path`=:path,`mime_type`=:mime_type,`upload`=:upload,'.
+                         '`ax_users_id`=:users_id WHERE `id`=:id';
                 break;
             case 'delete':
-                $query = 'DELETE FROM `backoffice`.`files` WHERE `id`=:id';
+                $query = 'DELETE FROM `ax_files` WHERE `id`=:id';
                 break;
             default:
                 throw new RuntimeException("$statement is unexepected for " . __METHOD__);
@@ -53,7 +53,7 @@ class File extends Model {
     }
     
     public static function getFiles ($search_params = array(), $order = array('mime_type', 'upload')) {
-        $query = "SELECT * FROM `backoffice`.`files`";
+        $query = "SELECT * FROM `ax_files`";
         
         if (!empty($search_params)) {
             $pieces = array();
@@ -86,7 +86,7 @@ class File extends Model {
         if (empty($this->_data))
             throw new RuntimeException("Malformed instance");
             
-        return new User($this->users_id);
+        return new User($this->ax_users_id);
     }
     
     public function getType () {

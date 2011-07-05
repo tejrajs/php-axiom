@@ -4,15 +4,17 @@ abstract class SecuredController extends BaseController {
     
     protected static  $_session;
     
-    public static function _init () {
+    public static function _init (Request &$request, Response &$response) {
         parent::_init($request, $response);
+        
+        if (!Session::id()) Session::start();
         
         self::$_session = new Session();
         
-        if (!isset($_SESSION['user']) || !$_SESSION['user'])
+        if (!self::$_session->user)
             throw new LoginException("Unconnected user");
         
-        ViewManager::setLayoutVar("user", $_SESSION['user']);
+        ViewManager::setLayoutVar("user", self::$_session->user);
         ViewManager::setLayoutFile("admin");
     }
 }
