@@ -1,6 +1,6 @@
-<h2><?=i18n('admin.users.edit.title')?></h2>
+<h2><img src="<?=src('img/admin/hat_24.png')?>" /><?=i18n('admin.users.edit.title')?></h2>
 <?php
-$form = FormHelper::export(url('admin', 'saveUser'));
+$form = FormHelper::export(url('admin/users/save'));
 
 $form->addFieldset(i18n('admin.users.edit.properties'))
     ->addLine('login', i18n('admin.users.edit.login'))

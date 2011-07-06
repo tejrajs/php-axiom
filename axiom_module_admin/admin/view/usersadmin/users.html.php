@@ -1,4 +1,4 @@
-<h2><?=i18n('admin.users.title')?></h2>
+<h2><img src="<?=src('img/admin/hat_24.png')?>" /><?=i18n('admin.users.title')?></h2>
 <table class="ui-widget sortable">
 	<thead>
 		<tr>
@@ -27,12 +27,12 @@
 			<td class="ui-widget-content"><?=$user_view->creation?></td>
 			<td class="ui-widget-content"><?=$user_view->last_connection?></td>
 			<td class="ui-widget-content action">
-				<a href="<?=url('admin', 'editUser')?>?id=<?=$user_view->id?>">
+				<a href="<?=url('admin/users/edit')?>?id=<?=$user_view->id?>">
 					<span class="ui-icon ui-icon-pencil tiptip" title="<?=i18n('admin.table.action.edit')?>"></span>
 				</a>
 			</td>
 			<td class="ui-widget-content action">
-				<a href="<?=url('admin', 'deleteUser')?>?id=<?=$user_view->id?>">
+				<a href="<?=url('admin/users/delete')?>?id=<?=$user_view->id?>">
 					<span class="ui-icon ui-icon-close tiptip" title="<?=i18n('admin.table.action.delete')?>"></span>
 				</a>
 			</td>
@@ -47,6 +47,6 @@
 </table>
 <div class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
 	<span class="ui-button-text">
-		<a href="<?=url('admin', 'addUser')?>"><?=i18n('admin.users.add')?></a>
+		<a href="<?=url('admin/users/add')?>"><?=i18n('admin.users.add')?></a>
 	</span>
 </div>

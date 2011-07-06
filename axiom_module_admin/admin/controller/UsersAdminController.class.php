@@ -3,23 +3,21 @@
 class UsersAdminController extends SecuredController {
     
     public static function index () {
+        self::$_response->setResponseView('users');
         return self::users();
     }
     
     public static function users () {
-        self::$_response->setResponseView("users");
         $users = User::getUsers();
         
         return compact('users');
     }
     
-    public static function addUser () {
-        self::$_response->setResponseView("edit_user");
+    public static function add () {
+        self::$_response->setResponseView("edit");
     }
     
-    public static function editUser () {
-        self::$_response->setResponseView("edit_user");
-        
+    public static function edit () {
         if ($id = self::$_request->id) {
             $user_edit = new User($id);
         }
@@ -27,7 +25,7 @@ class UsersAdminController extends SecuredController {
         return compact("user_edit");
     }
     
-    public static function saveUser () {
+    public static function save () {
         if (self::$_request->cancel) {
             self::$_response->setResponseView("users");
             return self::users();
@@ -35,7 +33,8 @@ class UsersAdminController extends SecuredController {
         
         if (self::$_request->password != self::$_request->password_confirm) {
             self::$_response->addMessage(i18n('admin.users.edit.save.password_confirm_failed'), MESSAGE_ALERT);
-            return self::editUser();
+            self::$_response->setResponseView('edit');
+            return self::edit();
         }
         
         $defaults = array(
@@ -50,53 +49,51 @@ class UsersAdminController extends SecuredController {
         
         if ($missing = array_keys($inputs, false)) {
             self::$_response->addMessage(i18n('admin.users.edit.save.missing', implode(',', $missing)), MESSAGE_ALERT);
-            return self::editUser();
+            self::$_response->setResponseView('edit');
+            return self::edit();
         }
         else {
             $inputs['password'] = md5($inputs['password']);
-            
             if ($id = self::$_request->id) {
                 $user = new User($id);
-                if ($user->update($inputs)) {
-                    self::$_response->addMessage(i18n('admin.users.edit.save.ok'));
-                    self::$_response->setResponseView("users");
-                    redirect(url('admin', 'users'));
-                }
-                else {
-                    self::$_response->addMessage(i18n('admin.users.edit.save.nok'), MESSAGE_ALERT);
-                    return self::editUser();
-                }
+                $method = "update";
             }
             else {
                 $user = new User();
-                if ($user->create($inputs)) {
-                    self::$_response->addMessage(i18n('admin.users.edit.save.ok'));
-                    self::$_response->setResponseView("users");
-                    redirect(url('admin', 'users'));
-                }
-                else {
-                    self::$_response->addMessage(i18n('admin.users.edit.save.nok'), MESSAGE_ALERT);
-                    return self::editUser();
-                }
+                $method = "create";
+            }
+            
+            if ($user->$method($inputs)) {
+                self::$_response->addMessage(i18n('admin.users.edit.save.ok', $user->login));
+                self::$_response->setResponseView("users");
+                redirect(url('admin/users'));
+            }
+            else {
+                self::$_response->addMessage(i18n('admin.users.edit.save.nok'), MESSAGE_ALERT);
+                self::$_response->setResponseView('edit');
+                return self::edit();
             }
         }
     }
     
-    public static function deleteUser () {
+    public static function delete () {
         self::$_response->setResponseView('users');
         
         if ($id = self::$_request->id) {
-            $user = new User($id);
-            if ($user->delete()) {
-                self::$_response->addMessage(i18n('admin.users.delete.ok'));
+            try {
+                $user = new User($id);
+                $login = $user->login;
+                if ($user->delete())
+                    self::$_response->addMessage(i18n('admin.users.delete.ok', $login));
+                else
+                    self::$_response->addMessage(i18n('admin.users.delete.nok', $login), MESSAGE_ALERT);
             }
-            else {
-                self::$_response->addMessage(i18n('admin.users.delete.nok', MESSAGE_ALERT));
+            catch (RuntimeException $e) {
+                self::$_response->addMessage(i18n('admin.users.delete.nok', ''), MESSAGE_ALERT);
             }
         }
-        else {
+        else
             self::$_response->addMessage(i18n('admin.users.delete.no_user_selected', MESSAGE_ALERT));
-        }
         
         return self::users();
     }

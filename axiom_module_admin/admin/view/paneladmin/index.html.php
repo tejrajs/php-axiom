@@ -2,7 +2,7 @@
     <h2><?=i18n('admin.panel.title')?></h2>
     <div>
     	<span class="ui-widget-content ui-corner-all">
-    		<a href="<?=url('admin','users')?>">
+    		<a href="<?=url('admin/users')?>">
     			<img src="<?=src('img/admin/hat_48.png')?>" alt="hat_48.png" width="48" height="48" />
     			<?=i18n('admin.panel.users')?>
     		</a>
@@ -10,7 +10,7 @@
     </div>
     <div>
     	<span class="ui-widget-content ui-corner-all">
-    		<a href="<?=url('admin','files')?>">
+    		<a href="<?=url('admin/files')?>">
     			<img src="<?=src('img/admin/inbox_48.png')?>" alt="inbox_48.png" width="48" height="48" />
     			<?=i18n('admin.panel.files')?>
     		</a>
@@ -18,7 +18,7 @@
     </div>
     <div>
     	<span class="ui-widget-content ui-corner-all">
-    		<a href="<?=url('admin','statistics')?>">
+    		<a href="<?=url('admin/statistics')?>">
     			<img src="<?=src('img/admin/chart_bar_up_48.png')?>" alt="chart_bar_up_48.png" width="48" height="48" />
     			<?=i18n('admin.panel.statistics')?>
     		</a>
@@ -26,7 +26,7 @@
     </div>
     <div>
     	<span class="ui-widget-content ui-corner-all">
-    		<a href="<?=url('admin','settings')?>">
+    		<a href="<?=url('admin/settings')?>">
     			<img src="<?=src('img/admin/gear_48.png')?>" alt="gear_48.png" width="48" height="48" />
     			<?=i18n('admin.panel.settings')?>
     		</a>

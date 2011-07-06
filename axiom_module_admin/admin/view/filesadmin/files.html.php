@@ -1,5 +1,5 @@
-<h2><?=i18n('admin.files.title')?></h2>
-<ul id="gallery" class="gallery ui-helper-reset ui-helper-clearfix ui-widget-content ui-state-default ui-corner-all">
+<h2><img src="<?=src('img/admin/inbox_24.png')?>" /><?=i18n('admin.files.title')?></h2>
+<ul id="gallery" class="gallery ui-helper-reset ui-helper-clearfix ui-widget-content ui-corner-all">
 	<?php foreach ($files as $file): ?>
 	<?php
 	switch ($file->getType()):
@@ -21,33 +21,33 @@
 		<?php endif ?>
 		<a class="ui-icon ui-icon-info tiptip"
 		   title="<?=i18n('admin.files.file.info')?>"
-		   href="<?=url('admin', 'getFileInfo')?>?id=<?=$file->id?>">
+		   href="<?=url('admin/files/info')?>?id=<?=$file->id?>">
 		   <?=i18n('admin.files.file.info')?>
 		</a>
 		<a class="ui-icon ui-icon-trash tiptip"
 		   title="<?=i18n('admin.files.file.delete')?>"
-		   href="<?=url('admin', 'deleteFile')?>?id=<?=$file->id?>">
+		   href="<?=url('admin/files/delete')?>?id=<?=$file->id?>">
 		    <?=i18n('admin.files.file.delete')?>
 		</a>
 	</li>
 	<?php endforeach ?>
 </ul>
-<div id="properties" class="ui-widget-content ui-state-default ui-corner-all">
+<div id="properties" class="ui-widget-content ui-corner-all">
 	<h4 class="ui-widget-header ui-corner-all">
 		<span class="ui-icon ui-icon-info">Trash</span><?=i18n('admin.files.properties.title')?>
 	</h4>
 </div>
-<div id="upload" class="ui-widget-content ui-state-default ui-corner-all">
+<div id="upload" class="ui-widget-content ui-corner-all">
 	<h4 class="ui-widget-header ui-corner-all">
-		<span class="ui-icon ui-icon-trash">Trash</span><?=i18n('admin.files.upload.title')?>
+		<span class="ui-icon ui-icon-folder-collapsed">Trash</span><?=i18n('admin.files.upload.title')?>
 	</h4>
-	<form action="<?=url('admin', 'upload')?>" method="post" enctype="multipart/form-data">
+	<form action="<?=url('admin/files/upload')?>" method="post" enctype="multipart/form-data">
 		<input type="file" name="files[]" />
 		<input type="submit" value="<?=i18n('admin.files.upload.button.send')?>" />
 		<input type="button" value="<?=i18n('admin.files.upload.button.add')?>" id="btnadd" />
 	</form>
 </div>
-<div id="trash" class="ui-widget-content ui-state-default ui-corner-all">
+<div id="trash" class="ui-widget-content ui-corner-all">
 	<h4 class="ui-widget-header ui-corner-all">
 		<span class="ui-icon ui-icon-trash">Trash</span><?=i18n('admin.files.delete.title')?>
 	</h4>
@@ -197,7 +197,7 @@ $(function() {
 			list = $(this).siblings('ul').find('li');
 		list.each(function (i, item) { data.id.push(item.id); });
 		$.ajax({
-			url: '<?=url('admin', 'deleteFile')?>',
+			url: '<?=url('admin/files/delete')?>',
 			data: data,
 			success: function () {
 				list.fadeOut(function () { $(this).remove(); });

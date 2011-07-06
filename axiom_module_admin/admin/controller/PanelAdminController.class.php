@@ -7,7 +7,7 @@ class PanelAdminController extends SecuredController {
         foreach (ModuleManager::getAvailableModules() as $module_name) {
             if (!$module_info = ModuleManager::getInformations($module_name))
                 continue;
-            $modules[$module_name] = $module_info + array('url' => url('admin', $module_name));
+            $modules[$module_name] = $module_info + array('url' => url("admin/$module_name"));
         }
         return compact("modules");
     }
