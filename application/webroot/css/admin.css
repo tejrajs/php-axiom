@@ -11,10 +11,15 @@
  * $Id$
  */
 
+html {
+	overflow-y: scroll;
+	height: 100%;
+}
+
 body {
 	margin: 0;
-	padding: 0 0 20px;
-	min-height: 100%;
+	padding: 0px;
+	height: 100%;
 	font: 62.5% "Trebuchet MS", sans-serif;
 }
 
@@ -25,6 +30,11 @@ h1 {
 h2 {
 	color: #aaa;
 	border-bottom: 1px #ccc solid;
+}
+
+h2 img {
+	vertical-align: middle;
+	margin-right: 3px;
 }
 
 a img {
@@ -84,6 +94,10 @@ form fieldset > div .ui-corner-all {
 	background: white;
 }
 
+form fieldset legend {
+	padding: 3px;
+}
+
 /**
  * IDs
  * -----------------------------------------------------------------------------------------------------------------------------------------
@@ -92,8 +106,8 @@ form fieldset > div .ui-corner-all {
 #wrapper {
 	position: relative;
 	width: 950px;
+	min-height: 100%;
     margin: 0px auto;
-	padding-bott: 3em;
 }
 
 #header, #content, #footer {
@@ -152,23 +166,28 @@ form fieldset > div .ui-corner-all {
 
 #messages {
 	font-size: 1.2em;
+}
 
+#content {
+	margin: 0px 5px 0px 5px;
+	padding-bottom: 30px;
 }
 
 #footer {
-	margin: 0;
-	padding: 0;
+	margin: 0px;
+	padding: 0px;
+	height: 25px;
+	position: absolute;
+    bottom: 0px;
 	width: 100%;
-	position: fixed;
-    bottom: -1px;
-    left: 0px;
+	clear: both;
 }
 
 #footer div {
-	width: 950px;
     margin: 0px auto;
     padding: 3px;
 	font-size: 1.2em;
+	border-bottom: 0px;
 }
 
 /**

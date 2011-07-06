@@ -19,7 +19,7 @@
 		<!--
 		$(function () {
 			$('.warning,.error').click(function () { $(this).hide('blind'); });
-			$('.tiptip').tipTip({defaultPosition: 'bottom'});
+			$('.tiptip').tipTip({defaultPosition: 'top'});
 
 			$('th').last().addClass('ui-corner-tr');
 			$('th').first().addClass('ui-corner-tl');
@@ -50,8 +50,8 @@
             		<span><a href="<?=url('logout')?>"><?=i18n('admin.header.logout')?></a></span>
             	</div>
 				<ul id="menu" class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix">
-					<li><a href="<?=url('admin','users')?>"><?=i18n('admin.menu.users')?></a></li>
-					<li><a href="<?=url('admin','files')?>"><?=i18n('admin.menu.files')?></a></li>
+					<li><a href="<?=url('admin/users')?>"><?=i18n('admin.menu.users')?></a></li>
+					<li><a href="<?=url('admin/files')?>"><?=i18n('admin.menu.files')?></a></li>
 					<li><a href="<?=url('summary')?>"><?=i18n('admin.menu.view_site')?></a></li>
 				</ul>
 			</div>
@@ -81,7 +81,11 @@
 				<?=$content?>
 			</div>
 			<div id="footer">
-				<div class="ui-corner-top ui-widget-content">&copy; BDelespierre</div>
+				<div class="ui-corner-top ui-widget-content">
+					&copy; 2011 Benjamin Delespierre
+					- <a href="http://www.bdelespierre.fr" target="_blank">www.bdelespierre.fr</a>
+					- <a href="http://code.google.com/p/php-axiom/" target="_blank" title="<?=i18n('axiom.subtitle')?>" class="tiptip">Powered by Axiom</a>
+				</div>
 			</div>
 		</div>
 	</body>
