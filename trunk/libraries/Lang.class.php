@@ -234,12 +234,11 @@ class Lang {
      * @param string $lang = false
      * @return string
      */
-    public static function url ($route, $action = "", $lang = false) {
+    public static function url ($url, $lang = false) {
         if (!$lang)
             $lang = self::getLocale();
             
-        $url = self::$_config['base_url'] . "$lang/$route/$action";
-        return $url;
+        return self::$_config['base_url'] . "$lang/$url";
     }
     
     /**
