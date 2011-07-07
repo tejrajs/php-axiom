@@ -3,7 +3,7 @@
 	<?php foreach ($files as $file): ?>
 	<?php
 	switch ($file->getType()):
-        case 'image': $src = src('upload/' . $file->filename); break;
+        case 'image': $src = src('img/admin/frame_48.png'); break;
         case 'audio': $src = src('img/admin/sound_48.png'); break;
         case 'video': $src = src('img/admin/film_48.png'); break;
         case 'application':
@@ -13,9 +13,9 @@
 	?>
 	<li class="ui-widget-content ui-corner-tr ui-draggable ui-corner-all" id="<?=$file->id?>">
 		<h5 class="ui-widget-header ui-corner-all"><?=$file->filename?></h5>
-		<img width="96" height="72" alt="<?=$file->filename?>" src="<?=$src?>" class="ui-corner-all" />
+		<div><img alt="<?=$file->filename?>" src="<?=$src?>" class="ui-corner-all" /></div>
 		<?php if ($file->getType() == 'image'): ?>
-		<a class="ui-icon ui-icon-zoomin tiptip" title="<?=i18n('admin.files.file.view')?>" href="<?=$src?>">
+		<a class="ui-icon ui-icon-zoomin tiptip" title="<?=i18n('admin.files.file.view')?>" href="<?=src('upload/'.$file->filename)?>" rel="box">
 		    <?=i18n('admin.files.file.view')?>
 		</a>
 		<?php endif ?>
@@ -100,7 +100,7 @@ $(function() {
 			$item.append( recycle_icon ).appendTo( $list ).fadeIn(function() {
 				$item
 					.animate({ width: "48px" })
-					.find( "img" )
+					.find( "img,div" )
 						.animate({ height: "36px" });
 			});
 		});
@@ -117,25 +117,12 @@ $(function() {
 				.end()
 				.css( "width", "96px")
 				.append( trash_icon )
-				.find( "img" )
+				.find( "img,div" )
 					.css( "height", "72px" )
 				.end()
 				.appendTo( $gallery )
 				.fadeIn();
 		});
-	}
-
-	// image preview function, demonstrating the ui.dialog used as a modal window
-	function viewLargerImage( $link ) {
-		var src = $link.siblings( "img" ).attr('src'),
-		$img = $('<div><img src="' + src + '" /></div>');
-		$img.dialog({
-			modal: true,
-			width: 500,
-			height: 'auto',
-			resizable: false,
-			title: src
-		}).find('img').imgscale();
 	}
 
 	// get file properties
@@ -171,8 +158,6 @@ $(function() {
 
 		if ( $target.is( "a.ui-icon-trash" ) ) {
 			deleteImage( $item );
-		} else if ( $target.is( "a.ui-icon-zoomin" ) ) {
-			viewLargerImage( $target );
 		} else if ( $target.is( "a.ui-icon-refresh" ) ) {
 			recycleImage( $item );
 		} else if ( $target.is( "a.ui-icon-info") ) {
