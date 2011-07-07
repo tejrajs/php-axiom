@@ -8,13 +8,14 @@
         <link href="<?=src('css/admin.css')?>" type="text/css" rel="stylesheet" media="screen" />
         <link href="<?=src('css/tipTip.css')?>" type="text/css" rel="stylesheet" media="screen" />
         <link href="<?=src('css/cleditor/cleditor.css')?>" type="text/css" rel="stylesheet" media="screen" />
+        <link href="<?=src('css/fancybox/jquery.fancybox-1.3.4.css')?>" type="text/css" rel="stylesheet" media="screen" />
         <script src="<?=src('js/jquery-1.5.1.min.js')?>" type="text/javascript"></script>
         <script src="<?=src('js/jquery.tablesorter.min.js')?>" type="text/javascript"></script>
         <script src="<?=src('js/jquery-ui-1.8.11.custom.min.js')?>" type="text/javascript"></script>
         <script src="<?=src('js/jquery.validate.js')?>" type="text/javascript"></script>
         <script src="<?=src('js/jquery.tipTip.minified.js')?>" type="text/javascript"></script>
         <script src="<?=src('js/jquery.cleditor.min.js')?>" type="text/javascript"></script>
-        <script src="<?=src('js/jquery.imgscale.js')?>" type="text/javascript"></script>
+        <script src="<?=src('js/jquery.fancybox-1.3.4.js')?>" type="text/javascript"></script>
 		<script type="text/javascript">
 		<!--
 		$(function () {
@@ -35,8 +36,14 @@
 			$("input[type='password']").val('');
 
 			$(".cledit").cleditor({width: '100%'});
-
 			$("table.sortable").tablesorter();
+			$('a[rel=box]').fancybox({
+				'transitionIn'	:	'elastic',
+				'transitionOut'	:	'elastic',
+				'speedIn'		:	600,
+				'speedOut'		:	200,
+				'overlayShow'	:	false
+			});
 		});
 		//-->
 		</script>
@@ -52,7 +59,7 @@
 				<ul id="menu" class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix">
 					<li><a href="<?=url('admin/users')?>"><?=i18n('admin.menu.users')?></a></li>
 					<li><a href="<?=url('admin/files')?>"><?=i18n('admin.menu.files')?></a></li>
-					<li><a href="<?=url('summary')?>"><?=i18n('admin.menu.view_site')?></a></li>
+					<li><a href="<?=url('')?>"><?=i18n('admin.menu.view_site')?></a></li>
 				</ul>
 			</div>
 			<div id="content">
