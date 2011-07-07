@@ -255,7 +255,7 @@ div.warning {
     float: left; 
 	width: 618px;
 	min-height: 0px;
-} 
+}
 
 * html #gallery { /* IE6 */
     height: 36em; 
@@ -294,8 +294,12 @@ div.warning {
 }
 
 .gallery li img { 
-    width: 100%; 
-	cursor: move; 
+	cursor: move;
+	clear: both;
+}
+
+.gallery li div {
+	margin: 10px 0px;
 }
 
 #trash, #properties, #upload { 

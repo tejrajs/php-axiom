@@ -38,5 +38,4 @@ class DirectoryFilterIterator extends FilterIterator {
     public function accept () {
         return $this->current()->isDir() && !$this->current()->isDot();
     }
-    
 }
