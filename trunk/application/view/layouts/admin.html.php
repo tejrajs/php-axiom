@@ -44,6 +44,10 @@
 				'speedOut'		:	200,
 				'overlayShow'	:	false
 			});
+
+			$(".foldable .title").css('cursor', 'pointer').click(function () {
+				$(this).siblings().toggle();
+			});
 		});
 		//-->
 		</script>
