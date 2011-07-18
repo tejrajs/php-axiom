@@ -3,12 +3,13 @@
 	<?php foreach ($files as $file): ?>
 	<?php
 	switch ($file->getType()):
-        case 'image': $src = src('img/admin/frame_48.png'); break;
+        case 'image': $src = src('img/admin/photo_48.png'); break;
         case 'audio': $src = src('img/admin/sound_48.png'); break;
         case 'video': $src = src('img/admin/film_48.png'); break;
         case 'application':
-            if ($file->getSubtype() == 'pdf') { $src =  src('img/admin/document_48.png'); break; }
-        default: $src = src('img/admin/app_48.png'); break;
+            if (pathinfo($file->path, PATHINFO_EXTENSION) == 'mp3') { $src = src('img/admin/sound_48.png'); break; }
+            if ($file->getSubtype() == 'pdf') { $src = src('img/admin/document_48.png'); break; }
+        default: $src = src('img/admin/document_empty_48.png'); break;
 	endswitch;
 	?>
 	<li class="ui-widget-content ui-corner-tr ui-draggable ui-corner-all" id="<?=$file->id?>">
@@ -43,7 +44,7 @@
 	</h4>
 	<form action="<?=url('admin/files/upload')?>" method="post" enctype="multipart/form-data">
 		<input type="file" name="files[]" />
-		<input type="submit" value="<?=i18n('admin.files.upload.button.send')?>" />
+		<input type="submit" value="<?=i18n('admin.files.upload.button.send')?>" id="btnsend"/>
 		<input type="button" value="<?=i18n('admin.files.upload.button.add')?>" id="btnadd" />
 	</form>
 </div>
@@ -117,9 +118,7 @@ $(function() {
 				.end()
 				.css( "width", "96px")
 				.append( trash_icon )
-				.find( "img,div" )
-					.css( "height", "72px" )
-				.end()
+				.find( "img,div" ).css('height', 'auto').end()
 				.appendTo( $gallery )
 				.fadeIn();
 		});
@@ -169,7 +168,7 @@ $(function() {
 
 	$( "#btnadd" ).click(function () {
 		$( "#upload form" ).prepend('<input type="file" name="files[]" />');
-		$( "#gallery" ).height($( '#properties').height() + $( '#upload' ).height() + $( '#trash' ).height());
+		$( "#gallery" ).height($( '#properties').height() + $( '#upload' ).height() + $( '#trash' ).height() + 76);
 
 		return false;
 	});
@@ -195,7 +194,7 @@ $(function() {
 		return false;
 	});
 
-	$( "#gallery" ).height($( '#properties').height() + $( '#upload' ).height() + $( '#trash' ).height() + 32);
+	$( "#gallery" ).height($( '#properties').height() + $( '#upload' ).height() + $( '#trash' ).height() + 76);
 });
 //-->
 </script>

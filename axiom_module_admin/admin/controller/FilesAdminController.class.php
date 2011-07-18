@@ -20,14 +20,15 @@ class FilesAdminController extends SecuredController {
             foreach ($_FILES['files']['error'] as $key => $error) {
                 if ($error == UPLOAD_ERR_OK) {
                     $tmp_name = $_FILES['files']['tmp_name'][$key];
-                    $name = uniqid('f_') . '.' . pathinfo($_FILES['files']['name'][$key], PATHINFO_EXTENSION);
+                    $name = $_FILES['files']['name'][$key];
+                    //$name = uniqid('f_') . '.' . pathinfo($_FILES['files']['name'][$key], PATHINFO_EXTENSION);
                     $path = APPLICATION_PATH . "/webroot/upload/$name";
                     $file = new File();
                     $file_inputs = array(
                         'filename' => $name,
                         'path' => $path,
                         'mime_type' => $_FILES['files']['type'][$key], // FIXME this value is unsafe
-                        'upload' => time(),
+                        'upload' => date('Y-m-d H:i:s'),
                         'ax_users_id' => self::$_session->user->id,
                     );
                     if (move_uploaded_file($tmp_name, $path) && $file->create($file_inputs)) {
