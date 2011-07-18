@@ -302,22 +302,31 @@ div.warning {
 	margin: 10px 0px;
 }
 
+.ui-draggable-dragging {
+	z-index: 1000;
+}
+
 #trash, #properties, #upload { 
     float: right; 
 	width: 300px;
 	padding: 3px; 
-	min-height: 10em; 
+	min-height: 10em;
 	margin-bottom: 0.5em; 
+	z-index: 0;
 } 
 
 * html #trash, * html #properties, * html #upload { /* IE6 */
     height: 18em; 
 }
 
+#trash, #upload {
+	position: relative;
+	padding-bottom: 2.5em;
+}
+
 #trash h4, #properties h4, #upload h4 { 
     line-height: 16px; 
 	margin: 0 0 0.4em; 
-	cursor: pointer; 
 }
 
 #trash h4 .ui-icon, #properties h4 .ui-icon, #upload h4 .ui-icon { 
@@ -335,4 +344,13 @@ div.warning {
 #properties table {
 	font-size: 0.8em;
 	margin-bottom: 0px;
+}
+
+#btndelete, #btnsend {
+	display: block;
+	margin: 5px 2px 5px 2px;
+	padding: 0px;
+	position: absolute;
+	bottom: 0px;
+	width: 295px;
 }
