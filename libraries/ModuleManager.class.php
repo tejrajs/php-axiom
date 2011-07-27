@@ -6,15 +6,15 @@
  * @author Benjamin DELESPIERRE <benjamin.delespierre@gmail.com>
  * @category libAxiom
  * @package library
- * $Date: 2011-05-20 11:51:17 +0200 (ven., 20 mai 2011) $
- * $Id: ModuleManager.class.php 23045 2011-05-20 09:51:17Z bordas $
+ * $Date$
+ * $Id$
  */
 
 /**
  * Module Manager
  *
  * @author Delespierre
- * @version $Rev: 23045 $
+ * @version $Rev$
  * @subpackage ModuleManager
  */
 class ModuleManager {

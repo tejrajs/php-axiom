@@ -6,15 +6,15 @@
  * @author Benjamin DELESPIERRE <benjamin.delespierre@gmail.com>
  * @category libAxiom
  * @package library
- * $Date: 2011-05-20 16:32:08 +0200 (ven., 20 mai 2011) $
- * $Id: Autoloader.class.php 23055 2011-05-20 14:32:08Z delespierre $
+ * $Date$
+ * $Id$
  */
 
 /**
  * Autoloader Class
  *
  * @author Delespierre
- * @version $Rev: 23055 $
+ * @version $Rev$
  * @subpackage Autoloader
  */
 class Autoloader {

@@ -6,8 +6,8 @@
  * @author Benjamin DELESPIERRE <benjamin.delespierre@gmail.com>
  * @category libAxiom
  * @package helper
- * $Date: 2011-05-18 17:00:36 +0200 (mer., 18 mai 2011) $
- * $Id: BaseHelper.class.php 22988 2011-05-18 15:00:36Z delespierre $
+ * $Date$
+ * $Id$
  */
 
 /**
@@ -15,7 +15,7 @@
  *
  * @abstract
  * @author Delespierre
- * @version $Rev: 22988 $
+ * @version $Rev$
  * @subpackage BaseHelper
  */
 abstract class BaseHelper implements Helper {
