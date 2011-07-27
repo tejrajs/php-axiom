@@ -6,15 +6,15 @@
  * @author Benjamin DELESPIERRE <benjamin.delespierre@gmail.com>
  * @category Action
  * @package Controller
- * $Date: 2011-07-25 12:01:02 +0200 (lun., 25 juil. 2011) $
- * $Id: AdminController.class.php 40 2011-07-25 10:01:02Z TchernoBen@gmail.com $
+ * $Date$
+ * $Id$
  */
 
 /**
  * Admin Controller
  *
  * @author Delespierre
- * @version $Rev: 40 $
+ * @version $Rev$
  * @subpackage AdminController
  */
 class AdminController extends BaseController {
