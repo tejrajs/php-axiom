@@ -9,6 +9,7 @@
         <link href="<?=src('css/tipTip.css')?>" type="text/css" rel="stylesheet" media="screen" />
         <link href="<?=src('css/cleditor/cleditor.css')?>" type="text/css" rel="stylesheet" media="screen" />
         <link href="<?=src('css/fancybox/jquery.fancybox-1.3.4.css')?>" type="text/css" rel="stylesheet" media="screen" />
+        <link href="<?=src('img/axiom_16.png')?>" type="image/png" rel="icon" media="screen" />
         <script src="<?=src('js/jquery-1.5.1.min.js')?>" type="text/javascript"></script>
         <script src="<?=src('js/jquery.tablesorter.min.js')?>" type="text/javascript"></script>
         <script src="<?=src('js/jquery-ui-1.8.11.custom.min.js')?>" type="text/javascript"></script>

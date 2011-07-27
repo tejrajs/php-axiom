@@ -6,3 +6,6 @@
 </IfModule>
 
 php_flag short_open_tag 1
+php_flag file_uploads 1
+php_value upload_max_filesize 10M
+php_value post_max_size 10M

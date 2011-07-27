@@ -31,3 +31,5 @@ require dirname(__FILE__) . '/bootstrap/modules.php';
 require dirname(__FILE__) . '/bootstrap/views.php';
 
 require dirname(__FILE__) . '/bootstrap/feed.php';
+
+require dirname(__FILE__) . '/bootstrap/upload.php';
