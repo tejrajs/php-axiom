@@ -6,11 +6,11 @@
  * @author Benjamin DELESPIERRE <benjamin.delespierre@gmail.com>
  * @category config
  * @package bootstrap
- * $Date: 2011-05-18 17:00:36 +0200 (mer., 18 mai 2011) $
- * $Id: bootstrap.php 22988 2011-05-18 15:00:36Z delespierre $
+ * $Date$
+ * $Id$
  */
 
-define('AXIOM_VERSION', 'v1.0.4 - Beta');
+define('AXIOM_VERSION', 'v1.0.5 - RC1');
 define('LIBRARY_PATH',     dirname(dirname(dirname(__FILE__))) . '/libraries');
 define('APPLICATION_PATH', dirname(dirname(dirname(__FILE__))) . '/application');
 
