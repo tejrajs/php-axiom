@@ -6,15 +6,15 @@
  * @author Benjamin DELESPIERRE <benjamin.delespierre@gmail.com>
  * @category libAxiom
  * @package library
- * $Date: 2011-05-18 17:00:36 +0200 (mer., 18 mai 2011) $
- * $Id: PDOStatementIterator.class.php 22988 2011-05-18 15:00:36Z delespierre $
+ * $Date$
+ * $Id$
  */
 
 /**
  * PDO Statement Iterator Class
  *
  * @author Delespierre
- * @version $Rev: 22988 $
+ * @version $Rev$
  * @subpackage PDOStatementIterator
  */
 class PDOStatementIterator extends IteratorIterator implements SeekableIterator, Countable {
