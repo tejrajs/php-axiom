@@ -1,0 +1,62 @@
+@CHARSET "UTF-8";
+
+/**
+ * PHP AXIOM
+ *
+ * @license LGPL
+ * @author Benjamin DELESPIERRE <benjamin.delespierre@gmail.com>
+ * @category view
+ * @package CSS
+ * $Date$
+ * $Id$
+ */
+
+body {
+	max-width: 755px;
+	margin: 0px auto;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 0.75em;
+	border-top: 0.5em solid #2f6eb6;
+}
+
+body > div {
+	text-align: center;
+}
+
+body > div > p {
+	font-family: "Trebuchet MS";
+	font-size: 150%;
+	font-style: italic;
+	font-weight: bold;
+	color: #2f6eb6;
+}
+
+h2 {
+	color: #2f6eb6;
+	border-bottom: 1px solid #2f6eb6;
+}
+
+h3 {
+	color: #6b9ed9;
+	margin-top: 2em;
+}
+
+pre, a {
+	color: #333;
+	margin: 1em;
+	padding: 0.5em;
+	border: 1px solid #333;
+	background-color: #eee;
+	font-size: 120%;
+	font-family: monospace;
+}
+
+a, a:hover, a:active, a:visited, a:link {
+	text-decoration: none;
+	display: block;
+}
+
+#licence {
+	height: 20em;
+	overflow-y: scroll;
+}
