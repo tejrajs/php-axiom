@@ -1,0 +1,356 @@
+@CHARSET "UTF-8";
+
+/**
+ * PHP AXIOM
+ *
+ * @license LGPL
+ * @author Benjamin DELESPIERRE <benjamin.delespierre@gmail.com>
+ * @category view
+ * @package CSS
+ * $Date$
+ * $Id$
+ */
+
+html {
+	overflow-y: scroll;
+	height: 100%;
+}
+
+body {
+	margin: 0;
+	padding: 0px;
+	height: 100%;
+	font: 62.5% "Trebuchet MS", sans-serif;
+}
+
+h1 {
+	text-shadow: 2px 2px 1px white;
+}
+
+h2 {
+	color: #aaa;
+	border-bottom: 1px #ccc solid;
+}
+
+h2 img {
+	vertical-align: middle;
+	margin-right: 3px;
+}
+
+a img {
+	border: none;
+}
+
+a, a:link, a:visited, a:hover, a:active {
+	text-decoration: none;
+}
+
+table {
+	width: 100%;
+	margin: 0px 0px 15px 0px;
+}
+
+table tbody tr td:first-child, 
+table tfoot tr td:first-child {
+	text-align: center;
+}
+
+table tfoot tr td:first-child .ui-icon,
+table tbody tr td.action .ui-icon {
+	margin: auto;
+}
+
+form fieldset {
+	margin: 0px 0px 15px 0px;
+}
+
+form fieldset > div {
+    margin: 5px 0px;
+	min-height: 46px;
+}
+
+form fieldset > div > span.ui-buttonset label {
+	margin-top: 3px;
+}
+
+form fieldset > div > label {
+	display: block;
+}
+
+form fieldset > div input[type="text"],
+form fieldset > div input[type="password"],
+form fieldset > div select,
+form fieldset > div textarea {
+    border: none;
+    display: block;
+    width: 100%;
+    background: white;
+}
+
+form fieldset > div .ui-corner-all {
+	margin: 3px;
+	padding: 2px;
+	border: 1px solid #ddd;
+	background: white;
+}
+
+form fieldset legend {
+	padding: 3px;
+}
+
+/**
+ * IDs
+ * -----------------------------------------------------------------------------------------------------------------------------------------
+ */
+
+#wrapper {
+	position: relative;
+	width: 950px;
+	min-height: 100%;
+    margin: 0px auto;
+}
+
+#header, #content, #footer {
+	position: relative;
+	padding: 3px;
+	margin: 0px 5px 5px 5px;
+	border-top: none;
+}
+
+#header h1 {
+	margin-left: 5px;
+}
+
+#header h1 a {
+	text-decoration: none;
+}
+
+#user {
+    position: absolute;
+    right: 5px;
+	top: 5px;
+}
+
+#user span {
+	display: block;
+	text-align: right;
+	font-size: 1.3em;
+}
+
+#menu {
+	position: relative;
+	margin-bottom: 0px;
+	padding: 0px;
+}
+
+#menu li {
+	list-style: none;
+	margin: 0px 5px;
+}
+
+#menu li a {
+	text-decoration: none;
+}
+
+#menu li {
+	display: block;
+	float: left;
+	font-size: 1.2em;
+	line-height: 1.3em;
+}
+
+#menu li a {
+	display: block;
+	padding: 3px;
+}
+
+#messages {
+	font-size: 1.2em;
+}
+
+#content {
+	margin: 0px 5px 0px 5px;
+	padding-bottom: 30px;
+}
+
+#footer {
+	margin: 0px;
+	padding: 0px;
+	height: 25px;
+	position: absolute;
+    bottom: 0px;
+	width: 100%;
+	clear: both;
+}
+
+#footer div {
+    margin: 0px auto;
+    padding: 3px;
+	font-size: 1.2em;
+	border-bottom: 0px;
+}
+
+/**
+ * Generic Classes
+ * -----------------------------------------------------------------------------------------------------------------------------------------
+ */
+
+div.error,
+div.warning {
+    margin-top: 3px;
+    padding: 0pt 0.7em;
+}
+.error span.ui-icon,
+.warning span.ui-icon {
+    float: left; 
+    margin-right: 0.3em;
+}
+
+.clear {
+	height: 1px; 
+	clear: both;
+}
+
+/**
+ * Panel
+ * -----------------------------------------------------------------------------------------------------------------------------------------
+ */
+
+#panel div {
+	width: 25%;
+	float: left;
+}
+
+#panel span {
+	display: block;
+	margin: 5px;
+	padding: 3px;
+	font-size: 1.3em;
+}
+
+#panel span a {
+	display: block;
+	text-decoration: none;
+}
+
+#panel span img {
+	vertical-align: middle;
+	margin-right: 5px;
+	border: none;
+}
+
+#panel h2 {
+	clear: both;
+	margin: 0px;
+	margin-bottom: 5px;
+	padding-top: 5px;
+}
+
+/**
+ * Files
+ * -----------------------------------------------------------------------------------------------------------------------------------------
+ */
+
+#gallery { 
+    float: left; 
+	width: 618px;
+	min-height: 0px;
+}
+
+* html #gallery { /* IE6 */
+    height: 36em; 
+}
+
+.gallery.custom-state-active { 
+    background: #eee; 
+}
+
+.gallery li { 
+    float: left; 
+	width: 96px; 
+	padding: 0.4em; 
+	margin: 0.4em; 
+	text-align: center; 
+}
+
+.gallery li h5 { 
+    margin: 0 0 0.4em; 
+	cursor: move; 
+	overflow: hidden; 
+	padding: 0 0.4em; 
+	height: 1.3em;
+}
+
+.gallery li a { 
+    float: right; 
+}
+
+.gallery li a.ui-icon-zoomin { 
+    float: left; 
+}
+
+.gallery li a.ui-icon-info { 
+    float: left; 
+}
+
+.gallery li img { 
+	cursor: move;
+	clear: both;
+}
+
+.gallery li div {
+	margin: 10px 0px;
+}
+
+.ui-draggable-dragging {
+	z-index: 1000;
+}
+
+#trash, #properties, #upload { 
+    float: right; 
+	width: 300px;
+	padding: 3px; 
+	min-height: 10em;
+	margin-bottom: 0.5em; 
+	z-index: 0;
+} 
+
+* html #trash, * html #properties, * html #upload { /* IE6 */
+    height: 18em; 
+}
+
+#trash, #upload {
+	position: relative;
+	padding-bottom: 2.5em;
+}
+
+#trash h4, #properties h4, #upload h4 { 
+    line-height: 16px; 
+	margin: 0 0 0.4em; 
+}
+
+#trash h4 .ui-icon, #properties h4 .ui-icon, #upload h4 .ui-icon { 
+    float: left; 
+}
+
+#trash .gallery h5 { 
+    display: none; 
+}
+
+#upload form input[type="file"] {
+	margin-bottom: 0.5em;
+}
+
+#properties table {
+	font-size: 0.8em;
+	margin-bottom: 0px;
+}
+
+#btndelete, #btnsend {
+	display: block;
+	margin: 5px 2px 5px 2px;
+	padding: 0px;
+	position: absolute;
+	bottom: 0px;
+	width: 295px;
+}
