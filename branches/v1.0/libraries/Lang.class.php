@@ -227,6 +227,10 @@ class Lang {
         }
     }
     
+    public static function getBaseUrl () {
+        return self::$_config['base_url'];
+    }
+    
     /**
      * Format URL
      * @param string $route

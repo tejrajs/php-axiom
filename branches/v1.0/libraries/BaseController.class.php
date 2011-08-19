@@ -48,7 +48,7 @@ abstract class BaseController {
      * @param Request $request
      * @return void
      */
-    final public static function setRequest (Request &$request) {
+    final protected static function setRequest (Request &$request) {
         self::$_request = $request;
     }
     
@@ -57,8 +57,23 @@ abstract class BaseController {
      * @param Response $response
      * @return void
      */
-    final public static function setResponse (Response &$response) {
+    final protected static function setResponse (Response &$response) {
         self::$_response = $response;
+    }
+    
+    final protected static function forward ($controller, $action = "index") {
+        if (strpos($controller, 'Controller') === false) {
+            throw new RuntimeException("$controller is not a valid controller name");
+        }
+        if ($controller == 'BaseController') {
+            throw new RuntimeException("Redirection is impossible on $controller");
+        }
+        
+        throw new ForwardException($controller, $action);
+    }
+    
+    final protected static function redirect ($url, $method = self::REDIRECT_LOCATION) {
+        
     }
     
     /**

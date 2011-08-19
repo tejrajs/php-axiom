@@ -45,10 +45,12 @@ class ViewManager {
      * @return void
      */
     public static function load ($controller, $action) {
+        foreach (self::$_response->getHeaders() as $header)
+            header($header);
         self::setContentType($format = ($f = self::$_response->getOutputFormat()) ? $f : self::$_config['default_output_format']);
-
-        $section = lcfirst(str_replace('Controller', '', $controller));
-        $view = ($v = self::$_response->getResponseView()) ? $v : $action;
+        
+        $section = strtolower(str_replace('Controller', '', $controller));
+        $view = strtolower(($v = self::$_response->getResponseView()) ? $v : $action);
         
         if (file_exists($__filename = realpath(self::$_config['view_path']) . "/{$section}/{$view}.{$format}.php")) { }
         elseif (file_exists($__filename = realpath(self::$_config['default_view_path']) . "/{$section}/{$view}.{$format}.php")) { }
@@ -59,9 +61,9 @@ class ViewManager {
             
             extract(self::$_layout_vars);
             extract(self::$_response->getResponseVars());
-            foreach (self::$_response->getMessages() as $level => $message) {
-                ${$level} = $message;
-            }
+            foreach (self::$_response->getMessages() as $level => $messages)
+                ${$level} = $messages;
+
             include $__filename;
             
             ${self::$_config['layout_content_var']} = ob_get_contents();
@@ -69,11 +71,13 @@ class ViewManager {
         }
         catch (Exception $e) {
             ob_end_clean();
-            Router::load('ErrorController', 'http500');
-            return;
+            throw $e;
         }
         
-        include self::getLayoutFilePath($format);
+        if (self::$_response->layout())
+            include self::getLayoutFilePath($format);
+        else
+            echo ${self::$_config['layout_content_var']};
     }
     
     /**
@@ -182,28 +186,4 @@ class ViewManager {
     public static function setResponse (Response &$response) {
         self::$_response = $response;
     }
-    
-    /**
-     * Perform a redirection
-     * Trigger the exit of the script
-     * @param string $url
-     * @return void
-     */
-    public static function redirect ($url) {
-        header("Location: $url");
-        /*
-         * TODO add redirection message here
-        self::setLayoutVar('url', $url);
-        self::load("ErrorController", "redirection");
-         */
-        exit();
-    }
-}
-
-/**
- * (non PHP-doc)
- * @see ViewManager::redirect
- */
-function redirect ($url) {
-    ViewManager::redirect($url);
 }

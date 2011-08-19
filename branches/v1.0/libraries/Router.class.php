@@ -151,6 +151,9 @@ class Router {
         catch (LoginException $e) {
             return self::run("error", "http403");
         }
+        catch (ForwardException $e) {
+            return self::load($e->getController(), $e->getAction());
+        }
         catch (Exception $e) {
             return self::run("error", "http500");
         }
@@ -160,8 +163,7 @@ class Router {
             ViewManager::load($controller, $action);
         }
         catch (Exception $e) {
-            header("HTTP/1.0 500 Internal Server Error", true);
-            die();
+            return self::run("error", "http500");
         }
     }
 }

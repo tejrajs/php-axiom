@@ -19,6 +19,11 @@
  */
 class Response {
     
+    const REDIRECT_PERMANENT = 1;
+    const REDIRECT_LOCATION = 2;
+    const REDIRECT_JAVASCRIPT = 3;
+    const REDIRECT_REFRESH = 4;
+    
     /**
      * Response vars
      * @var array
@@ -50,11 +55,21 @@ class Response {
     protected $_output_format;
     
     /**
+     * Enable page layout
+     * @var boolean
+     */
+    protected $_layout_enabled;
+    
+    protected $_headers;
+    
+    /**
      * Default constructor
      */
     public function __construct () {
         $this->_response_vars = array();
         $this->_messages = array();
+        $this->_layout_enabled = true;
+        $this->_headers = array();
     }
     
     /**
@@ -194,5 +209,79 @@ class Response {
             $this->_output_transformer = $callback;
         else
             throw new InvalidArgumentException("Passed callback is not callable");
+    }
+    
+    /**
+     * Disable or enable the page layout
+     * @param $enabled =true
+     * @return void
+     */
+    public function setLayout ($enabled = true) {
+        $this->_layout_enabled = (boolean)$enabled;
+    }
+    
+    /**
+     * Tell if the layout is enabled
+     * @return boolean
+     */
+    public function layout () {
+        return $this->_layout_enabled;
+    }
+    
+    /**
+     * Add an HTTP header field
+     * @param string $header
+     * @return void
+     */
+    public function setHeader ($header) {
+        $this->_headers[md5($header)] = $header;
+    }
+    
+    /**
+     * Removes an HTTP header field
+     * @param string $header
+     * @return void
+     */
+    public function unsetHeader ($header) {
+        if (isset($this->_headers[md5($header)])) {
+            unset($this->_headers[md5($header)]);
+            return true;
+        }
+        return false;
+    }
+    
+    /**
+     * Get all the headers
+     * @return array
+     */
+    public function getHeaders () {
+        return $this->_headers;
+    }
+    
+    /**
+     * Removes all headers
+     * @return void
+     */
+    public function flushHeaders () {
+        $this->_headers = array();
+    }
+    
+    public function setRedirection ($url, $method = self::REDIRECT_LOCATION) {
+        // TODO
+        switch ($method) {
+            case self::REDIRECT_PERMANENT: break;
+            case self::REDIRECT_LOCATION: break;
+            case self::REDIRECT_JAVASCRIPT: break;
+            case self::REDIRECT_REFRESH: break;
+            default: throw new RuntimeException("Invalid redirection method"); break;
+        }
+    }
+    
+    public function unsetRedirection () {
+        // TODO
+    }
+    
+    public function getRedirection () {
+        // TODO mettre en forme le header si nécéssaire ou renvoyer false !
     }
 }

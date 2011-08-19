@@ -17,4 +17,5 @@ Lang::setConfig(array(
     'locales' => array('en', 'fr'),
     'base_url' => '/axiom/',
 ));
+
 Lang::loadLanguage();

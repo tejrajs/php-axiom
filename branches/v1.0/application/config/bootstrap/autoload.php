@@ -15,3 +15,4 @@ require_once LIBRARY_PATH . "/Autoloader.class.php";
 Autoloader::setConfig();
 
 Autoloader::start();
+
