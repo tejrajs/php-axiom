@@ -9,7 +9,6 @@ class FilesAdminController extends SecuredController {
     
     public static function files () {
         $files = File::getFiles();
-
         return compact("files");
     }
     
@@ -21,7 +20,6 @@ class FilesAdminController extends SecuredController {
                 if ($error == UPLOAD_ERR_OK) {
                     $tmp_name = $_FILES['files']['tmp_name'][$key];
                     $name = $_FILES['files']['name'][$key];
-                    //$name = uniqid('f_') . '.' . pathinfo($_FILES['files']['name'][$key], PATHINFO_EXTENSION);
                     $path = APPLICATION_PATH . "/webroot/upload/$name";
                     $file = new File();
                     $file_inputs = array(

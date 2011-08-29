@@ -7,7 +7,8 @@ abstract class SecuredController extends BaseController {
     public static function _init (Request &$request, Response &$response) {
         parent::_init($request, $response);
         
-        if (!Session::id()) Session::start();
+        if (!Session::id())
+            Session::start();
         
         self::$_session = new Session();
         

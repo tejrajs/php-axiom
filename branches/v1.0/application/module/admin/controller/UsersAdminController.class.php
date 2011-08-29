@@ -9,7 +9,6 @@ class UsersAdminController extends SecuredController {
     
     public static function users () {
         $users = User::getUsers();
-        
         return compact('users');
     }
     
@@ -18,17 +17,15 @@ class UsersAdminController extends SecuredController {
     }
     
     public static function edit () {
-        if ($id = self::$_request->id) {
+        if ($id = self::$_request->id)
             $user_edit = new User($id);
-        }
         
         return compact("user_edit");
     }
     
     public static function save () {
         if (self::$_request->cancel) {
-            self::$_response->setResponseView("users");
-            return self::users();
+            self::redirect(url('admin/users'), RedirectException::REDIRECT_PERMANENT);
         }
         
         if (self::$_request->password != self::$_request->password_confirm) {
@@ -65,8 +62,7 @@ class UsersAdminController extends SecuredController {
             
             if ($user->$method($inputs)) {
                 self::$_response->addMessage(i18n('admin.users.edit.save.ok', $user->login));
-                self::$_response->setResponseView("users");
-                redirect(url('admin/users'));
+                self::redirect(url('admin/users'), RedirectException::REDIRECT_REFRESH);
             }
             else {
                 self::$_response->addMessage(i18n('admin.users.edit.save.nok'), MESSAGE_ALERT);

@@ -9,7 +9,7 @@ class RedirectException extends Exception {
      * Expressed in seconds
      * @var integer
      */
-    const REFRESH_DELAY = 5000;
+    const REFRESH_DELAY = 5;
     
     protected $_url;
     protected $_method;
