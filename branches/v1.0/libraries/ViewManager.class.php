@@ -186,4 +186,50 @@ class ViewManager {
     public static function setResponse (Response &$response) {
         self::$_response = $response;
     }
+    
+	/**
+     * Load a view specified by $section and $view
+     * in a buffer and return it.
+     *
+     * Will return false if an error was
+     * encountered in the loaded view.
+     *
+     * Note: this method is intended for specific
+     * purposes only. DO NOT chain partials
+     * nor call partial everytime for practical
+     * reasons for this method can be considered
+     * as heavily demanding.
+     *
+     * @param string $section
+     * @param string $view
+     * @param string $format = "html"
+     * @return string
+     */
+    public static function partial ($section, $view, $format = "html") {
+        if (file_exists($__filename = realpath(self::$_config['view_path']) . "/{$section}/{$view}.{$format}.php")) { }
+        elseif (file_exists($__filename = realpath(self::$_config['default_view_path']) . "/{$section}/{$view}.{$format}.php")) { }
+        else return false;
+        
+        try {
+            extract(self::$_layout_vars);
+            extract(self::$_response->getResponseVars());
+            ob_start();
+            include $__filename;
+            $buffer = ob_get_contents();
+            ob_end_clean();
+        }
+        catch (Exception $e) {
+            ob_end_clean();
+            return false;
+        }
+        return $buffer;
+    }
+}
+
+/**
+ * Non PHP-doc
+ * @see ViewManager::partial
+ */
+function partial ($section, $view, $format = "html") {
+    return ViewManager::partial($section, $view, $format);
 }
