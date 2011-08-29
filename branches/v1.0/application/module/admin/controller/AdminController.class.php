@@ -31,14 +31,10 @@ class AdminController extends BaseController {
             if (ModuleManager::exists($admrt))
                 ModuleManager::load($admrt);
                 
-            if (!Autoloader::load($controller = ucfirst($admrt).'AdminController'))
-                throw new BadMethodCallException("Cannot find $controller");
-                
-            Router::load($controller, self::$_request->admact);
-            exit();
+            self::forward(ucfirst($admrt).'AdminController', self::$_request->admact);
         }
-        Router::load('PanelAdminController');
-        exit();
+        
+        self::forward('PanelAdminController');
     }
     
     public static function login () {
@@ -47,17 +43,15 @@ class AdminController extends BaseController {
                 $user->last_connection = date('Y-m-d H:i:s');
                 $user->update();
                 self::$_session->user = $user;
-                
-                redirect(url('admin'));
+                self::$_response->addMessage(i18n('admin.login.success', $user->name, $user->surname));
+                self::redirect(url('admin'));
             }
-            else
-                throw new LoginException("Could not find this user");
+            throw new LoginException("Could not find this user");
         }
     }
     
     public static function logout () {
         self::$_session->destroy();
-        
-        redirect(url('index'));
+        self::redirect(url('index'), RedirectException::REDIRECT_PERMANENT);
     }
 }

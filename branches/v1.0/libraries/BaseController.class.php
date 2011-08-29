@@ -61,19 +61,40 @@ abstract class BaseController {
         self::$_response = $response;
     }
     
+    /**
+     * Forward the action to another controller
+     * @param string $controller
+     * @param string $action = "index"
+     * @throws RuntimeException
+     * @throws ForwardException
+     * @return void
+     */
     final protected static function forward ($controller, $action = "index") {
-        if (strpos($controller, 'Controller') === false) {
+        if (strpos($controller, 'Controller') === false)
             throw new RuntimeException("$controller is not a valid controller name");
-        }
-        if ($controller == 'BaseController') {
-            throw new RuntimeException("Redirection is impossible on $controller");
-        }
         
+        if ($controller == 'BaseController')
+            throw new RuntimeException("Redirection is impossible on $controller");
+        
+        if (!Autoloader::load($controller))
+            throw new BadMethodCallException("Cannot find $controller");
+            
         throw new ForwardException($controller, $action);
     }
     
-    final protected static function redirect ($url, $method = self::REDIRECT_LOCATION) {
-        
+    /**
+     * Triggers a redirection
+     * @param string $url
+     * @param int $method = RedirectException::REDIRECT_REFRESH
+     * @throws InvalidArgumentException
+     * @throws RedirectException
+     * @return void
+     */
+    final protected static function redirect ($url, $method = RedirectException::REDIRECT_REFRESH) {
+        if (!$url)
+            throw new InvalidArgumentException("First parameter is expected to be a valid url");
+            
+        throw new RedirectException($url, $method);
     }
     
     /**

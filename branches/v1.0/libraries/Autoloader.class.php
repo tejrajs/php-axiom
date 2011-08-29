@@ -36,6 +36,7 @@ class Autoloader {
                 APPLICATION_PATH . '/controller',
                 APPLICATION_PATH . '/model',
                 LIBRARY_PATH,
+                LIBRARY_PATH . '/exceptions',
                 LIBRARY_PATH . '/helpers',
                 LIBRARY_PATH . '/feeds',
 				LIBRARY_PATH . '/uploader',

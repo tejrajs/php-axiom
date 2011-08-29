@@ -8,7 +8,6 @@ try {
     Lang::loadLanguage(dirname(dirname(__FILE__)) . '/locale/langs/' . Lang::getLocale() . '.ini');
 }
 catch (Exception $e) {
-    var_dump($e->getMessage());
     Router::run('error', 'http500');
     die();
 }

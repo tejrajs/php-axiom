@@ -154,6 +154,9 @@ class Router {
         catch (ForwardException $e) {
             return self::load($e->getController(), $e->getAction());
         }
+        catch (RedirectException $e) {
+            return self::redirect($e);
+        }
         catch (Exception $e) {
             return self::run("error", "http500");
         }
@@ -164,6 +167,15 @@ class Router {
         }
         catch (Exception $e) {
             return self::run("error", "http500");
+        }
+    }
+    
+    public static function redirect (RedirectException $exception) {
+        header((string)$exception);
+        
+        if ($exception->getMethod() == RedirectException::REDIRECT_REFRESH) {
+            self::$_response->addAll(array('url' => $exception->getUrl()));
+            self::load('ErrorController', 'redirection');
         }
     }
 }

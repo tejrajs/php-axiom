@@ -31,4 +31,7 @@ class ErrorController extends BaseController {
     public static function http500 () { self::$_response->setHeader("HTTP/1.0 500 Internal Server Error"); }
     public static function http501 () { self::$_response->setHeader("HTTP/1.0 501 Not Implemented"); }
     public static function http503 () { self::$_response->setHeader("HTTP/1.0 503 Service Unavailable"); }
+    
+    /* OTHER HTTP Headers */
+    public static function redirection () {}
 }

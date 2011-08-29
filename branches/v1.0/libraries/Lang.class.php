@@ -278,8 +278,8 @@ function i18n ($key) {
  * (Non PHP-doc)
  * @see Lang::url
  */
-function url ($route, $action = "", $lang = false) {
-    return Lang::url($route, $action, $lang);
+function url ($url, $lang = false) {
+    return Lang::url($url, $lang);
 }
 
 /**
