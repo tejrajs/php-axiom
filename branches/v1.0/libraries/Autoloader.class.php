@@ -38,6 +38,7 @@ class Autoloader {
                 LIBRARY_PATH,
                 LIBRARY_PATH . '/exceptions',
                 LIBRARY_PATH . '/helpers',
+                LIBRARY_PATH . '/loggers',
                 LIBRARY_PATH . '/feeds',
 				LIBRARY_PATH . '/uploader',
             ),

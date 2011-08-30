@@ -15,6 +15,7 @@ date_default_timezone_set("Europe/Paris");
 error_reporting(-1);
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
+/*
 ini_set('log_errors', 1);
 ini_set('ignore_repeated_errors', 1);
 ini_set('error_prepend_string', 'AXIOM [' . AXIOM_VERSION . '] >> ');
@@ -23,6 +24,7 @@ ini_set('error_log', APPLICATION_PATH . '/ressources/temp/logs/error.log');
 define('MESSAGE_WARNING', 'warnings');
 define('MESSAGE_ALERT', 'alerts');
 define('XML_HEADER', '<?xml version="1.0" encoding="UTF-8" ?>');
+*/
 
 /**
  * User functions

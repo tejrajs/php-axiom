@@ -18,6 +18,8 @@ require dirname(__FILE__) . '/bootstrap/settings.php';
 
 require dirname(__FILE__) . '/bootstrap/autoload.php';
 
+require dirname(__FILE__) . '/bootstrap/log.php';
+
 require dirname(__FILE__) . '/bootstrap/session.php';
 
 require dirname(__FILE__) . '/bootstrap/locale.php';

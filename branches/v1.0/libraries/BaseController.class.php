@@ -96,10 +96,4 @@ abstract class BaseController {
             
         throw new RedirectException($url, $method);
     }
-    
-    /**
-     * Index method
-     * @abstract
-     */
-    abstract public static function index ();
 }
