@@ -22,13 +22,18 @@ class Log {
     
     public static function setConfig (array $config = array()) {
         $defaults = array(
-            'ignore_repeated_messages' => false,
+            'ignore_repeated_messages' => true,
             'log_errors' => true,
+            'log_exception' => true,
         );
         
         self::$_config = $config + $defaults;
+        
         if (self::$_config['log_errors'])
-            self::registerAsErrorHandler();
+            self::registerErrorHandler();
+            
+        if (self::$_config['log_exception'])
+            ;
     }
     
     public static function message ($msg, $priority) {
@@ -66,34 +71,66 @@ class Log {
             self::$_last->setNext(self::$_last = $logger);
     }
     
-    public static function registerAsErrorHandler ($error_types = -1) {
-        set_error_handler(array(__CLASS__, 'handleError'));
+    public static function registerErrorHandler ($error_types = -1) {
+        return set_error_handler(array(__CLASS__, 'handleError'));
+    }
+    
+    public static function restoreErrorHandler () {
+        return restore_error_handler();
     }
     
     public static function handleError ($errno, $errstr, $errfile, $errline) {
-        $error = "$errstr in $errfile on line $errline";
+        $error = "(PHP Error) $errstr in $errfile on line $errline";
         switch ($errno) {
-            case E_USER_WARNING:
             case E_WARNING:
+            case E_USER_WARNING:
                 self::warning($error);
                 break;
                 
-            case E_USER_NOTICE:
             case E_NOTICE:
+            case E_USER_NOTICE:
                 self::notice($error);
                 break;
             
-            default:
-            case E_RECOVERABLE_ERROR:
-                $error = "\{$errno\} " . $error;
             case E_USER_ERROR:
                 self::error($error);
                 break;
+                
+            default:
+            case E_RECOVERABLE_ERROR:
+                throw new ErrorException($errstr, 2048, $errno, $errfile, $errline);
+                break;
+        }
+    }
+    
+    public static function registerExceptionHandler () {
+        return set_exception_handler(array(__CLASS__, 'handleException'));
+    }
+    
+    public static function restoreExceptionHandler () {
+        return restore_exception_handler();
+    }
+    
+    /**
+     * Handle an exception.
+     *
+     * When called directly by PHP in case
+     * of uncatched error, the runtime will
+     * fall after this call.
+     *
+     * You may use this method to log
+     * manually any exception.
+     *
+     * @param Exception $exception
+     * @retur void
+     */
+    public static function handleException (Exception $exception) {
+        if ($previous = $exception->getPrevious()) {
+            self::handleException($previous);
         }
         
-        // Allow axiom Router to catch this on most time
-        if ($errno == E_RECOVERABLE_ERROR)
-            throw new ErrorException($errstr, 0, $errno, $errfile, $errline);
+        $error = "(PHP Exception) " . $exception->getMessage() . ' in ' . $exception->getFile() . ' on line' . $exception->getLine();
+        self::error($error);
     }
     
     public static function getHistory () {

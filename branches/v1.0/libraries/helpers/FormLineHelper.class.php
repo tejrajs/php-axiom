@@ -65,7 +65,7 @@ class FormLineHelper extends BaseHelper {
                 break;
 
             default:
-                throw new LogicException("Give FormLineHelper type mismatch with available types");
+                throw new LogicException("Given FormLineHelper type mismatch with available types", 3006);
         }
 
         $this->_children['input'] = $input;

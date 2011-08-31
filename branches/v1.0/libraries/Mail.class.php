@@ -115,7 +115,7 @@ class Mail {
      */
     public function __construct ($from, $to, $subject = "No Subject", $message = null, array $headers = array()) {
         if (self::validateEmail($from))
-            throw new InvalidArgumentException('First parameter is expected to be a valid email');
+            throw new InvalidArgumentException('First parameter is expected to be a valid email', 2014);
             
         $this->_from = $subject;
             
@@ -176,7 +176,7 @@ class Mail {
      */
     public function addDestination ($to) {
         if (!self::validateEmail($to))
-            throw new InvalidArgumentException("Invalid destination");
+            throw new InvalidArgumentException("Invalid destination", 2015);
         
         if (!array_keys($this->_to, $to))
             $this->_to[] = $to;
@@ -210,7 +210,7 @@ class Mail {
      */
     public function setHeader ($header, $value) {
         if (!in_array($header, self::$allowed_headers))
-            throw new InvalidArgumentException("Invalid Header $header");
+            throw new InvalidArgumentException("Invalid Header $header", 2016);
             
         switch ($header) {
             case self::HEADER_SENDER:
@@ -221,29 +221,29 @@ class Mail {
             case self::HEADER_X_CONFIRM_READING_TO:
             case self::HEADER_X_UNSUBSCRIBE_EMAIL:
                 if (!self::validateEmail($value))
-                    throw new InvalidArgumentException("Invalid email for $header");
+                    throw new InvalidArgumentException("Invalid email for $header", 2017);
                 break;
                 
             case self::HEADER_CONTENT_TRANSFERT_ENCODING:
                 if (!in_array($value, array('7bits', '8bits', 'binary', 'quoted-printable', 'base64', 'ietf-token', 'x-token')))
-                    throw new InvalidArgumentException("Invalid value for $header");
+                    throw new InvalidArgumentException("Invalid value for $header", 2018);
                 break;
                 
             case self::HEADER_DATE:
                 if ($time = strtotime($value))
                     $value = date('r', $time);
                 else
-                    throw new InvalidArgumentException("Invalid date format for $header");
+                    throw new InvalidArgumentException("Invalid date format for $header", 2019);
                 break;
                 
             case self::HEADER_PRIORITY:
                 if (!in_array($value, array('normal', 'urgent', 'non-urgent')))
-                    throw new InvalidArgumentException("Invalid priority for $heafer");
+                    throw new InvalidArgumentException("Invalid priority for $header", 2020);
                 break;
                 
             case self::HEADER_X_UNSUBSCRIBE_WEB:
                 if (!$value = filter_var($value, FILTER_VALIDATE_URL))
-                    throw new InvalidArgumentException("Invalid url for $header");
+                    throw new InvalidArgumentException("Invalid url for $header", 2021);
                 break;
                 
             case self::HEADER_MIME_VERSION:
@@ -258,7 +258,7 @@ class Mail {
             case self::HEADER_X_PRIORITY:
                 $value = trim($value);
                 if (empty($value))
-                    throw new InvalidArgumentException("A non empty value is mandatory for $header");
+                    throw new InvalidArgumentException("A non empty value is mandatory for $header", 2022);
                 break;
         }
         
@@ -279,7 +279,7 @@ class Mail {
      */
     public function setHeaderSeparator ($glue) {
         if (!in_array($glue, array(self::HEADER_SEPARATOR_CRLF, self::HEADER_SEPARATOR_LF)))
-            throw new InvalidArgumentException("Unrecognized separator");
+            throw new InvalidArgumentException("Unrecognized separator", 2023);
         $this->_header_separator = $glue;
     }
     
@@ -341,10 +341,10 @@ class Mail {
      */
     public function addAttachment ($path, $content_type, $filename = null) {
         if (!file_exists($path))
-            throw new MissingFileException($path);
+            throw new MissingFileException($path, 2024);
             
         if (is_dir($path))
-            throw new InvalidArgumentException("First parameter is expected to be regular file, directory given");
+            throw new InvalidArgumentException("First parameter is expected to be regular file, directory given", 2025);
             
         if (!$filename)
             $filename = basename($path);
@@ -356,10 +356,10 @@ class Mail {
         else if (function_exists('mime_content_type'))
             $content_type = mime_content_type($path);
         else if (empty($content_type))
-            throw new LogicException("Could not determine content-type for $path");
+            throw new LogicException("Could not determine content-type for $path", 2026);
             
         if (!$content = file_get_contents($path, false))
-            throw new RuntimeException("Cannot read $path");
+            throw new RuntimeException("Cannot read $path", 2027);
             
         $part  = "Content-Type: $content_type; name=$filename" . $this->_header_separator;
         $part .= "Content-transfer-encoding: base64" . $this->_header_separator;

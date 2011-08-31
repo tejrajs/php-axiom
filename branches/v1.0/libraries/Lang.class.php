@@ -84,11 +84,11 @@ class Lang {
             $lang_file = self::$_config['lang_dir'] . '/' . self::$_config['lang_file'];
         
         if (!file_exists($lang_file)) {
-            throw new MissingFileException($lang_file);
+            throw new MissingFileException($lang_file, 2029);
         }
         
         if (!$desc = parse_ini_file($lang_file, true)) {
-            throw new RuntimeException("Could not parse $lang_file");
+            throw new RuntimeException("Could not parse $lang_file", 2030);
         }
         
         self::$_config = array_merge(self::$_config, $desc['settings']);

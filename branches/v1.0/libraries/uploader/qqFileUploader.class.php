@@ -38,7 +38,7 @@ class qqFileUploader {
         $uploadSize = $this->toBytes(ini_get('upload_max_filesize'));
         if ($postSize < $this->sizeLimit || $uploadSize < $this->sizeLimit){
             $size = max(1, $this->sizeLimit / 1024 / 1024) . 'M';
-            throw new RuntimeException("Increase post_max_size and upload_max_filesize to $size");
+            throw new RuntimeException("Increase post_max_size and upload_max_filesize to $size", 2047);
         }
     }
     

@@ -51,7 +51,7 @@ class InputHelper extends BaseHelper {
      * @see BaseHelper::appendChild()
      */
     public function appendChild ($node) {
-        throw new LogicException("Cannot append nodes in input tags");
+        throw new LogicException("Cannot append nodes in input tags", 3005);
     }
     
 	/**

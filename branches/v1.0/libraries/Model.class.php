@@ -53,7 +53,7 @@ abstract class Model {
      */
     public function __construct ($id = null) {
         if ($id !== null && $id !== false && !$this->find($id))
-            throw new RuntimeException("Cannot instanciate model");
+            throw new RuntimeException("Cannot instanciate model", 2009);
     }
 
     /**
@@ -109,7 +109,7 @@ abstract class Model {
      */
     public function find ($id) {
         if (!$this->_init("retrieve"))
-            throw new RuntimeException("Cannot initialize " . __METHOD__);
+            throw new RuntimeException("Cannot initialize " . __METHOD__, 2010);
          
         if ($this->_statements['retrieve']->execute(array(":{$this->_id_key}" => $id))) {
             if ($this->_statements['retrieve']->rowCount()) {
@@ -129,7 +129,7 @@ abstract class Model {
      */
     public function create ($data) {
         if (!$this->_init("create"))
-            throw new RuntimeException("Cannot initialize " . __METHOD__);
+            throw new RuntimeException("Cannot initialize " . __METHOD__, 2011);
          
         if ($this->_statements['create']->execute(array_keys_prefix($data, ':'))) {
             $id = Database::lastInsertId();
@@ -145,7 +145,7 @@ abstract class Model {
      */
     public function update ($data = array()) {
         if (!$this->_init("update"))
-            throw new RuntimeException("Cannot initialize " . __METHOD__);
+            throw new RuntimeException("Cannot initialize " . __METHOD__, 2012);
          
         if (!empty($this->_data)) {
             $inputs = array_merge($this->_data, array_intersect_key($data, $this->_data));
@@ -161,7 +161,7 @@ abstract class Model {
      */
     public function delete () {
         if (!$this->_init("delete"))
-            throw new RuntimeException("Cannot initialize " . __METHOD__);
+            throw new RuntimeException("Cannot initialize " . __METHOD__, 2013);
          
         if (!empty($this->_data))
         return $this->_statements['delete']->execute(array(":{$this->_id_key}" => $this->_data[$this->_id_key]));

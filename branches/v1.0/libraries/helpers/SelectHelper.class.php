@@ -50,7 +50,7 @@ class SelectHelper extends BaseHelper {
                 $this->setValue($val);
         }
         else
-            throw new RuntimException(__METHOD__ . " expects first parameter to be scalar or array, " . gettype($value) . " given");
+            throw new RuntimException("First parameter is expected to be scalar or array, " . gettype($value) . " given", 3004);
         	
         return $this;
     }

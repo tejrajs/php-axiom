@@ -46,11 +46,8 @@ class PDOStatementIterator extends IteratorIterator implements SeekableIterator,
      * @see SeekableIterator::seek()
      */
     public function seek ($position) {
-        if ($position > $this->count())
-            throw new OutOfBoundsException("Cannot seek to $position");
-            
-        if ($position < $this->key())
-            throw new OutOfRangeException("Cannot seek to $position");
+        if ($position > $this->count() || $position < $this->key())
+            throw new OutOfBoundsException("Cannot seek to $position", 2008);
             
         for ($i = $this->key(); $i < $position; $i++)
             $this->next();

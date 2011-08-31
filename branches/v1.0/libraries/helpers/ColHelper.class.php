@@ -31,7 +31,7 @@ class ColHelper extends BaseHelper {
      * @see BaseHelper::setValue()
      */
     public function setValue ($value) {
-        throw new BadMethodCallException("Col tag cannot have value");
+        throw new BadMethodCallException("Col tag cannot have value", 3007);
     }
     
     /**
@@ -39,7 +39,7 @@ class ColHelper extends BaseHelper {
      * @see BaseHelper::appendChild()
      */
     public function appendChild ($node) {
-        throw new BadMethodCallException("Col tag cannot have children");
+        throw new BadMethodCallException("Col tag cannot have children", 3008);
     }
     
     /**
@@ -47,7 +47,7 @@ class ColHelper extends BaseHelper {
      * @see BaseHelper::prependChild()
      */
     public function prependChild ($node) {
-        throw new BadMethodCallException("Col tag cannot have children");
+        throw new BadMethodCallException("Col tag cannot have children", 3008);
     }
     
     /**

@@ -32,7 +32,7 @@ class Database {
      * @internal
      */
     private function __construct () {
-        throw new RuntimeException(__CLASS__ . " cannot be instanciated");
+        throw new RuntimeException(__CLASS__ . " cannot be instanciated", 2031);
     }
     
     /**
@@ -73,9 +73,9 @@ class Database {
             self::$_pdo_instance = new PDO($dsn, $username, $password, $options);
             return true;
         }
-        catch (Exception $e) {
+        catch (PDOException $e) {
             if (!$ignore_error)
-                die('-- Database Connection Error --');
+                throw new RuntimeException("Database connection error", 2032, $e);
             return false;
         }
     }

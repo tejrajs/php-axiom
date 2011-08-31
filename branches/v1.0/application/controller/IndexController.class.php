@@ -15,5 +15,6 @@ class IndexController extends BaseController {
         Log::warning("test 5");
         
         1/0;
+        array_unshift();
     }
 }

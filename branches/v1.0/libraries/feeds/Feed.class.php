@@ -42,14 +42,14 @@ class Feed extends ArrayIterator {
         if (method_exists($this, $method = "get" . ucfirst($key)))
             return $this->$method();
         else
-            throw new InvalidArgumentException("$key does not exist");
+            throw new InvalidArgumentException("$key does not exist", 4008);
     }
     
     public function __set ($key, $value) {
         if (method_exists($this, $method = "get" . ucfirst($key)))
             return $this->$method($value);
         else
-            throw new InvalidArgumentException("$key does not exist");
+            throw new InvalidArgumentException("$key does not exist", 4008);
     }
     
     public static function export (array $items = array()) {
@@ -73,7 +73,7 @@ class Feed extends ArrayIterator {
     
     public function setId ($id) {
         if (!$id = filter_var($id, FILTER_SANITIZE_ENCODED))
-            throw new InvalidArgumentException("Invalid ID");
+            throw new InvalidArgumentException("Invalid ID", 4009);
             
         $this['meta']['id'] = $id;
     }
@@ -95,7 +95,7 @@ class Feed extends ArrayIterator {
         if ($time = strtotime($date))
             $date = date('r', $time);
         else
-            throw new InvalidArgumentException("Invalid date format");
+            throw new InvalidArgumentException("Invalid date format", 4010);
             
         $this['meta']['date'] = $date;
     }
@@ -108,16 +108,16 @@ class Feed extends ArrayIterator {
         $author = array_intersect_key($author, array_flip(array('mail', 'name', 'uri')));
         
         if (isset($author['mail']) && !Mail::validateEmail($author['mail']))
-            throw new InvalidArgumentException("Invalid author email");
+            throw new InvalidArgumentException("Invalid author email", 4011);
             
         if (isset($author['name']) && !$author['name'] = filter_var($author['name'], FILTER_SANITIZE_ENCODED))
-            throw new InvalidArgumentException("Invalid author name");
+            throw new InvalidArgumentException("Invalid author name", 4012);
             
         if (isset($author['uri']) && !filter_var($author['uri'], FILTER_VALIDATE_URL))
-            throw new InvalidArgumentException("Invalid URI for author");
+            throw new InvalidArgumentException("Invalid URI for author", 4013);
             
         if (empty($author))
-            throw new InvalidArgumentException("Author description must contain at least a name or email or URI");
+            throw new InvalidArgumentException("Author description must contain at least a name or email or URI", 4014);
             
         $this['meta']['author'] = $author;
     }
@@ -153,7 +153,7 @@ class Feed extends ArrayIterator {
     
     public function setLink ($url) {
         if (!$url = filter_var($url, FILTER_VALIDATE_URL))
-            throw new InvalidArgumentException("Invalid URL");
+            throw new InvalidArgumentException("Invalid URL", 4015);
             
         $this['meta']['link'];
     }
@@ -163,14 +163,14 @@ class Feed extends ArrayIterator {
             $type = ucfirst(strtolower(self::$_config['default_type']));
         
         if (!Autoloader::load($class = "{$type}FeedWriter"))
-            throw new RuntimeException("$type feed writer not found");
+            throw new RuntimeException("$type feed writer not found", 4016);
             
         $reflection = new ReflectionClass($class);
         if (!$reflection->isInstanciable())
-            throw new RuntimeException("$class cannot be instanciated");
+            throw new RuntimeException("$class cannot be instanciated", 4017);
             
         if (!$reflextion->isSubclassOf("FeedWriter"))
-            throw new RuntimeException("$class must extends FeedWriter");
+            throw new RuntimeException("$class must extends FeedWriter", 4018);
             
         return new $class($this);
     }

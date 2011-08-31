@@ -49,7 +49,7 @@ class TableRowHelper extends BaseHelper {
         elseif (is_object($values) && $values instanceof Model)
             $values = $values->getData();
         elseif (!is_array($values) && !$values instanceof Traversable)
-            throw new InvalidArgumentException("First parameter is expected to be scalar, array or Model, ".get_class($values)." given");
+            throw new InvalidArgumentException("First parameter is expected to be scalar, array or Model, ".get_class($values)." given", 2049);
         
         foreach ($values as $value)
             $this->addCell($value, $cells_type);

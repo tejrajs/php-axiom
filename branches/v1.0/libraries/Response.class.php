@@ -19,11 +19,6 @@
  */
 class Response {
     
-    const REDIRECT_PERMANENT = 1;
-    const REDIRECT_LOCATION = 2;
-    const REDIRECT_JAVASCRIPT = 3;
-    const REDIRECT_REFRESH = 4;
-    
     /**
      * Response vars
      * @var array
@@ -60,6 +55,10 @@ class Response {
      */
     protected $_layout_enabled;
     
+    /**
+     * Headers to be sent
+     * @var array
+     */
     protected $_headers;
     
     /**
@@ -208,7 +207,7 @@ class Response {
         if (is_callable($callback))
             $this->_output_transformer = $callback;
         else
-            throw new InvalidArgumentException("Passed callback is not callable");
+            throw new InvalidArgumentException("Passed callback is not callable", 2007);
     }
     
     /**
@@ -264,24 +263,5 @@ class Response {
      */
     public function flushHeaders () {
         $this->_headers = array();
-    }
-    
-    public function setRedirection ($url, $method = self::REDIRECT_LOCATION) {
-        // TODO
-        switch ($method) {
-            case self::REDIRECT_PERMANENT: break;
-            case self::REDIRECT_LOCATION: break;
-            case self::REDIRECT_JAVASCRIPT: break;
-            case self::REDIRECT_REFRESH: break;
-            default: throw new RuntimeException("Invalid redirection method"); break;
-        }
-    }
-    
-    public function unsetRedirection () {
-        // TODO
-    }
-    
-    public function getRedirection () {
-        // TODO mettre en forme le header si nécéssaire ou renvoyer false !
     }
 }

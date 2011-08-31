@@ -71,13 +71,13 @@ abstract class BaseController {
      */
     final protected static function forward ($controller, $action = "index") {
         if (strpos($controller, 'Controller') === false)
-            throw new RuntimeException("$controller is not a valid controller name");
+            throw new RuntimeException("$controller is not a valid controller name", 2040);
         
         if ($controller == 'BaseController')
-            throw new RuntimeException("Redirection is impossible on $controller");
+            throw new RuntimeException("Redirection is impossible on $controller", 2041);
         
         if (!Autoloader::load($controller))
-            throw new BadMethodCallException("Cannot find $controller");
+            throw new BadMethodCallException("Cannot find $controller", 2042);
             
         throw new ForwardException($controller, $action);
     }
@@ -92,7 +92,7 @@ abstract class BaseController {
      */
     final protected static function redirect ($url, $method = RedirectException::REDIRECT_REFRESH) {
         if (!$url)
-            throw new InvalidArgumentException("First parameter is expected to be a valid url");
+            throw new InvalidArgumentException("First parameter is expected to be a valid url", 2043);
             
         throw new RedirectException($url, $method);
     }

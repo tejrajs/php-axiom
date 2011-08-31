@@ -108,7 +108,7 @@ class TableRowGroupHelper extends BaseHelper {
      */
     public function addRows ($rows, $cell_type = "auto") {
         if (!is_array($rows) && !$rows instanceof Traversable)
-            throw new InvalidArgumentException("First parameter is expected to be array or Traversable, " . gettype($rows) . " given");
+            throw new InvalidArgumentException("First parameter is expected to be array or Traversable, " . gettype($rows) . " given", 3003);
         
         if ($cell_type == "auto")
             $cell_type = $this->_type == "thead" ? "head" : "data";
@@ -137,7 +137,7 @@ class TableRowGroupHelper extends BaseHelper {
         elseif ($values instanceof Model)
             $values = $values->getData();
         elseif (!is_array($values) && !$values instanceof Traversable)
-            throw new InvalidArgumentException("First parameter is expected to be scalar, array or Model, ".get_class($values)." given");
+            throw new InvalidArgumentException("First parameter is expected to be scalar, array or Model, ".get_class($values)." given", 3002);
             
         if ($cell_type == "auto")
             $cell_type = $this->_type == "thead" ? "head" : "data";

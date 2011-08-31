@@ -21,12 +21,7 @@ class FeedEntry {
 	public function __construct ($values = array()) {
 	    if (!empty($values)) {
 	        foreach ($values as $key => $value) {
-	            try {
-	                $this->$key = $value;
-	            }
-	            catch (Exception $e) {
-	                // NOOP //
-	            }
+                $this->$key = $value;
 	        }
 	    }
 	}
@@ -35,14 +30,14 @@ class FeedEntry {
         if (method_exists($this, $method = "get" . ucfirst($key)))
             return $this->$method();
         else
-            throw new InvalidArgumentException("$key does not exist");
+            throw new InvalidArgumentException("$key does not exist", 4001);
     }
     
     public function __set ($key, $value) {
         if (method_exists($this, $method = "get" . ucfirst($key)))
             return $this->$method($value);
         else
-            throw new InvalidArgumentException("$key does not exist");
+            throw new InvalidArgumentException("$key does not exist", 4001);
     }
     
     public function getId () {
@@ -70,7 +65,7 @@ class FeedEntry {
         if ($time = strtotime($date))
             $date = date('r', $time);
         else
-            throw new InvalidArgumentException("Invalid date format");
+            throw new InvalidArgumentException("Invalid date format", 4002);
             
         $this->_date = $date;
     }
@@ -83,16 +78,16 @@ class FeedEntry {
         $author = array_intersect_key($author, array_flip(array('mail', 'name', 'uri')));
         
         if (isset($author['mail']) && !Mail::validateEmail($author['mail']))
-            throw new InvalidArgumentException("Invalid author email");
+            throw new InvalidArgumentException("Invalid author email", 4003);
             
         if (isset($author['name']) && !$author['name'] = filter_var($author['name'], FILTER_SANITIZE_ENCODED))
-            throw new InvalidArgumentException("Invalid author name");
+            throw new InvalidArgumentException("Invalid author name", 4004);
             
         if (isset($author['uri']) && !filter_var($author['uri'], FILTER_VALIDATE_URL))
-            throw new InvalidArgumentException("Invalid URI for author");
+            throw new InvalidArgumentException("Invalid URI for author", 4005);
             
         if (empty($author))
-            throw new InvalidArgumentException("Author description must contain at least a name or email or URI");
+            throw new InvalidArgumentException("Author description must contain at least a name or email or URI", 4006);
             
         $this->_author = $author;
     }
@@ -120,7 +115,7 @@ class FeedEntry {
     
     public function setLink ($url) {
         if (!$url = filter_var($url, FILTER_VALIDATE_URL))
-            throw new InvalidArgumentException("Invalid URL");
+            throw new InvalidArgumentException("Invalid URL", 4007);
         $this->link = $url;
     }
     
@@ -130,7 +125,7 @@ class FeedEntry {
     
     public function setComments ($url) {
         if (!$url = filter_var($url, FILTER_VALIDATE_URL))
-            throw new InvalidArgumentException("Invalid URL");
+            throw new InvalidArgumentException("Invalid URL", 4007);
         $this->comments = $url;
     }
 }

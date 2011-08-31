@@ -71,7 +71,7 @@ class ViewManager {
         }
         catch (Exception $e) {
             ob_end_clean();
-            throw $e;
+            throw new RuntimeException("Exception during view loading", 2004, $e);
         }
         
         if (self::$_response->layout())
@@ -96,7 +96,7 @@ class ViewManager {
             case 'csv' : header('Content-Type: application/csv; charset=UTF-8'); break;
             case 'xml' : header('Content-Type: text/xml; charset=UTF-8'); break;
             case 'text': header('Content-Type: text/plain; charset=UTF-8'); break;
-            default: throw new RuntimeException("Format $output_format not recognized");
+            default: throw new RuntimeException("Format $output_format not recognized", 2005);
         }
     }
     
@@ -175,7 +175,7 @@ class ViewManager {
             self::$_config['view_path'] = $path;
         }
         else
-            throw new MissingFileException($path);
+            throw new MissingFileException($path, 2006);
     }
     
     /**

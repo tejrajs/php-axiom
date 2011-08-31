@@ -62,7 +62,7 @@ class Autoloader {
      */
     public static function add ($path) {
         if (!file_exists($path))
-            throw new RuntimeException("Path $path not found");
+            throw new RuntimeException("Path $path not found", 2044);
             
         return self::$_config['paths'][] = $path;
     }
@@ -77,7 +77,7 @@ class Autoloader {
         $include_path = array_unique(array_merge(self::$_config['paths'], explode(PATH_SEPARATOR, get_include_path())));
         
         if (set_include_path(implode(PATH_SEPARATOR, $include_path)) === false)
-            throw new RuntimeException("Could not register the new include path");
+            throw new RuntimeException("Could not register the new include path", 2045);
             
         return spl_autoload_register(array('Autoloader', 'load'));
     }

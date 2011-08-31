@@ -19,7 +19,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
- * @package	   Browscap
+ * @subpackage Browscap
  * @author	   Jonathan Stoppani <st.jonathan@gmail.com>
  * @copyright  Copyright (c) 2006-2008 Jonathan Stoppani
  * @version	   0.7
@@ -181,9 +181,7 @@ class Browscap
 		date_default_timezone_set(date_default_timezone_get());
 
 		if (!isset($cache_dir)) {
-			throw new Browscap_Exception(
-				'You have to provide a path to read/store the browscap cache file'
-			);
+			throw new RuntimeException("You have to provide a path to read/store the browscap cache file", 2034);
 		}
 
 		$cache_dir = realpath($cache_dir);
@@ -204,7 +202,7 @@ class Browscap
 	 *
 	 * @param string $user_agent   the user agent string
 	 * @param bool	 $return_array whether return an array or an object
-	 * @throws Browscap_Exception
+	 * @throws RuntimeException
 	 * @return stdObject the object containing the browsers details. Array if
 	 *					 $return_array is set to true.
 	 */
@@ -226,7 +224,7 @@ class Browscap
 			if (!file_exists($cache_file) || !file_exists($ini_file) || ($interval > $this->updateInterval)) {
 				try {
 					$this->updateCache();
-				} catch (Browscap_Exception $e) {
+				} catch (RuntimeException $e) {
 					if (file_exists($ini_file)) {
 						// Adjust the filemtime to the $errorInterval
 						touch($ini_file, time() - $this->updateInterval + $this->errorInterval);
@@ -236,7 +234,7 @@ class Browscap
 					}
 
 					if (!$this->silent) {
-						throw $e;
+						throw new RuntimeException("Update cache failed", 2035, $e);
 					}
 				}
 			}
@@ -421,7 +419,7 @@ class Browscap
 	 *
 	 * @param string $url  the url of the remote server
 	 * @param string $path the path of the ini file to update
-	 * @throws Browscap_Exception
+	 * @throws RuntimeException
 	 * @return bool if the ini file was updated
 	 */
 	private function _getRemoteIniFile($url, $path)
@@ -464,7 +462,7 @@ class Browscap
 		}
 
 		if (!file_put_contents($path, $content)) {
-			throw new Browscap_Exception("Could not write .ini content to $path");
+			throw new RuntimeException("Could not write .ini content to $path", 2036);
 		}
 
 		return true;
@@ -473,7 +471,7 @@ class Browscap
 	/**
 	 * Gets the remote ini file update timestamp
 	 *
-	 * @throws Browscap_Exception
+	 * @throws RuntimeException
 	 * @return int the remote modification timestamp
 	 */
 	private function _getRemoteMTime()
@@ -482,7 +480,7 @@ class Browscap
 		$remote_tmstp = strtotime($remote_datetime);
 
 		if (!$remote_tmstp) {
-			throw new Browscap_Exception("Bad datetime format from {$this->remoteVerUrl}");
+			throw new RuntimeException("Bad datetime format from {$this->remoteVerUrl}", 2037);
 		}
 
 		return $remote_tmstp;
@@ -491,13 +489,13 @@ class Browscap
 	/**
 	 * Gets the local ini file update timestamp
 	 *
-	 * @throws Browscap_Exception
+	 * @throws RuntimeException
 	 * @return int the local modification timestamp
 	 */
 	private function _getLocalMTime()
 	{
 		if (!is_readable($this->localFile) || !is_file($this->localFile)) {
-			throw new Browscap_Exception("Local file is not readable");
+			throw new RuntimeException("Local file is not readable", 2038);
 		}
 
 		return filemtime($this->localFile);
@@ -569,7 +567,7 @@ class Browscap
 	 * Retrieve the data identified by the URL
 	 *
 	 * @param string $url the url of the data
-	 * @throws Browscap_Exception
+	 * @throws RuntimeException
 	 * @return string the retrieved data
 	 */
 	private function _getRemoteData($url)
@@ -583,7 +581,7 @@ class Browscap
 				if ($file !== false) {
 					return $file;
 				} else {
-					throw new Browscap_Exception('Cannot open the local file');
+					throw new RuntimeException('Cannot open the local file', 2039);
 				}
 			case self::UPDATE_FOPEN:
 				$file = file_get_contents($url);
@@ -644,7 +642,7 @@ class Browscap
 					return $file;
 				} // else try with the next possibility
 			case false:
-				throw new Browscap_Exception('Your server can\'t connect to external resources. Please update the file manually.');
+				throw new RuntimeException("Your server can't connect to external resources. Please update the file manually.", 2033);
 		}
 	}
 
@@ -662,15 +660,3 @@ class Browscap
 		return $ua;
 	}
 }
-
-/**
- * Browscap.ini parsing class exception
- *
- * @package	   Browscap
- * @author	   Jonathan Stoppani <st.jonathan@gmail.com>
- * @copyright  Copyright (c) 2006-2008 Jonathan Stoppani
- * @license	   http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License
- * @link	   http://garetjax.info/projects/browscap/
- */
-class Browscap_Exception extends Exception
-{}

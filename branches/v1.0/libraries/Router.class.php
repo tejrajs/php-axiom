@@ -72,7 +72,7 @@ class Router {
             self::$_routes[$route] = $config;
         }
         else
-            throw new InvalidArgumentException("Config parameter cannot be empty");
+            throw new InvalidArgumentException("Config parameter cannot be empty", 2001);
     }
     
     /**
@@ -101,7 +101,7 @@ class Router {
         
         if (empty($route)) {
             if (!isset(self::$_routes['default']))
-                throw new LogicException("No default route defined");
+                throw new LogicException("No default route defined", 2002);
                 
             if ($url = self::$_request->url) {
                 if (preg_match('`^((?<lang>[[:alnum:]]{2})/)?(?<route>[[:alnum:]]{3,})?/?(?<action>[[:alnum:]]{3,})?/?$`',$url,$matches)) {
@@ -141,7 +141,7 @@ class Router {
         try {
             call_user_func_array(array($controller, '_init'), array(&self::$_request, &self::$_response));
             if (!is_callable(array($controller, $action)))
-                throw new BadMethodCallException("No such action for $controller");
+                throw new BadMethodCallException("No such action for $controller", 2003);
             
             self::$_response->addAll(call_user_func(array($controller, $action)));
         }
