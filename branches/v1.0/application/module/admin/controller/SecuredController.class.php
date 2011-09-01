@@ -13,7 +13,7 @@ abstract class SecuredController extends BaseController {
         self::$_session = new Session();
         
         if (!self::$_session->user)
-            throw new LoginException("Unconnected user");
+            throw new LoginException("Unconnected user", 11001);
         
         ViewManager::setLayoutVar("user", self::$_session->user);
         ViewManager::setLayoutFile("admin");

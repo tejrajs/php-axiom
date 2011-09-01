@@ -39,7 +39,7 @@ class File extends Model {
                 $query = 'DELETE FROM `ax_files` WHERE `id`=:id';
                 break;
             default:
-                throw new RuntimeException("$statement is unexepected for " . __METHOD__);
+                throw new RuntimeException("$statement is unexepected for " . __METHOD__, 10003);
         }
         
         return $this->_statements[$statement] = Database::prepare($query);
@@ -47,7 +47,7 @@ class File extends Model {
     
     public function delete () {
         if (!parent::delete())
-            throw new RuntimeException("Cannot delete File database record");
+            throw new RuntimeException("Cannot delete File database record", 10004);
             
         return unlink($this->path);
     }
@@ -75,7 +75,7 @@ class File extends Model {
     
     public function getSize () {
         if (empty($this->_data))
-            throw new RuntimeException("Malformed instance");
+            throw new RuntimeException("Malformed instance", 10005);
             
         if (file_exists($this->path))
             return filesize($this->path);
@@ -84,14 +84,14 @@ class File extends Model {
     
     public function getUser () {
         if (empty($this->_data))
-            throw new RuntimeException("Malformed instance");
+            throw new RuntimeException("Malformed instance", 10005);
             
         return new User($this->ax_users_id);
     }
     
     public function getType () {
         if (empty($this->_data))
-            throw new RuntimeException("Malformed instance");
+            throw new RuntimeException("Malformed instance", 10005);
             
         $mime = $this->mime_type;
         return substr($mime, 0, strpos($mime, '/'));
@@ -99,7 +99,7 @@ class File extends Model {
     
     public function getSubtype () {
         if (empty($this->_data))
-            throw new RuntimeException("Malformed instance");
+            throw new RuntimeException("Malformed instance", 10005);
             
         $mime = $this->mime_type;
         return substr($mime, strpos($mime, '/') +1);

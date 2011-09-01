@@ -38,7 +38,7 @@ class User extends Model {
                 $query = 'DELETE FROM `ax_users` WHERE `id`=:id';
                 break;
             default:
-                throw new RuntimeException("$statement is unexepected for " . __METHOD__);
+                throw new RuntimeException("$statement is unexepected for " . __METHOD__, 10001);
         }
         
         return $this->_statements[$statement] = Database::prepare($query);

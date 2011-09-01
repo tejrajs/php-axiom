@@ -46,7 +46,7 @@ class AdminController extends BaseController {
                 self::$_response->addMessage(i18n('admin.login.success', $user->name, $user->surname));
                 self::redirect(url('admin'));
             }
-            throw new LoginException("Could not find this user");
+            throw new LoginException("Could not find this user", 11002);
         }
     }
     
