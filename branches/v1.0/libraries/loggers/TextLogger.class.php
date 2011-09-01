@@ -34,7 +34,7 @@ class TextLogger extends Logger {
      * @param string $format = fasle
      * @param unknown_type $open_mode
      */
-    public function __construct ($filename, $mask, $format = false, $open_mode = 'w') {
+    public function __construct ($filename, $mask, $format = false, $open_mode = 'a') {
         parent::__construct($mask);
         try {
             $this->_file = new SplFileObject($filename, $open_mode);

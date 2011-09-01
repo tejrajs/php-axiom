@@ -33,7 +33,7 @@ class Log {
             self::registerErrorHandler();
             
         if (self::$_config['log_exception'])
-            ;
+            self::registerExceptionHandler();
     }
     
     public static function message ($msg, $priority) {
@@ -60,7 +60,10 @@ class Log {
         self::message($msg, Logger::WARNING);
     }
     
-    public static function debug ($msg) {
+    public static function debug ($msg, array $bt = array()) {
+        if ($bt)
+            $msg .= " in {$bt[0]['file']} on line {$bt[0]['line']}";
+        
         self::message($msg, Logger::DEBUG);
     }
     
