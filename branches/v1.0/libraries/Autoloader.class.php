@@ -25,6 +25,8 @@ class Autoloader {
      */
     protected static $_config = array();
     
+    protected static $_al_registered;
+    
     /**
      * Set the Autoload configuration
      * @param array $config = array()
@@ -42,7 +44,7 @@ class Autoloader {
                 LIBRARY_PATH . '/feeds',
 				LIBRARY_PATH . '/uploader',
             ),
-            'extension' => '.class.php',
+            'extensions' => '.class.php',
         );
         
         self::$_config = array_merge_recursive($default, $config);
@@ -79,23 +81,15 @@ class Autoloader {
         if (set_include_path(implode(PATH_SEPARATOR, $include_path)) === false)
             throw new RuntimeException("Could not register the new include path", 2045);
             
-        return spl_autoload_register(array('Autoloader', 'load'));
+        spl_autoload_extensions(self::$_config['extensions']);
+        if (!self::$_al_registered) {
+            self::$_al_registered = true;
+            return spl_autoload_register();
+        }
+        return true;
     }
     
-    /**
-     * Stop autoloading handle
-     * @return boolean
-     */
-    public static function stop () {
-        return spl_autoload_unregister(array('Autoloader', 'load'));
-    }
-    
-    /**
-     * Load a class
-     * @param string $class
-     * @return boolean
-     */
-    public static function load ($class) {
-        return @include_once "{$class}" . self::$_config['extension'];
+    public static function load ($class, $ext = '.class.php') {
+        return @include $class . $ext;
     }
 }

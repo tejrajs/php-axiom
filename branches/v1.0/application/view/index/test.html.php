@@ -22,3 +22,4 @@
 })(jQuery);
 //-->
 </script>
+<?php throw new RuntimeException('test (exception)', 123); ?>

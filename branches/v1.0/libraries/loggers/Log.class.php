@@ -129,7 +129,7 @@ class Log {
             self::handleException($previous);
         }
         
-        $error = "(PHP Exception) " . $exception->getMessage() . ' in ' . $exception->getFile() . ' on line' . $exception->getLine();
+        $error = "(PHP Exception) " . $exception->getMessage() . ' in ' . $exception->getFile() . ' on line ' . $exception->getLine();
         self::error($error);
     }
     

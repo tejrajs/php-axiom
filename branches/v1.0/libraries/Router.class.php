@@ -158,6 +158,9 @@ class Router {
             return self::redirect($e);
         }
         catch (Exception $e) {
+            Log::handleException($e);
+            if ($code = $e->getCode())
+                self::$_response->error_code = $code;
             return self::run("error", "http500");
         }
         
@@ -166,6 +169,9 @@ class Router {
             ViewManager::load($controller, $action);
         }
         catch (Exception $e) {
+            Log::handleException($e);
+            if ($code = $e->getCode())
+                self::$_response->error_code = $code;
             return self::run("error", "http500");
         }
     }
