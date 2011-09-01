@@ -10,7 +10,7 @@
  * $Id$
  */
 
-define('AXIOM_VERSION', 'v1.0.5 - RC1');
+define('AXIOM_VERSION', 'v1.0.6 - RC2');
 define('LIBRARY_PATH',     dirname(dirname(dirname(__FILE__))) . '/libraries');
 define('APPLICATION_PATH', dirname(dirname(dirname(__FILE__))) . '/application');
 
