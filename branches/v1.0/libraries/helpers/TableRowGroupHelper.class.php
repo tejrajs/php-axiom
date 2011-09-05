@@ -111,7 +111,7 @@ class TableRowGroupHelper extends BaseHelper {
             throw new InvalidArgumentException("First parameter is expected to be array or Traversable, " . gettype($rows) . " given", 3003);
         
         if ($cell_type == "auto")
-            $cell_type = $this->_type == "thead" ? "head" : "data";
+            $cell_type = ($this->_type == "thead" || $this->_type == "head") ? "head" : "data";
             
         foreach ($rows as $row) {
             $this->addRow($row, $cell_type);
@@ -140,7 +140,7 @@ class TableRowGroupHelper extends BaseHelper {
             throw new InvalidArgumentException("First parameter is expected to be scalar, array or Model, ".get_class($values)." given", 3002);
             
         if ($cell_type == "auto")
-            $cell_type = $this->_type == "thead" ? "head" : "data";
+            $cell_type = ($this->_type == "thead" || $this->_type == "head")  ? "head" : "data";
             
         if (!empty($this->_filter))
             $values = array_intersect_key($values, array_flip($this->_filter));
