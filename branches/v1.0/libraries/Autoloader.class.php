@@ -44,7 +44,7 @@ class Autoloader {
                 LIBRARY_PATH . '/feeds',
 				LIBRARY_PATH . '/uploader',
             ),
-            'extensions' => '.class.php',
+            'extension' => '.class.php',
         );
         
         self::$_config = array_merge_recursive($default, $config);
@@ -81,15 +81,42 @@ class Autoloader {
         if (set_include_path(implode(PATH_SEPARATOR, $include_path)) === false)
             throw new RuntimeException("Could not register the new include path", 2045);
             
-        spl_autoload_extensions(self::$_config['extensions']);
-        if (!self::$_al_registered) {
-            self::$_al_registered = true;
-            return spl_autoload_register();
-        }
-        return true;
+        return spl_autoload_register(array(__CLASS__, 'load'));
     }
     
-    public static function load ($class, $ext = '.class.php') {
-        return @include $class . $ext;
+    /**
+     * Prevent the autoloader to load classes.
+     *
+     * This method may be useful if you have
+     * a custom autoloader or if you're using
+     * another framework.
+     *
+     * Note: the include path previously set
+     * by Autoloader::start is preserved.
+     *
+     * @return boolean
+     */
+    public static function stop () {
+        return spl_autoload_unregister(array(__CLASS__, 'load'));
+    }
+    
+    /**
+     * Load the give class.
+     *
+     * Will return true if the class file
+     * was successfuly loaded, false otherwise
+     *
+     * EG: Autoloader::load('MyRandomClass');
+     *
+     * Note: The autoloader will seek for a
+     * file named MyRandomClass.class.php,
+     * this extension may be set manualy in
+     * Autoloader::setConfig.
+     *
+     * @param string $class
+     * @return boolean
+     */
+    public static function load ($class) {
+        return @include $class . self::$_config['extension'];
     }
 }

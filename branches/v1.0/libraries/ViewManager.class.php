@@ -71,7 +71,10 @@ class ViewManager {
         }
         catch (Exception $e) {
             ob_end_clean();
-            throw new RuntimeException("Exception during view loading", 2004, $e);
+            if (PHP_VERSION_ID >= 50300)
+                throw new RuntimeException("Exception during view loading", 2004, $e);
+            else
+                throw new RuntimeException("Exception during view loading", 2004);
         }
         
         if (self::$_response->layout())

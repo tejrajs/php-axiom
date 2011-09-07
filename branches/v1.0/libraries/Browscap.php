@@ -234,7 +234,10 @@ class Browscap
 					}
 
 					if (!$this->silent) {
-						throw new RuntimeException("Update cache failed", 2035, $e);
+					    if (PHP_VERSION_ID >= 50300)
+						    throw new RuntimeException("Update cache failed", 2035, $e);
+				        else
+				            throw new RuntimeException("Update cache failed", 2035);
 					}
 				}
 			}

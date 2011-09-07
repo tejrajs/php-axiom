@@ -43,7 +43,7 @@ class Database {
     public static function setConfig ($config = array()) {
         $defaults = array(
             'type' => 'mysql',
-            'database' => 'backoffice',
+            'database' => 'axiom',
             'username' => 'root',
             'password' => '',
             'host' => 'localhost',
@@ -74,8 +74,12 @@ class Database {
             return true;
         }
         catch (PDOException $e) {
-            if (!$ignore_error)
-                throw new RuntimeException("Database connection error", 2032, $e);
+            if (!$ignore_error) {
+                if (PHP_VERSION_ID >= 50300)
+                    throw new RuntimeException("Database connection error", 2032, $e);
+                else
+                    throw new RuntimeException("Database connection error", 2032);
+            }
             return false;
         }
     }

@@ -57,52 +57,29 @@ class Router {
     }
     
     /**
-     * Connect a route
-     *
-     * Routes are matched according a given template,
-     * templates follow the following format:
-     * "/[string|{:key<:pattern>]...
-     * Eg:
-     * /admin/{:controller}/{:id:\d+}/{:args}
-     *
-     * Three prototypes are available:
-     * Router::connect(new Route($template, $params, $options))
-     * Router::connect($template, array('controller' => 'xxx', 'action' => 'yyy' ...));
-     * Router::connect($template, 'controller::action');
-     *
-     * @param mixed $template The template or the objet to match the url against
-     * @param mixed $params The parameters of the route (must contain at least the controller's name)
-     * @param array $options Not currently used
-     * @throws RuntimeException
+     * Add a route
+     * @param string $route
+     * @param array $config
+     * @throws InvalidArgumentException
      * @return void
      */
-    public static function connect ($template, $params = array(), array $options = array()) {
-        if (!is_object($template)) {
-            if (is_string($params))
-                $params = self::_parseParamString($params);
-            
-            $params += array('action' => 'index');
-            $template = new Route($template, $params, $options);
-        }
+    public static function addRoute ($route, $config) {
+        if (!isset(self::$_routes))
+            self::$_routes = array();
         
-        if ($template instanceof Route)
-            self::$_routes[] = $template;
+        if (!empty($config)) {
+            if (empty($config[1])) $config[1] = "index";
+            self::$_routes[$route] = $config;
+        }
         else
-            throw new RuntimeException("Cannot connect route", 2049);
+            throw new InvalidArgumentException("Config parameter cannot be empty", 2001);
     }
     
     /**
-     * Run router.
-     *
-     * If not route/action is given, the router
-     * will match the proper route by matching
-     * against the URL.
-     * See Router::connect for more information
-     * about connecting routes.
-     *
-     * @param mixed $route = null
+     * Run router
+     * @param string $route = null
      * @param string $action = null
-     * @throws RuntimeException
+     * @throws LogicException
      * @return void
      */
     public static function run ($route = null, $action = null) {
@@ -112,49 +89,41 @@ class Router {
         if (!isset(self::$_response))
             self::$_response = new Response;
             
+        if (empty($route) && !empty(self::$_routes) && ($url = self::$_request->url)) {
+            foreach (self::$_routes as $pattern => $config) {
+                if ($pattern !== 'default' && preg_match($pattern, $url, $matches)) {
+                    self::$_request->addAll($matches);
+                    list($route, $action) = array_merge($config, array('index'));
+                    break;
+                }
+            }
+        }
+        
         if (empty($route)) {
-            $route = self::_getRoute(self::$_request->url);
-        }
-        
-        if ($route instanceof Route) {
-            $params  = $route->getParams();
-            $options = $route->getOptions();
-            
-            if (empty($params['controller']))
-                throw new RuntimeException("No controller specified");
-
-            $controller = $params['controller'];
-            $action     = !empty($params['action']) ? $params['action'] : 'index';
-            
-            if (!empty($options['module']))
-                ModuleManager::load($options['module']);
+            if (!isset(self::$_routes['default']))
+                throw new LogicException("No default route defined", 2002);
                 
-            if (!empty($options['lang']))
-                $lang = $options['lang'];
-                
-            if (!empty($params['lang']))
-                $lang = $params['lang'];
+            if ($url = self::$_request->url) {
+                if (preg_match('`^((?<lang>[[:alnum:]]{2})/)?(?<route>[[:alnum:]]{3,})?/?(?<action>[[:alnum:]]{3,})?/?$`',$url,$matches)) {
+                    $route = !empty($matches['route']) ? $matches['route'] : self::$_routes['default'][0];
+                    $action = !empty($matches['action']) ? $matches['action'] : self::$_routes['default'][1];
+                }
+                else
+                    return self::load('ErrorController', 'http404');
+            }
+            else
+                list($route, $action) = array_merge(self::$_routes['default'], array('index'));
+        }
+        
+        if (!empty($matches['lang']) && $matches['lang'] != Lang::getLocale())
+            ViewManager::setLayoutVar('lang', Lang::setLocale($matches['lang']));
+        
+        if (ModuleManager::exists($route))
+            ModuleManager::load($route);
             
-            if (!empty($lang) && $lang != Lang::getLocale())
-                ViewManager::setLayoutVar('lang', Lang::setLocale($lang));
-        }
-        elseif (is_string($route)) {
-            if (ModuleManager::exists($route))
-                ModuleManager::load($route);
+        if (!Autoloader::load($controller = ucfirst("{$route}Controller")))
+            list($controller, $action) = array('ErrorController', 'http404');
             
-            $controller = $route;
-            $action     = !empty($action) ? $action : 'index';
-        }
-        else {
-            list($controller, $action) = array('ErrorController', 'http404');
-        }
-        
-        if (strpos(strtolower($controller), 'controller') === false)
-            $controller .= 'Controller';
-        
-        if (!Autoloader::load($controller))
-            list($controller, $action) = array('ErrorController', 'http404');
-        
         self::load($controller, $action);
     }
     
@@ -180,9 +149,6 @@ class Router {
             return self::run("error", "http404");
         }
         catch (LoginException $e) {
-            return self::run("error", "http403");
-        }
-        catch (AccessRightException $e) {
             return self::run("error", "http403");
         }
         catch (ForwardException $e) {
@@ -217,20 +183,5 @@ class Router {
             self::$_response->addAll(array('url' => $exception->getUrl()));
             self::load('ErrorController', 'redirection');
         }
-    }
-    
-    protected static function _parseParamString ($params) {
-        list($controller, $action) = (strpos($params, '::') !== false) ? explode('::', $params) : array($params, 'index');
-        return array('controller' => $controller, 'action' => $action);
-    }
-    
-    protected static function _getRoute ($url) {
-        foreach (self::$_routes as $route) {
-            if (!$params = $route->match($url))
-                continue;
-            echo "<pre>"; var_dump($route); echo "</pre>";
-            return $route;
-        }
-        return false;
     }
 }

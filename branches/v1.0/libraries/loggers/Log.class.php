@@ -128,8 +128,10 @@ class Log {
      * @retur void
      */
     public static function handleException (Exception $exception) {
-        if ($previous = $exception->getPrevious()) {
-            self::handleException($previous);
+        if (PHP_VERSION_ID >= 50300) {
+            if ($previous = $exception->getPrevious()) {
+                self::handleException($previous);
+            }
         }
         
         $error = "(PHP Exception) " . $exception->getMessage() . ' in ' . $exception->getFile() . ' on line ' . $exception->getLine();
