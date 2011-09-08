@@ -1,5 +1,6 @@
 <?php
 
+
 class Route {
     
     protected $_template;
@@ -7,14 +8,18 @@ class Route {
     protected $_pattern;
     
     protected $_keys;
-    
+
     protected $_params;
 
     protected $_options;
     
-    public function __construct ($template, array $params, array $options = array()) {
+    public function __construct ($template, array $params = array(), array $options = array()) {
         $this->_template = $template;
         $this->_params = $params;
+        
+        if (isset($options['module']) && is_string($options['module']))
+            $options['module'] = array($options['module']);
+        
         $this->_options = $options;
         $this->_keys = array();
     }
@@ -77,5 +82,13 @@ class Route {
     
     public function getOptions () {
         return $this->_options;
+    }
+    
+    public function getTemplate () {
+        return $this->_template;
+    }
+    
+    public function getPattern () {
+        return $this->_pattern;
     }
 }

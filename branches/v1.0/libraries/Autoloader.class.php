@@ -6,15 +6,15 @@
  * @author Benjamin DELESPIERRE <benjamin.delespierre@gmail.com>
  * @category libAxiom
  * @package library
- * $Date$
- * $Id$
+ * $Date: 2011-09-07 18:28:11 +0200 (mer., 07 sept. 2011) $
+ * $Id: Autoloader.class.php 65 2011-09-07 16:28:11Z TchernoBen@gmail.com $
  */
 
 /**
  * Autoloader Class
  *
  * @author Delespierre
- * @version $Rev$
+ * @version $Rev: 65 $
  * @subpackage Autoloader
  */
 class Autoloader {
@@ -117,6 +117,8 @@ class Autoloader {
      * @return boolean
      */
     public static function load ($class) {
+        if (class_exists('Log') && class_exists('Logger'))
+            Log::debug("Loading class $class");
         return @include $class . self::$_config['extension'];
     }
 }

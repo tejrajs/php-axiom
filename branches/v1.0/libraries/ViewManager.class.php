@@ -45,6 +45,8 @@ class ViewManager {
      * @return void
      */
     public static function load ($controller, $action) {
+        Log::debug("Loading View: {$controller}::{$action}");
+        
         foreach (self::$_response->getHeaders() as $header)
             header($header);
         self::setContentType($format = ($f = self::$_response->getOutputFormat()) ? $f : self::$_config['default_output_format']);

@@ -16,6 +16,11 @@ class TextLogger extends Logger {
      * 1- date (ISO 2822)
      * 2- error severity ("Error", "Warning"...)
      * 3- error message
+     *
+     * EG:
+     * "(Date %s) [%s] %s" will display as
+     * "(Date Thu, 08 Sep 2011 15:26:45 +0200) [Warning] message..."
+     *
      * @var string
      */
     public $format;

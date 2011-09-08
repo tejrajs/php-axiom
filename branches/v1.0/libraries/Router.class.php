@@ -106,6 +106,8 @@ class Router {
      * @return void
      */
     public static function run ($route = null, $action = null) {
+        Log::debug(" ------ Router Run launched ------ ");
+        
         if (!isset(self::$_request))
             self::$_request = new Request;
             
@@ -126,8 +128,13 @@ class Router {
             $controller = $params['controller'];
             $action     = !empty($params['action']) ? $params['action'] : 'index';
             
-            if (!empty($options['module']))
-                ModuleManager::load($options['module']);
+            if (!empty($options['module'])) {
+                foreach ($options['module'] as $module) {
+                    Log::debug("Loading module: $module");
+                    if (!ModuleManager::load($module))
+                        throw new RuntimeException("Could not load $module module");
+                }
+            }
                 
             if (!empty($options['lang']))
                 $lang = $options['lang'];
@@ -152,6 +159,8 @@ class Router {
         if (strpos(strtolower($controller), 'controller') === false)
             $controller .= 'Controller';
         
+        Log::debug("Autoloading $controller: " . (Autoloader::load($controller) ? 'OK' : 'NOK'));
+            
         if (!Autoloader::load($controller))
             list($controller, $action) = array('ErrorController', 'http404');
         
@@ -169,6 +178,8 @@ class Router {
         if (empty($action))
             $action = "index";
             
+        Log::debug("Action invoked: {$controller}::{$action}");
+            
         try {
             call_user_func_array(array($controller, '_init'), array(&self::$_request, &self::$_response));
             if (!is_callable(array($controller, $action)))
@@ -177,18 +188,19 @@ class Router {
             self::$_response->addAll(call_user_func(array($controller, $action)));
         }
         catch (BadMethodCallException $e) {
+            Log::debug("BadMethodCallException catched by router: " . $e->getMessage());
             return self::run("error", "http404");
         }
         catch (LoginException $e) {
-            return self::run("error", "http403");
-        }
-        catch (AccessRightException $e) {
+            Log::debug("LoginException catched by router: " . $e->getMessage());
             return self::run("error", "http403");
         }
         catch (ForwardException $e) {
+            Log::debug("Forward catched by router");
             return self::load($e->getController(), $e->getAction());
         }
         catch (RedirectException $e) {
+            Log::debug("RedirectException catched by router");
             return self::redirect($e);
         }
         catch (Exception $e) {
@@ -228,7 +240,8 @@ class Router {
         foreach (self::$_routes as $route) {
             if (!$params = $route->match($url))
                 continue;
-            echo "<pre>"; var_dump($route); echo "</pre>";
+            
+            Log::debug("Selected Route: " . $route->getTemplate());
             return $route;
         }
         return false;

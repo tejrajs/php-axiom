@@ -27,14 +27,7 @@ class AdminController extends BaseController {
     }
     
     public static function index () {
-        if ($admrt = self::$_request->admrt) {
-            if (ModuleManager::exists($admrt))
-                ModuleManager::load($admrt);
-                
-            self::forward(ucfirst($admrt).'AdminController', self::$_request->admact);
-        }
-        
-        self::forward('PanelAdminController');
+        self::forward('AdminPanelController');
     }
     
     public static function login () {

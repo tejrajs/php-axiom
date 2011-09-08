@@ -17,5 +17,7 @@ abstract class SecuredController extends BaseController {
         
         ViewManager::setLayoutVar("user", self::$_session->user);
         ViewManager::setLayoutFile("admin");
+        
+        Log::debug("Secured controller intitialized successfuly");
     }
 }
