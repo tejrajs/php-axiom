@@ -1,6 +1,6 @@
 <?php
 
-class PanelAdminController extends SecuredController {
+class AdminPanelController extends SecuredController {
     
     public static function index () {
         $modules = array();

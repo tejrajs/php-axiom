@@ -36,7 +36,7 @@
     <h2><?=i18n('admin.panel.modules.title')?></h2>
     <?php foreach ($modules as $module_name => $module_definition): ?>
     <div>
-    	<span class="ui-widget-conent ui-corner-all">
+    	<span class="ui-widget-content ui-corner-all">
     		<a href="<?=$module_definition['url']?>">
     			<img src="<?=src('img/admin/app_48.png')?>" alt="app_48.png" width="48" height="48" />
     			<?=$module_name?>

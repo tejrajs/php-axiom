@@ -1,6 +1,6 @@
 <?php
 
-class FilesAdminController extends SecuredController {
+class FilesController extends SecuredController {
     
     public static function index () {
         self::$_response->setResponseView('files');

@@ -1,6 +1,6 @@
 <?php
 
-class UsersAdminController extends SecuredController {
+class UsersController extends SecuredController {
     
     public static function index () {
         self::$_response->setResponseView('users');

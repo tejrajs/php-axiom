@@ -159,11 +159,10 @@ class Router {
         if (strpos(strtolower($controller), 'controller') === false)
             $controller .= 'Controller';
         
-        Log::debug("Autoloading $controller: " . (Autoloader::load($controller) ? 'OK' : 'NOK'));
-            
         if (!Autoloader::load($controller))
             list($controller, $action) = array('ErrorController', 'http404');
         
+        Log::debug("Loading {$controller}::{$action}");
         self::load($controller, $action);
     }
     
@@ -178,10 +177,10 @@ class Router {
         if (empty($action))
             $action = "index";
             
-        Log::debug("Action invoked: {$controller}::{$action}");
-            
         try {
+            Log::debug("{$controller}::_init Invoked");
             call_user_func_array(array($controller, '_init'), array(&self::$_request, &self::$_response));
+            Log::debug("{$controller}::{$action} invoked");
             if (!is_callable(array($controller, $action)))
                 throw new BadMethodCallException("No such action for $controller", 2003);
             
