@@ -111,7 +111,7 @@
 				<?=$content?>
 			</div>
 			<div id="footer">
-				<div class="ui-corner-top ui-widget-content">
+				<div>
 					&copy; 2011 Benjamin Delespierre
 					- <a href="http://www.bdelespierre.fr" target="_blank">www.bdelespierre.fr</a>
 					- <a href="http://code.google.com/p/php-axiom/" target="_blank" title="<?=i18n('axiom.subtitle')?>" class="tiptip">Powered by Axiom</a>

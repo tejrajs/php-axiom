@@ -17,6 +17,14 @@ body {
 	padding: 0px;
 	height: 100%;
 	font: 62.5% "Trebuchet MS", sans-serif;
+	background: rgb(255,255,255); /* Old browsers */
+    background: -moz-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(221,221,221,1) 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,1)), color-stop(100%,rgba(221,221,221,1))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(221,221,221,1) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(221,221,221,1) 100%); /* Opera11.10+ */
+    background: -ms-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(221,221,221,1) 100%); /* IE10+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#dddddd',GradientType=0 ); /* IE6-9 */
+    background: linear-gradient(top, rgba(255,255,255,1) 0%,rgba(221,221,221,1) 100%); /* W3C */
 }
 
 h1 {
@@ -38,7 +46,8 @@ a img {
 }
 
 a, a:link, a:visited, a:hover, a:active {
-	text-decoration: none;
+	text-decoration: underline;
+	color: inherit;
 }
 
 table {
@@ -104,6 +113,10 @@ form fieldset legend {
 	width: 950px;
 	min-height: 100%;
     margin: 0px auto;
+	background-color: white;
+	padding: 0px 5px;
+	border-left: 1px solid #ccc;
+	border-right: 1px solid #ccc;
 }
 
 #header, #content, #footer {
@@ -146,6 +159,7 @@ form fieldset legend {
 
 #menu li a {
 	text-decoration: none;
+	color: #333;
 }
 
 #menu li {
@@ -184,6 +198,7 @@ form fieldset legend {
     padding: 3px;
 	font-size: 1.2em;
 	border-bottom: 0px;
+	text-align: center;
 }
 
 /**
