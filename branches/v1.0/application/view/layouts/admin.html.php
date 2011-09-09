@@ -49,6 +49,15 @@
 			$(".foldable .title").css('cursor', 'pointer').click(function () {
 				$(this).siblings().toggle();
 			});
+
+			$(".confirm").click(function () {
+				return confirm('<?=i18n('admin.confirm_action')?>');
+			});
+
+			$("tbody > tr").hover(
+				function () { $(this).addClass('ui-state-active', 500); },
+				function () { $(this).removeClass('ui-state-active', 500); }
+			);
 		});
 		//-->
 		</script>

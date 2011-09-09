@@ -128,6 +128,17 @@ class Router {
             $controller = $params['controller'];
             $action     = !empty($params['action']) ? $params['action'] : 'index';
             
+            if (!empty($options['lang']))
+                $lang = $options['lang'];
+                
+            if (!empty($params['lang']))
+                $lang = $params['lang'];
+            
+            if (!empty($lang) && $lang != Lang::getLocale()) {
+                Log::debug("Language change detected: {$lang}");
+                ViewManager::setLayoutVar('lang', Lang::setLocale($lang));
+            }
+            
             if (!empty($options['module'])) {
                 foreach ($options['module'] as $module) {
                     Log::debug("Loading module: $module");
@@ -135,15 +146,6 @@ class Router {
                         throw new RuntimeException("Could not load $module module");
                 }
             }
-                
-            if (!empty($options['lang']))
-                $lang = $options['lang'];
-                
-            if (!empty($params['lang']))
-                $lang = $params['lang'];
-            
-            if (!empty($lang) && $lang != Lang::getLocale())
-                ViewManager::setLayoutVar('lang', Lang::setLocale($lang));
         }
         elseif (is_string($route)) {
             if (ModuleManager::exists($route))

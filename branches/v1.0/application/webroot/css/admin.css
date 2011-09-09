@@ -60,6 +60,11 @@ table tbody tr td.action .ui-icon {
 	margin: auto;
 }
 
+table td,
+table th {
+	padding: 5px;
+}
+
 form fieldset {
 	margin: 0px 0px 15px 0px;
 }
@@ -199,6 +204,7 @@ div.error,
 div.warning {
     margin-top: 3px;
     padding: 0pt 0.7em;
+	cursor: pointer;
 }
 .error span.ui-icon,
 .warning span.ui-icon {
