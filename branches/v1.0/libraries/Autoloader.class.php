@@ -117,9 +117,6 @@ class Autoloader {
      * @return boolean
      */
     public static function load ($class) {
-        if (class_exists('Log') && class_exists('Logger'))
-            Log::debug("Loading class $class");
-            
         return @include_once $class . self::$_config['extension'];
     }
 }

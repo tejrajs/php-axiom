@@ -106,8 +106,6 @@ class Router {
      * @return void
      */
     public static function run ($route = null, $action = null) {
-        Log::debug(" ------ Router Run launched ------ ");
-        
         if (!isset(self::$_request))
             self::$_request = new Request;
             
@@ -135,13 +133,11 @@ class Router {
                 $lang = $params['lang'];
             
             if (!empty($lang) && $lang != Lang::getLocale()) {
-                Log::debug("Language change detected: {$lang}");
                 ViewManager::setLayoutVar('lang', Lang::setLocale($lang));
             }
             
             if (!empty($options['module'])) {
                 foreach ($options['module'] as $module) {
-                    Log::debug("Loading module: $module");
                     if (!ModuleManager::load($module))
                         throw new RuntimeException("Could not load $module module");
                 }
@@ -164,7 +160,6 @@ class Router {
         if (!Autoloader::load($controller))
             list($controller, $action) = array('ErrorController', 'http404');
         
-        Log::debug("Loading {$controller}::{$action}");
         self::load($controller, $action);
     }
     
@@ -180,9 +175,7 @@ class Router {
             $action = "index";
             
         try {
-            Log::debug("{$controller}::_init Invoked");
             call_user_func_array(array($controller, '_init'), array(&self::$_request, &self::$_response));
-            Log::debug("{$controller}::{$action} invoked");
             if (!is_callable(array($controller, $action)))
                 throw new BadMethodCallException("No such action for $controller", 2003);
             
