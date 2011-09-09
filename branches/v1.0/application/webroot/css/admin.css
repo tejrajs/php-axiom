@@ -1,15 +1,11 @@
-@CHARSET "UTF-8";
-
 /**
- * PHP AXIOM
+ * Axiom: a lightweight PHP framework
  *
- * @license LGPL
- * @author Benjamin DELESPIERRE <benjamin.delespierre@gmail.com>
- * @category view
- * @package CSS
- * $Date$
- * $Id$
+ * @copyright Copyright 2010-2011, Benjamin Delespierre (http://bdelespierre.fr)
+ * @licence http://www.gnu.org/licenses/lgpl.html Lesser General Public Licence version 3
  */
+
+@CHARSET "UTF-8";
 
 html {
 	overflow-y: scroll;
@@ -48,11 +44,6 @@ a, a:link, a:visited, a:hover, a:active {
 table {
 	width: 100%;
 	margin: 0px 0px 15px 0px;
-}
-
-table tbody tr td:first-child, 
-table tfoot tr td:first-child {
-	text-align: center;
 }
 
 table tfoot tr td:first-child .ui-icon,

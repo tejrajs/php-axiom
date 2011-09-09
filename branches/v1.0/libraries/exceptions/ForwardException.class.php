@@ -1,13 +1,9 @@
 <?php
 /**
- * PHP AXIOM
+ * Axiom: a lightweight PHP framework
  *
- * @license LGPL
- * @author Benjamin DELESPIERRE <benjamin.delespierre@gmail.com>
- * @category libAxiom
- * @package library
- * $Date: 2011-07-27 18:44:09 +0200 (mer., 27 juil. 2011) $
- * $Id: MissingFileException.class.php 46 2011-07-27 16:44:09Z TchernoBen@gmail.com $
+ * @copyright Copyright 2010-2011, Benjamin Delespierre (http://bdelespierre.fr)
+ * @licence http://www.gnu.org/licenses/lgpl.html Lesser General Public Licence version 3
  */
 
 /**

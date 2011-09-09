@@ -1,13 +1,9 @@
 <?php
 /**
- * PHP AXIOM
+ * Axiom: a lightweight PHP framework
  *
- * @license LGPL
- * @author Benjamin DELESPIERRE <benjamin.delespierre@gmail.com>
- * @category libAxiom
- * @package library
- * $Date: 2011-09-07 18:28:11 +0200 (mer., 07 sept. 2011) $
- * $Id: Autoloader.class.php 65 2011-09-07 16:28:11Z TchernoBen@gmail.com $
+ * @copyright Copyright 2010-2011, Benjamin Delespierre (http://bdelespierre.fr)
+ * @licence http://www.gnu.org/licenses/lgpl.html Lesser General Public Licence version 3
  */
 
 /**

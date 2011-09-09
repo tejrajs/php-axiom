@@ -2,6 +2,7 @@
 
 table.sortable thead tr .header {
     padding-right: 20px;
+	background-image: url(images/asc_desc.gif);
 	background-repeat: no-repeat;
     background-position: center right;
     cursor: pointer;

@@ -1,16 +1,12 @@
 <?php
 /**
- * PHP AXIOM
+ * Axiom: a lightweight PHP framework
  *
- * @license LGPL
- * @author Benjamin DELESPIERRE <benjamin.delespierre@gmail.com>
- * @category config
- * @package bootstrap
- * $Date$
- * $Id$
+ * @copyright Copyright 2010-2011, Benjamin Delespierre (http://bdelespierre.fr)
+ * @licence http://www.gnu.org/licenses/lgpl.html Lesser General Public Licence version 3
  */
 
-define('AXIOM_VERSION', 'v1.0.6 - RC2');
+define('AXIOM_VERSION', 'v1.0.7 - RC3');
 define('LIBRARY_PATH',     dirname(dirname(dirname(__FILE__))) . '/libraries');
 define('APPLICATION_PATH', dirname(dirname(dirname(__FILE__))) . '/application');
 

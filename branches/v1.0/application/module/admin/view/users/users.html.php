@@ -2,6 +2,7 @@
 <table class="ui-widget sortable">
 	<thead>
 		<tr>
+			<th class="ui-state-default">#</th>
 			<th class="ui-state-default"><?=i18n('admin.users.table.login')?></th>
 			<th class="ui-state-default"><?=i18n('admin.users.table.name')?></th>
 			<th class="ui-state-default"><?=i18n('admin.users.table.surname')?></th>
@@ -14,6 +15,7 @@
 	<tbody>
 		<?php foreach ($users as $user_view): ?>
 		<tr>
+			<td class="ui-widget-content"><?=$user_view->id?></td>
 			<td class="ui-widget-content"><?=$user_view->login?></td>
 			<td class="ui-widget-content"><?=$user_view->name?></td>
 			<td class="ui-widget-content"><?=$user_view->surname?></td>
