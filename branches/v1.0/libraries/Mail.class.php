@@ -110,7 +110,7 @@ class Mail {
      * @throws InvalidArgumentException
      */
     public function __construct ($from, $to, $subject = "No Subject", $message = null, array $headers = array()) {
-        if (self::validateEmail($from))
+        if (!self::validateEmail($from))
             throw new InvalidArgumentException('First parameter is expected to be a valid email', 2014);
             
         $this->_from = $subject;
@@ -438,6 +438,6 @@ class Mail {
             return implode($s = "--{$boundary}{$this->_header_separator}", $this->_message_parts) . $s;
         }
         
-        return $c == 1 ? array_unshift($this->_message_parts) : "";
+        return $c == 1 ? array_shift($this->_message_parts) : "";
     }
 }

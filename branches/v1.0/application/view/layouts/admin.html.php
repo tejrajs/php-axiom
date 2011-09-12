@@ -9,7 +9,6 @@
         <link href="<?=src('css/tipTip.css')?>" type="text/css" rel="stylesheet" media="screen" />
         <link href="<?=src('css/cleditor/cleditor.css')?>" type="text/css" rel="stylesheet" media="screen" />
         <link href="<?=src('css/fancybox/jquery.fancybox-1.3.4.css')?>" type="text/css" rel="stylesheet" media="screen" />
-		<link href="<?=src('css/tablesorter/tablesorter.css')?>" type="text/css" rel="stylesheet" media="screen" />
         <link href="<?=src('img/axiom_16.png')?>" type="image/png" rel="icon" />
         <script src="<?=src('js/jquery-1.5.1.min.js')?>" type="text/javascript"></script>
         <script src="<?=src('js/jquery.tablesorter.min.js')?>" type="text/javascript"></script>
@@ -75,6 +74,7 @@
 		</script>
 		<!--
 			JQUERY UI THEME SWITCHER
+		-->
 		<link type="text/css" rel="stylesheet" href="http://jqueryui.com/themes/base/ui.all.css" />
         <script type="text/javascript" src="http://jqueryui.com/themeroller/themeswitchertool/"></script>
         <script type="text/javascript">
@@ -82,13 +82,12 @@
         	$('#switcher').themeswitcher();
         });
         </script>
-		-->
 	</head>
 	<body class="ui-widget-content">
 		<!--
 			JQUERY UI THEME SWITCHER HOLDER
-		<div id="switcher"></div>
 		-->
+		<div id="switcher"></div>
 		<div id="wrapper" class="ui-widget-content">
 			<div id="header" class="ui-widget-header ui-corner-bottom ui-helper-clearfix">
 				<h1><a href="<?=url('admin')?>"><?=i18n('admin.header.title')?></a></h1>
