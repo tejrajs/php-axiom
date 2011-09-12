@@ -13,10 +13,12 @@ Router::setConfig();
 /**
  * Admin Module Routes
  */
-Router::connect('/{:lang}/{:action:login|logout}', 'AdminController', array('module' => 'admin'));
+Router::connect('/{:lang}/admin/news', 'AdminNewsController', array('module' => array('admin', 'news')));
 Router::connect('/{:lang}/admin/{:controller}/{:action}', array(), array('module' => 'admin'));
 Router::connect('/{:lang}/admin/{:controller}', array(), array('module' => 'admin'));
 Router::connect('/{:lang}/admin', 'AdminController', array('module' => 'admin'));
+Router::connect('/{:lang}/{:action:login|logout}', 'AdminController', array('module' => 'admin'));
+
 
 /**
  * Default Routes

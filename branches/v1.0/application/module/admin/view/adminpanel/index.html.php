@@ -38,8 +38,12 @@
     <div>
     	<span class="ui-widget-content ui-corner-all">
     		<a href="<?=$module_definition['url']?>">
+    			<?php if (!empty($module_definition['icon'])): ?>
+    			<img src="<?=src('img/admin/'.$module_definition['icon'])?>" width="48" height="48" />
+    			<?php else: ?>
     			<img src="<?=src('img/admin/app_48.png')?>" alt="app_48.png" width="48" height="48" />
-    			<?=$module_name?>
+    			<?php endif ?>
+    			<?=ucfirst($module_name)?>
     		</a>
     	</span>
     </div>

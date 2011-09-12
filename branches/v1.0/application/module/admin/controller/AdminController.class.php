@@ -31,7 +31,7 @@ class AdminController extends BaseController {
             if ($user = User::exists(self::$_request->login, self::$_request->password)) {
                 $user->last_connection = date('Y-m-d H:i:s');
                 $user->update();
-                self::$_session->user = $user;
+                self::$_session->adm_user = $user;
                 self::$_response->addMessage(i18n('admin.login.success', $user->name, $user->surname));
                 self::redirect(url('admin'));
             }
