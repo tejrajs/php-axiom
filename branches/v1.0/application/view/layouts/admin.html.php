@@ -4,7 +4,7 @@
 		<title><?=i18n('admin.title')?></title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta http-equiv="Content-Language" content="<?=$lang?>" />
-        <link href="<?=src('css/lightness/jquery-ui-1.8.16.custom.css')?>" type="text/css" rel="stylesheet" media="screen" />
+        <link href="<?=src('css/smoothness/jquery-ui-1.8.12.custom.css')?>" type="text/css" rel="stylesheet" media="screen" />
         <link href="<?=src('css/admin.css')?>" type="text/css" rel="stylesheet" media="screen" />
         <link href="<?=src('css/tipTip.css')?>" type="text/css" rel="stylesheet" media="screen" />
         <link href="<?=src('css/cleditor/cleditor.css')?>" type="text/css" rel="stylesheet" media="screen" />
@@ -21,6 +21,7 @@
 		$(function () {
 			$('.warning,.error').click(function () { $(this).hide('blind'); });
 			$('.tiptip').tipTip({defaultPosition: 'top'});
+			$('.date').datepicker({ dateFormat: 'yy-mm-dd' });
 
 			$('th').last().addClass('ui-corner-tr');
 			$('th').first().addClass('ui-corner-tl');
@@ -58,8 +59,9 @@
 				'overlayShow'	:	false
 			});
 
-			$(".foldable .title").css('cursor', 'pointer').click(function () {
+			$(".foldable .title").prepend('<div class="ui-icon ui-icon-minus"></div>').css('cursor', 'pointer').click(function () {
 				$(this).siblings().toggle();
+				$(this).find('div.ui-icon').toggleClass('ui-icon-plus ui-icon-minus');
 			});
 
 			$(".confirm").click(function () {
@@ -74,7 +76,6 @@
 		</script>
 		<!--
 			JQUERY UI THEME SWITCHER
-		-->
 		<link type="text/css" rel="stylesheet" href="http://jqueryui.com/themes/base/ui.all.css" />
         <script type="text/javascript" src="http://jqueryui.com/themeroller/themeswitchertool/"></script>
         <script type="text/javascript">
@@ -82,12 +83,13 @@
         	$('#switcher').themeswitcher();
         });
         </script>
+		-->
 	</head>
 	<body class="ui-widget-content">
 		<!--
 			JQUERY UI THEME SWITCHER HOLDER
-		-->
 		<div id="switcher"></div>
+		-->
 		<div id="wrapper" class="ui-widget-content">
 			<div id="header" class="ui-widget-header ui-corner-bottom ui-helper-clearfix">
 				<h1><a href="<?=url('admin')?>"><?=i18n('admin.header.title')?></a></h1>

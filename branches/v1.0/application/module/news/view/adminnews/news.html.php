@@ -6,7 +6,7 @@
     		<th class="ui-state-default"><?=i18n('admin.news.table.date')?></th>
     		<th class="ui-state-default"><?=i18n('admin.news.table.author')?></th>
     		<th class="ui-state-default"><?=i18n('admin.news.table.published')?></th>
-    		<th class="ui-state-default"><?=i18n('admin.table.action')?></th>
+    		<th class="ui-state-default" colspan="3"><?=i18n('admin.table.action')?></th>
 		</tr>
 	</thead>
 	<tfoot>
@@ -14,26 +14,27 @@
 	<tbody>
 		<?php foreach ($news as $item): ?>
 		<tr>
+			<td class="ui-widget-content id"><?=$item->id?></td>
 			<td class="ui-widget-content"><?=$item->date?></td>
 			<td class="ui-widget-content"><?=$item->author?></td>
-			<td class="ui-widget-content">
-			<?php if ($item->published): ?>
-			<span class="ui-icon ui-icon-check"><?=i18n('lang.yes')?></span>
-			<?php else: ?>
-			<span class="ui-icon ui-icon-closethick"><?=i18n('lang.no')?></span>
-			<?php endif ?>
+			<td class="ui-widget-content action">
+    			<?php if ($item->published): ?>
+    			<span class="ui-icon ui-icon-check"><?=i18n('lang.yes')?></span>
+    			<?php else: ?>
+    			<span class="ui-icon ui-icon-closethick"><?=i18n('lang.no')?></span>
+    			<?php endif ?>
 			</td>
-			<td>
+			<td class="ui-widget-content action">
 				<a href="<?=url('admin/news/view')?>&id=<?=$item->id?>">
 					<span class="ui-icon ui-icon-search tiptip" title="<?=i18n('admin.table.action.view')?>"></span>
 				</a>
 			</td>
-			<td>
+			<td class="ui-widget-content action">
 				<a href="<?=url('admin/news/edit')?>&id=<?=$item->id?>">
 					<span class="ui-icon ui-icon-pencil tiptip" title="<?=i18n('admin.table.action.edit')?>"></span>
 				</a>
 			</td>
-			<td>
+			<td class="ui-widget-content action">
 				<a href="<?=url('admin/news/view')?>&id=<?=$item->id?>">
 					<span class="ui-icon ui-icon-close tiptip confirm" title="<?=i18n('admin.table.action.delete')?>"></span>
 				</a>

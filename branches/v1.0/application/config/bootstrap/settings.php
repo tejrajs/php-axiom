@@ -16,6 +16,11 @@ define('MESSAGE_WARNING', 'warnings');
 define('MESSAGE_ALERT', 'alerts');
 define('XML_HEADER', '<?xml version="1.0" encoding="UTF-8" ?>');
 
+if (!defined('PHP_VERSION_ID')) {
+    $php_version = explode('.', PHP_VERSION);
+    define('PHP_VERSION_ID', ($php_version[0] * 10000 + $php_version[1] * 100 + $php_version[2]));
+}
+
 /**
  * User functions
  */

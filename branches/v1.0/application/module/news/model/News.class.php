@@ -19,7 +19,7 @@ class News extends Model {
                          '`author`=:author,' .
                          '`date`=:date,' .
                          '`body`=:body,' .
-                         '`published`=:pulished' .
+                         '`published`=:published' .
                          ' WHERE `id`=:id';
                 break;
             case 'delete':

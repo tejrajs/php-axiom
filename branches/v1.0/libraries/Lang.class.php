@@ -292,8 +292,9 @@ function src ($ressource) {
  * @return string
  */
 function date2str ($date) {
-    if (is_int($date))
+    if (is_int($date)) {
         $date = date('ymdHi', $date);
+    }
     
     $minusdate = date('ymdHi') - $date;
     

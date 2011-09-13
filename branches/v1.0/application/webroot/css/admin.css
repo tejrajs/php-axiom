@@ -16,7 +16,7 @@ body {
 	margin: 0;
 	padding: 0;
 	height: 100%;
-	font: 62.5% "Trebuchet MS", sans-serif;
+	font: 75% "Trebuchet MS", sans-serif;
 }
 
 body.ui-widget-content {
@@ -24,9 +24,11 @@ body.ui-widget-content {
 }
 
 h1 {
+	font-size: 1.6em;
 }
 
 h2 {
+	font-size: 1.3em;
 	color: #aaa;
 	border-bottom: 1px #aaa solid;
 }
@@ -48,6 +50,12 @@ a, a:link, a:visited, a:hover, a:active {
 table {
 	width: 100%;
 	margin: 0px 0px 15px 0px;
+}
+
+table tbody td.action,
+table tbody td.id {
+	width: 16px;
+	text-align: center;
 }
 
 table tfoot tr td:first-child .ui-icon,
@@ -112,7 +120,8 @@ form fieldset legend {
 }
 
 div#wrapper.ui-widget-content {
-	border-width: 0px 2px;
+	border-width: 0px 1px;
+	background-image: none;
 }
 
 #header, #content, #footer {
@@ -122,12 +131,12 @@ div#wrapper.ui-widget-content {
 	border-top: none;
 }
 
-#header {
-	background-image: none;
+#header.ui-widget-header {
+	background-position: center;
 }
 
 #header h1 {
-	margin-left: 5px;
+	margin: .6em .4em;
 }
 
 #header h1 a {
@@ -143,7 +152,7 @@ div#wrapper.ui-widget-content {
 #user span {
 	display: block;
 	text-align: right;
-	font-size: 1.3em;
+	font-size: 1em;
 }
 
 #menu {
@@ -164,8 +173,8 @@ div#wrapper.ui-widget-content {
 #menu li {
 	display: block;
 	float: left;
-	font-size: 1.2em;
-	line-height: 1.3em;
+	font-size: 1em;
+	line-height: 1.1em;
 }
 
 #menu li a {
@@ -197,13 +206,13 @@ div#wrapper.ui-widget-content {
 }
 
 #footer div.ui-widget-header {
-	background-image: none;
+	background-position: center;
 }
 
 #footer div {
     margin: 0px 10px;
     padding: 3px;
-	font-size: 1.2em;
+	font-size: 1em;
 	border-bottom: 0px;
 	text-align: center;
 }
@@ -244,6 +253,17 @@ table.sortable th {
 	cursor: pointer;
 }
 
+.foldable .title {
+    padding-left: 16px;
+    position: relative;
+}
+
+.foldable .title > .ui-icon {
+	position: absolute;
+	top: 2px;
+	left: 0px;
+}
+
 /**
  * Panel
  * -----------------------------------------------------------------------------------------------------------------------------------------
@@ -258,7 +278,9 @@ table.sortable th {
 	display: block;
 	margin: 5px;
 	padding: 3px;
-	font-size: 1.3em;
+	font-size: 1.1em;
+	font-weight: bold;
+	color: #aaa;
 }
 
 #panel span a {
@@ -390,4 +412,22 @@ table.sortable th {
 	position: absolute;
 	bottom: 0px;
 	width: 295px;
+}
+
+/**
+ * News
+ * -----------------------------------------------------------------------------------------------------------------------------------------
+ */
+
+#news-view .ui-widget-content {
+	padding: .3em;
+	margin: .3em;
+	margin-bottom: .5em;
+}
+
+#news-view .ui-widget-header {
+	margin: .1em 0em;
+	font-size: 1em;
+	line-height: 1.1em;
+	padding: .2em .2em .2em 16px;
 }
