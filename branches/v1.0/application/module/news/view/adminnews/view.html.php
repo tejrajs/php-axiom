@@ -16,8 +16,23 @@
     	<div>
     		<?php if (count($comments = $news->getComments())): ?>
     		<?php foreach ($comments as $comment): ?>
-    		<div class="comment">
-    			
+    		<div class="ui-corner-all ui-widget-content comment <?=($comment->published ? 'published' : 'unpublished')?>">
+    			<div class="settings">
+    				<?=InputHelper::export('id', 'hidden', $comment->id)?>
+    				<?=InputHelper::export('publish', 'button', i18n('admin.news.view.comment.publish'))?>
+    				<?=InputHelper::export('unpublish', 'button', i18n('admin.news.view.comment.unpublish'))?>
+        			<?=InputHelper::export('delete', 'button', i18n('admin.news.view.comment.delete'))?>
+    			</div>
+    			<div class="properties">
+    				<b><?=i18n('admin.news.view.comment.properties.author')?>:</b><?=$comment->author?><br />
+    				<b><?=i18n('admin.news.view.comment.properties.date')?>:</b><?=$comment->date?><br />
+    				<b><?=i18n('admin.news.view.comment.properties.mail')?>:</b><?=$comment->mail?><br />
+    				<b><?=i18n('admin.news.view.comment.properties.website')?>:</b><?=$comment->website?><br />
+    				<b><?=i18n('admin.news.view.comment.properties.ip')?>:</b><?=$comment->ip?><br />
+    			</div>
+    			<div class="ui-widget-content ui-corner-all body">
+    				<?=$comment->body?>
+    			</div>
     		</div>
     		<?php endforeach ?>
     		<?php else: ?>
@@ -26,3 +41,39 @@
     	</div>
     </div>
 </div>
+<script type="text/javascript">
+$(function () {
+	$('.comment input[name="publish"]').click(function () {
+		var id = $(this).siblings('input[name="id"]').val(),
+			el = $(this);
+		$.ajax({
+			url: '<?=url('admin/news/publishComment')?>',
+			data: { id: id },
+			success: function (data) {
+				if (data.success)
+					el.toggle().parents('.comment').toggleClass('published unpublished').find('input[name="unpublish"]').toggle();
+			}
+		});
+	});
+
+	$('.comment input[name="unpublish"]').click(function () {
+		var id = $(this).siblings('input[name="id"]').val(),
+			el = $(this);
+		$.ajax({
+			url: '<?=url('admin/news/unpublishComment')?>',
+			data: { id: id },
+			success: function (data) {
+				if (data.success)
+					el.toggle().parents('.comment').toggleClass('published unpublished').find('input[name="publish"]').toggle();
+			}
+		});
+	});
+
+	$('.comment input[name="delete"]').click(function () {
+		$(this).parents('.comment').hide('blind', function () { $(this).remove(); });
+	});
+
+	$('.comments .published').find('input[name="publish"]').toggle();
+	$('.comments .unpublished').find('input[name="unpublish"]').toggle();
+});
+</script>

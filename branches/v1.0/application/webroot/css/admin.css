@@ -431,3 +431,34 @@ table.sortable th {
 	line-height: 1.1em;
 	padding: .2em .2em .2em 16px;
 }
+
+#news-view .properties b {
+	display: inline-block;
+	min-width: 13em; 
+}
+
+#news-view .comment {
+	position: relative;
+	margin: .4em;
+	border-width: 1px;
+	padding: .2em;
+	background-image: none;
+}
+
+#news-view .comments .unpublished {
+	background-color: #ff5050;
+	border-color: #ff0000;
+	color: white;
+}
+
+#news-view .comments .published {
+	background-color: #c3fa9b;
+	border-color: #00ff00;
+	color: black;
+}
+
+#news-view .comment .settings {
+	position: absolute;
+	top: .3em;
+	right: .2em;
+}

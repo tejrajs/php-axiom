@@ -84,4 +84,45 @@ class AdminNewsController extends SecuredController {
         
         return compact('news');
     }
+    
+    public static function publishComment () {
+        self::$_response->setOutputFormat('json');
+        self::$_response->setResponseView('comment');
+        if ($id = self::$_request->id) {
+            $comment = new NewsComment($id);
+            
+            $result = $comment->update(array('published' => 1));
+        }
+        else {
+            $result = false;
+        }
+        return compact('result');
+    }
+    
+    public static function unpublishComment () {
+        self::$_response->setOutputFormat('json');
+        self::$_response->setResponseView('comment');
+        if ($id = self::$_request->id) {
+            $comment = new NewsComment($id);
+            $result = $comment->update(array('published' => "0"));
+        }
+        else {
+            $result = false;
+        }
+        return compact('result');
+    }
+    
+    public static function deleteComment () {
+        self::$_response->setOutputFormat('json');
+        self::$_response->setResponseView('comment');
+        if ($id = self::$_request->id) {
+            $comment = new NewsComment($id);
+            
+            $result = $comment->delete();
+        }
+        else {
+            $result = false;
+        }
+        return compact('result');
+    }
 }

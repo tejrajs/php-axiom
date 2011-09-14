@@ -4,7 +4,7 @@
 		<title><?=i18n('admin.title')?></title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta http-equiv="Content-Language" content="<?=$lang?>" />
-        <link href="<?=src('css/smoothness/jquery-ui-1.8.12.custom.css')?>" type="text/css" rel="stylesheet" media="screen" />
+        <link href="<?=src('css/lightness/jquery-ui.css')?>" type="text/css" rel="stylesheet" media="screen" />
         <link href="<?=src('css/admin.css')?>" type="text/css" rel="stylesheet" media="screen" />
         <link href="<?=src('css/tipTip.css')?>" type="text/css" rel="stylesheet" media="screen" />
         <link href="<?=src('css/cleditor/cleditor.css')?>" type="text/css" rel="stylesheet" media="screen" />

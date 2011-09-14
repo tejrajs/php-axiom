@@ -160,7 +160,7 @@ abstract class Model {
             throw new RuntimeException("Cannot initialize " . __METHOD__, 2013);
          
         if (!empty($this->_data))
-        return $this->_statements['delete']->execute(array(":{$this->_id_key}" => $this->_data[$this->_id_key]));
+            return $this->_statements['delete']->execute(array(":{$this->_id_key}" => $this->_data[$this->_id_key]));
         return false;
     }
 }
