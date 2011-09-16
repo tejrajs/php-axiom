@@ -102,6 +102,8 @@ class Router {
      * @return void
      */
     public static function run ($route = null, $action = null) {
+        Log::notice('--- Router Started ---');
+        
         if (!isset(self::$_request))
             self::$_request = new Request;
             

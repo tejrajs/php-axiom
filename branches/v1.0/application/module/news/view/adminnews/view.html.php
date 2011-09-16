@@ -70,7 +70,16 @@ $(function () {
 	});
 
 	$('.comment input[name="delete"]').click(function () {
-		$(this).parents('.comment').hide('blind', function () { $(this).remove(); });
+		var id = $(this).siblings('inputs[name="id"]').val(),
+			el = $(this);
+		$.ajax({
+			url: '<?=url('admin/news/deleteComment')?>',
+			data: { id: id },
+			success: function (data) {
+				if (data.success)
+					el.parents('.comment').hide('blind', function () { $(this).remove(); });
+			}
+		});
 	});
 
 	$('.comments .published').find('input[name="publish"]').toggle();
