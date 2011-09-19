@@ -16,7 +16,7 @@ body {
 	margin: 0;
 	padding: 0;
 	height: 100%;
-	font: 75% "Trebuchet MS", sans-serif;
+	font: 62.8% "Trebuchet MS", sans-serif;
 }
 
 body.ui-widget-content {
@@ -24,11 +24,11 @@ body.ui-widget-content {
 }
 
 h1 {
-	font-size: 1.6em;
+	font-size: 1.8em;
 }
 
 h2 {
-	font-size: 1.3em;
+	font-size: 1.4em;
 	color: #aaa;
 	border-bottom: 1px #aaa solid;
 }
@@ -152,7 +152,7 @@ div#wrapper.ui-widget-content {
 #user span {
 	display: block;
 	text-align: right;
-	font-size: 1em;
+	font-size: 1.1em;
 }
 
 #menu {
@@ -173,7 +173,7 @@ div#wrapper.ui-widget-content {
 #menu li {
 	display: block;
 	float: left;
-	font-size: 1em;
+	font-size: 1.2em;
 	line-height: 1.1em;
 }
 

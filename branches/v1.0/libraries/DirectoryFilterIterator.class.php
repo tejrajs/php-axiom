@@ -32,6 +32,9 @@ class DirectoryFilterIterator extends FilterIterator {
      * @see FilterIterator::accept()
      */
     public function accept () {
-        return $this->current()->isDir() && !$this->current()->isDot();
+        return $this->current()->isDir() &&
+              !$this->current()->isDot() &&
+              !($this->current()->getFilename() == '.svn') &&
+              !($this->current()->getFilename() == 'admin');
     }
 }

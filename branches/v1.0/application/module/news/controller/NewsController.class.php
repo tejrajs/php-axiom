@@ -9,15 +9,20 @@
 class NewsController extends BaseController {
     
     public static function index () {
-        
+        self::$_response->setResponseView('news');
+        return self::news();
     }
     
     public static function news () {
-        
+        if ($id = self::$_request->id) {
+            $news = new News($id);
+        }
+        return compact('news');
     }
     
     public static function addComment () {
         
+        return self::index();
     }
     
     public static function getComments () {

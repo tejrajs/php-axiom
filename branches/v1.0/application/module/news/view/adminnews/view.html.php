@@ -52,6 +52,9 @@ $(function () {
 			success: function (data) {
 				if (data.success)
 					el.toggle().parents('.comment').toggleClass('published unpublished').find('input[name="unpublish"]').toggle();
+			},
+			error: function () {
+				alert('Error during XHR call');
 			}
 		});
 	});
@@ -65,12 +68,15 @@ $(function () {
 			success: function (data) {
 				if (data.success)
 					el.toggle().parents('.comment').toggleClass('published unpublished').find('input[name="publish"]').toggle();
+			},
+			error: function () {
+				alert('Error during XHR call');
 			}
 		});
 	});
 
 	$('.comment input[name="delete"]').click(function () {
-		var id = $(this).siblings('inputs[name="id"]').val(),
+		var id = $(this).siblings('input[name="id"]').val(),
 			el = $(this);
 		$.ajax({
 			url: '<?=url('admin/news/deleteComment')?>',
@@ -78,6 +84,9 @@ $(function () {
 			success: function (data) {
 				if (data.success)
 					el.parents('.comment').hide('blind', function () { $(this).remove(); });
+			},
+			error: function () {
+				alert('Error during XHR call');
 			}
 		});
 	});

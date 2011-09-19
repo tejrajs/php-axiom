@@ -56,3 +56,56 @@ a, a:hover, a:active, a:visited, a:link {
 	height: 20em;
 	overflow-y: scroll;
 }
+
+/**
+ * NEWS
+ * -----------------------------------------------------------------------------------------------------------------------------------------
+ */
+
+.news, 
+.news-comments {
+	text-align: left;
+}
+
+.news .news-head,
+.news-comments .news-comments-head {
+	position: relative;
+}
+
+.news-comments {
+	padding-left: 5em;
+}
+
+.news-head .news-date,
+.news-comments-head .news-comment-date {
+	position: absolute;
+	top: 0px;
+	right: 0px;
+}
+
+.news .news-body,
+.news-comments .news-comment-body,
+.news form.news-comments-add {
+	margin: 0px;
+	padding: .3em;
+	background-color: #dedede;
+	border: 1px solid #ccc;
+}
+
+.news form.news-comments-add {
+	margin: .3em 0em .3em 5em;
+	padding: .4em;
+}
+
+.news form.news-comments-add > div {
+	margin: .3em 0em;
+}
+
+.news form.news-comments-add label {
+	display: inline-block;
+	width: 30%;
+}
+
+.news form.news-comments-add textarea {
+	vertical-align: middle;
+}

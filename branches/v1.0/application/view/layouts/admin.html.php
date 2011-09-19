@@ -98,6 +98,9 @@
             		<span><a href="<?=url('logout')?>"><?=i18n('admin.header.logout')?></a></span>
             	</div>
 				<ul id="menu" class="ui-dialog-titlebar ui-widget-content ui-corner-all ui-helper-clearfix">
+					<?php foreach (ModuleManager::getAvailableModules() as $modulename): ?>
+					<li><a href="<?=url('admin/' . $modulename)?>"><?=ucfirst($modulename)?></a></li>
+					<?php endforeach ?>
 					<li><a href="<?=url('admin/users')?>"><?=i18n('admin.menu.users')?></a></li>
 					<li><a href="<?=url('admin/files')?>"><?=i18n('admin.menu.files')?></a></li>
 					<li><a href="<?=url('')?>"><?=i18n('admin.menu.view_site')?></a></li>
