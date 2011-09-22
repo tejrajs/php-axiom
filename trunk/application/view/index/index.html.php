@@ -53,4 +53,4 @@
 <a href="http://code.google.com/p/php-axiom/issues/list" target="_blank">http://code.google.com/p/php-axiom/issues/list</a>
 
 <h2><?=i18n('axiom.license.title')?></h2>
-<pre id="licence"><?=file_get_contents(APPLICATION_PATH . '/ressources/licence.txt')?></pre>
+<pre id="licence"><?=file_get_contents(dirname(APPLICATION_PATH) . '/LICENSE.TXT')?></pre>
