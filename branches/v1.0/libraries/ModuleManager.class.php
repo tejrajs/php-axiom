@@ -102,7 +102,7 @@ class ModuleManager {
                         continue;
                     }
                     
-                    if (!$dep_module_inf = self::getInformations($dep_module))
+                    if (!$dep_module_inf = self::getInformations($dep_module_name))
                         throw new RuntimeException("Cannot retrieve dependency module {$dep_module_name} informations", 2051);
                     
                     if (!self::_compareVersions($dep_module_inf['version'], $dep_module_version)) {
