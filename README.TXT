@@ -5,13 +5,11 @@
 +------------------------------------------------------------------------------+
 | Description                                                                  |
 +------------------------------------------------------------------------------+
-Axiom is a very tiny MVC PHP Framework focused on simplicity and scalability. 
-One doesn't need to use a bunch of classes to create just a couple of web pages.
-Axiom is designed to be fast to learn, fast to program with and fast to extends.
+Axiom is a very tiny MVC PHP Framework focused on simplicity and scalability,
+designed to be fast to learn, fast to program with and fast to extends.
 Contrary to many other PHP Frameworks, it is intended to create small and 
 medium web application easily, without the complexity of Zend Framework or 
 Symphony, but keeps the code clear and reusable in its MVC architecture.
-Features
 
 +------------------------------------------------------------------------------+
 | Features                                                                     |
@@ -35,7 +33,7 @@ Axiom provide all website basics such as:
 +------------------------------------------------------------------------------+
 | Licence                                                                      |
 +------------------------------------------------------------------------------+
-This library is free software; you can redistribute it and/or
+This component is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
 License as published by the Free Software Foundation; either
 version 2.1 of the License, or (at your option) any later version.
