@@ -21,10 +21,6 @@ class Route {
     public function __construct ($template, array $params = array(), array $options = array()) {
         $this->_template = $template;
         $this->_params = $params;
-        
-        if (isset($options['module']) && is_string($options['module']))
-            $options['module'] = array($options['module']);
-        
         $this->_options = $options;
         $this->_keys = array();
     }

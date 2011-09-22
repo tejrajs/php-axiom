@@ -136,9 +136,12 @@ class Router {
             }
             
             if (!empty($options['module'])) {
-                foreach ($options['module'] as $module) {
-                    if (!ModuleManager::load($module))
-                        throw new RuntimeException("Could not load $module module");
+                try {
+                    ModuleManager::load($options['module']);
+                }
+                catch (Exception $e) {
+                    Log::handleException($e);
+                    return self::run('error', 'http500');
                 }
             }
         }

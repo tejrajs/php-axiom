@@ -19,8 +19,8 @@ Router::connect('/{:lang}/news', 'NewsController', array('module' => 'news'));
 /**
  * Admin Module Routes
  */
-Router::connect('/{:lang}/admin/news', 'AdminNewsController', array('module' => array('admin', 'news')));
-Router::connect('/{:lang}/admin/news/{:action}', 'AdminNewsController', array('module' => array('admin', 'news')));
+Router::connect('/{:lang}/admin/news', 'AdminNewsController', array('module' => 'news'));
+Router::connect('/{:lang}/admin/news/{:action}', 'AdminNewsController', array('module' => 'news'));
 Router::connect('/{:lang}/admin', 'AdminController', array('module' => 'admin'));
 Router::connect('/{:lang}/admin/{:controller}', array(), array('module' => 'admin'));
 Router::connect('/{:lang}/admin/{:controller}/{:action}', array(), array('module' => 'admin'));
