@@ -122,7 +122,7 @@ class Router {
                 throw new RuntimeException("No controller specified");
 
             self::$_request->addAll($params);
-            $controller = $params['controller'];
+            $controller = ucfirst($params['controller']);
             $action     = !empty($params['action']) ? $params['action'] : 'index';
             
             if (!empty($options['lang']))
